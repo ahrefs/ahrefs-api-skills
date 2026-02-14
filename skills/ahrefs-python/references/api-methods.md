@@ -1,12 +1,6 @@
 # Ahrefs Python SDK - API Methods Reference
 
-All methods are available on both `AhrefsClient` (sync) and `AsyncAhrefsClient` (async).
-
-For full parameter and response field details, check these files in the `ahrefs-python` repo:
-- `README.md` - SDK usage guide with examples
-- `docs/api-reference.md` - full parameter and response field reference for every endpoint
-- `src/ahrefs/_generated_methods.py` - all method signatures with docstrings
-- `src/ahrefs/types/_generated.py` - all request/response models and enums
+All methods are available on both `AhrefsClient` (sync) and `AsyncAhrefsClient` (async). Inspect the installed package modules `ahrefs._generated_methods` and `ahrefs.types._generated` for full parameter and response field details.
 
 ## Site Explorer (26 methods)
 

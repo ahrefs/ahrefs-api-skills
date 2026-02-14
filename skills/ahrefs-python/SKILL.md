@@ -147,10 +147,8 @@ Most list endpoints share these parameters:
 
 ## API Methods
 
-For the full list of 48 methods across 6 API sections (Site Explorer, Keywords Explorer, Rank Tracker, Site Audit, Brand Radar, SERP Overview), see `references/api-methods.md`.
+For the full list of 48 methods across 6 API sections, see `references/api-methods.md`.
 
-For detailed parameter and response field documentation, check these files in the `ahrefs-python` repo:
-- `README.md` - SDK usage guide with examples
-- `docs/api-reference.md` - full parameter and response field reference for every endpoint
-- `src/ahrefs/_generated_methods.py` - all method signatures with docstrings
-- `src/ahrefs/types/_generated.py` - all request/response models and enums
+All methods have full type hints and docstrings. Inspect the installed package for parameter and response field details:
+- `ahrefs.types._generated` - all request/response models and enums
+- `ahrefs._generated_methods` - all method signatures with docstrings
