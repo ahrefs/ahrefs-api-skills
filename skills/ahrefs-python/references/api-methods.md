@@ -7,6 +7,8 @@ All methods below are available on both `AhrefsClient` (sync) and
 `AsyncAhrefsClient` (async). The async client uses the same method
 names — just `await` the call.
 
+For filter expression syntax (`where` parameter), see [Filter Syntax](filter-syntax.md).
+
 ---
 
 ## Brand Radar
@@ -21,7 +23,7 @@ AI Responses.
 |------|------|----------|-------------|
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cited_domain**: The domain of a page that was used to generate the response.   type: domain  **cited_domain_subdomains**: The domain of a page that was used to generate the response. Any subdomain of the given domain will also match.   type: string  **cited_url_exact**: The URL of a page that was used to generate the response.   type: string  **cited_url_prefix**: The URL of a page that was used to generate the response. Any URL that starts with this prefix will match.   type: string  **question**: The question asked by the user.   type: string  **response** (10 units): The response from the model.   type: string  **topic**: The topic of the query.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `date` | `DateStr` | No | The date to search for in YYYY-MM-DD format. |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
@@ -30,6 +32,19 @@ AI Responses.
 | `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
 | `competitors` | `str` | No | A comma-separated list of competitors of your brands. |
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
 
 **Returns:** `list[BrandRadarAiResponsesData]`
 
@@ -49,13 +64,26 @@ Overview history - Impressions.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cited_domain**: The domain of a page that was used to generate the response.   type: domain  **cited_domain_subdomains**: The domain of a page that was used to generate the response. Any subdomain of the given domain will also match.   type: string  **cited_url_exact**: The URL of a page that was used to generate the response.   type: string  **cited_url_prefix**: The URL of a page that was used to generate the response. Any URL that starts with this prefix will match.   type: string  **question**: The question asked by the user.   type: string  **response** (10 units): The response from the model.   type: string  **topic**: The topic of the query.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `date_to` | `DateStr` | No | The end date of the historical period in YYYY-MM-DD format. |
 | `date_from` | `DateStr` | Yes | The start date of the historical period in YYYY-MM-DD format. |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
 | `market` | `str` | No | A comma-separated list of the niche markets of your brand. |
 | `brand` | `str` | Yes | The brand to search for. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
 
 **Returns:** `list[BrandRadarImpressionsHistoryData]`
 
@@ -72,13 +100,26 @@ Overview - Impressions.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cited_domain**: The domain of a page that was used to generate the response.   type: domain  **cited_domain_subdomains**: The domain of a page that was used to generate the response. Any subdomain of the given domain will also match.   type: string  **cited_url_exact**: The URL of a page that was used to generate the response.   type: string  **cited_url_prefix**: The URL of a page that was used to generate the response. Any URL that starts with this prefix will match.   type: string  **question**: The question asked by the user.   type: string  **response** (10 units): The response from the model.   type: string  **topic**: The topic of the query.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
 | `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
 | `competitors` | `str` | No | A comma-separated list of competitors of your brands. |
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
 
 **Returns:** `list[BrandRadarImpressionsOverviewData]`
 
@@ -99,13 +140,26 @@ Overview history - Mentions.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cited_domain**: The domain of a page that was used to generate the response.   type: domain  **cited_domain_subdomains**: The domain of a page that was used to generate the response. Any subdomain of the given domain will also match.   type: string  **cited_url_exact**: The URL of a page that was used to generate the response.   type: string  **cited_url_prefix**: The URL of a page that was used to generate the response. Any URL that starts with this prefix will match.   type: string  **question**: The question asked by the user.   type: string  **response** (10 units): The response from the model.   type: string  **topic**: The topic of the query.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `date_to` | `DateStr` | No | The end date of the historical period in YYYY-MM-DD format. |
 | `date_from` | `DateStr` | Yes | The start date of the historical period in YYYY-MM-DD format. |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
 | `market` | `str` | No | A comma-separated list of the niche markets of your brand. |
 | `brand` | `str` | Yes | The brand to search for. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
 
 **Returns:** `list[BrandRadarMentionsHistoryData]`
 
@@ -122,13 +176,26 @@ Overview - Mentions.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cited_domain**: The domain of a page that was used to generate the response.   type: domain  **cited_domain_subdomains**: The domain of a page that was used to generate the response. Any subdomain of the given domain will also match.   type: string  **cited_url_exact**: The URL of a page that was used to generate the response.   type: string  **cited_url_prefix**: The URL of a page that was used to generate the response. Any URL that starts with this prefix will match.   type: string  **question**: The question asked by the user.   type: string  **response** (10 units): The response from the model.   type: string  **topic**: The topic of the query.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
 | `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
 | `competitors` | `str` | No | A comma-separated list of competitors of your brands. |
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
 
 **Returns:** `list[BrandRadarMentionsOverviewData]`
 
@@ -149,13 +216,26 @@ Overview - Share of Voice.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cited_domain**: The domain of a page that was used to generate the response.   type: domain  **cited_domain_subdomains**: The domain of a page that was used to generate the response. Any subdomain of the given domain will also match.   type: string  **cited_url_exact**: The URL of a page that was used to generate the response.   type: string  **cited_url_prefix**: The URL of a page that was used to generate the response. Any URL that starts with this prefix will match.   type: string  **question**: The question asked by the user.   type: string  **response** (10 units): The response from the model.   type: string  **topic**: The topic of the query.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
 | `market` | `str` | No | A comma-separated list of the niche markets of your brands. |
 | `competitors` | `str` | No | A comma-separated list of competitors of your brands. |
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand or competitors should not be empty. |
+
+<details>
+<summary>Filterable fields (7 fields)</summary>
+
+- `cited_domain` (domain)
+- `cited_domain_subdomains` (string)
+- `cited_url_exact` (string)
+- `cited_url_prefix` (string)
+- `question` (string)
+- `response` (string)
+- `topic` (string)
+
+</details>
 
 **Returns:** `list[BrandRadarSovOverviewData]`
 
@@ -179,7 +259,7 @@ Matching terms.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cpc**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.   type: integer nullable  **cps**: Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.   type: float nullable  **difficulty** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **first_seen**: The date when we first checked search engine results for a keyword.   type: datetime nullable  **global_volume** (10 units): How many times per month, on average, people search for the target keyword across all countries in our database.   type: integer nullable  **intents** (10 units): Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.   type: object nullable  **keyword**:    type: string  **parent_topic**: Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.   type: string nullable  **serp_domain_rating_top10_min**: The keyword must have at least one ranking position in the top 10 results with a DR of up to this value.   type: float nullable  **serp_domain_rating_top5_min**: The keyword must have at least one ranking position in the top 5 results with a DR of up to this value.   type: float nullable  **serp_features**: The enriched results on a search engine results page (SERP) that are not traditional organic results.   type: array(string)   enum: `"ai_overview_sitelink"` `"snippet"` `"ai_overview"` `"local_pack"` `"sitelink"` `"news"` `"image"` `"video"` `"discussion"` `"tweet"` `"paid_top"` `"paid_bottom"` `"paid_sitelink"` `"shopping"` `"knowledge_card"` `"knowledge_panel"` `"question"` `"image_th"` `"video_th"` `"organic_shopping"`  **serp_last_update**: The date when we last checked search engine results for a keyword.   type: datetime nullable  **traffic_potential** (10 units): The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for.   type: integer nullable  **volume** (10 units): An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data.   type: integer nullable  **volume_desktop_pct**: The percentage of searches for a keyword performed on desktop devices.   type: float nullable  **volume_mobile_pct**: The percentage of searches for a keyword performed on mobile devices.   type: float nullable  **word_count**:    type: integer |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `country` | `CountryEnum` | Yes | A two-letter country code (ISO 3166-1 alpha-2). |
 | `search_engine` | `SearchEngineEnum` | No | [Deprecated on 5 Aug 2024]. |
@@ -187,6 +267,29 @@ Matching terms.
 | `keyword_list_id` | `int` | No | The id of an existing keyword list to show metrics for. |
 | `match_mode` | `MatchModeEnum` | No | Keyword ideas contain the words from your query in any order (terms mode) or in the exact order they are written (phrase mode). |
 | `terms` | `TermsEnum` | No | All keywords ideas or keywords ideas phrased as questions. |
+
+<details>
+<summary>Filterable fields (17 fields)</summary>
+
+- `cpc` (integer)
+- `cps` (float)
+- `difficulty` (integer)
+- `first_seen` (datetime)
+- `global_volume` (integer)
+- `intents` (object)
+- `keyword` (string)
+- `parent_topic` (string)
+- `serp_domain_rating_top10_min` (float)
+- `serp_domain_rating_top5_min` (float)
+- `serp_features` (array(string))
+- `serp_last_update` (datetime)
+- `traffic_potential` (integer)
+- `volume` (integer)
+- `volume_desktop_pct` (float)
+- `volume_mobile_pct` (float)
+- `word_count` (integer)
+
+</details>
 
 **Returns:** `list[KeywordsExplorerMatchingTermsData]`
 
@@ -219,7 +322,7 @@ Overview.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **clicks**: The average monthly number of clicks on the search results that people make while searching for the target keyword.   type: integer nullable  **cpc**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.   type: integer nullable  **cps**: Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.   type: float nullable  **difficulty** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **first_seen**: The date when we first checked search engine results for a keyword.   type: datetime nullable  **global_volume** (10 units): How many times per month, on average, people search for the target keyword across all countries in our database.   type: integer nullable  **intents** (10 units): Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.   type: object nullable  **keyword**:    type: string  **parent_topic**: Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.   type: string nullable  **parent_volume** (10 units): The search volume of the parent topic.   type: integer nullable  **serp_domain_rating_top10_min**: The keyword must have at least one ranking position in the top 10 results with a DR of up to this value.   type: float nullable  **serp_domain_rating_top5_min**: The keyword must have at least one ranking position in the top 5 results with a DR of up to this value.   type: float nullable  **serp_features**: The enriched results on a search engine results page (SERP) that are not traditional organic results.   type: array(string)   enum: `"ai_overview_sitelink"` `"snippet"` `"ai_overview"` `"local_pack"` `"sitelink"` `"news"` `"image"` `"video"` `"discussion"` `"tweet"` `"paid_top"` `"paid_bottom"` `"paid_sitelink"` `"shopping"` `"knowledge_card"` `"knowledge_panel"` `"question"` `"image_th"` `"video_th"` `"organic_shopping"`  **serp_last_update**: The date when we last checked search engine results for a keyword.   type: datetime nullable  **traffic_potential** (10 units): The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for.   type: integer nullable  **volume** (10 units): An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data.   type: integer nullable  **volume_desktop_pct**: The percentage of searches for a keyword performed on desktop devices.   type: float nullable  **volume_mobile_pct**: The percentage of searches for a keyword performed on mobile devices.   type: float nullable  **word_count**:    type: integer |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `volume_monthly_date_to` | `DateStr` | No | The end date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. |
 | `volume_monthly_date_from` | `DateStr` | No | The start date in YYYY-MM-DD format for retrieving historical monthly search volumes in the `volume_monthly_history` field. Required only if `volume_monthly_history` is requested. |
@@ -230,6 +333,31 @@ Overview.
 | `search_engine` | `SearchEngineEnum` | No | [Deprecated on 5 Aug 2024]. |
 | `keywords` | `str` | No | A comma-separated list of keywords to show metrics for. |
 | `keyword_list_id` | `int` | No | The id of an existing keyword list to show metrics for. |
+
+<details>
+<summary>Filterable fields (19 fields)</summary>
+
+- `clicks` (integer)
+- `cpc` (integer)
+- `cps` (float)
+- `difficulty` (integer)
+- `first_seen` (datetime)
+- `global_volume` (integer)
+- `intents` (object)
+- `keyword` (string)
+- `parent_topic` (string)
+- `parent_volume` (integer)
+- `serp_domain_rating_top10_min` (float)
+- `serp_domain_rating_top5_min` (float)
+- `serp_features` (array(string))
+- `serp_last_update` (datetime)
+- `traffic_potential` (integer)
+- `volume` (integer)
+- `volume_desktop_pct` (float)
+- `volume_mobile_pct` (float)
+- `word_count` (integer)
+
+</details>
 
 **Returns:** `list[KeywordsExplorerOverviewData]`
 
@@ -268,13 +396,36 @@ Related terms.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cpc**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.   type: integer nullable  **cps**: Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.   type: float nullable  **difficulty** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **first_seen**: The date when we first checked search engine results for a keyword.   type: datetime nullable  **global_volume** (10 units): How many times per month, on average, people search for the target keyword across all countries in our database.   type: integer nullable  **intents** (10 units): Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.   type: object nullable  **keyword**:    type: string  **parent_topic**: Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.   type: string nullable  **serp_domain_rating_top10_min**: The keyword must have at least one ranking position in the top 10 results with a DR of up to this value.   type: float nullable  **serp_domain_rating_top5_min**: The keyword must have at least one ranking position in the top 5 results with a DR of up to this value.   type: float nullable  **serp_features**: The enriched results on a search engine results page (SERP) that are not traditional organic results.   type: array(string)   enum: `"ai_overview_sitelink"` `"snippet"` `"ai_overview"` `"local_pack"` `"sitelink"` `"news"` `"image"` `"video"` `"discussion"` `"tweet"` `"paid_top"` `"paid_bottom"` `"paid_sitelink"` `"shopping"` `"knowledge_card"` `"knowledge_panel"` `"question"` `"image_th"` `"video_th"` `"organic_shopping"`  **serp_last_update**: The date when we last checked search engine results for a keyword.   type: datetime nullable  **traffic_potential** (10 units): The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for.   type: integer nullable  **volume** (10 units): An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data.   type: integer nullable  **volume_desktop_pct**: The percentage of searches for a keyword performed on desktop devices.   type: float nullable  **volume_mobile_pct**: The percentage of searches for a keyword performed on mobile devices.   type: float nullable  **word_count**:    type: integer |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `country` | `CountryEnum` | Yes | A two-letter country code (ISO 3166-1 alpha-2). |
 | `keywords` | `str` | No | A comma-separated list of keywords to show metrics for. |
 | `keyword_list_id` | `int` | No | The id of an existing keyword list to show metrics for. |
 | `view_for` | `ViewForEnum` | No | View keywords for the top 10 or top 100 ranking pages. |
 | `terms` | `TermsEnum1` | No | Related keywords which top-ranking pages also rank for (`also_rank_for`), additional keywords frequently mentioned in top-ranking pages (`also_talk_about`), or combination of both (`all`). |
+
+<details>
+<summary>Filterable fields (17 fields)</summary>
+
+- `cpc` (integer)
+- `cps` (float)
+- `difficulty` (integer)
+- `first_seen` (datetime)
+- `global_volume` (integer)
+- `intents` (object)
+- `keyword` (string)
+- `parent_topic` (string)
+- `serp_domain_rating_top10_min` (float)
+- `serp_domain_rating_top5_min` (float)
+- `serp_features` (array(string))
+- `serp_last_update` (datetime)
+- `traffic_potential` (integer)
+- `volume` (integer)
+- `volume_desktop_pct` (float)
+- `volume_mobile_pct` (float)
+- `word_count` (integer)
+
+</details>
 
 **Returns:** `list[KeywordsExplorerRelatedTermsData]`
 
@@ -307,12 +458,35 @@ Search suggestions.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `volume_monthly`, which is not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cpc**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.   type: integer nullable  **cps**: Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.   type: float nullable  **difficulty** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **first_seen**: The date when we first checked search engine results for a keyword.   type: datetime nullable  **global_volume** (10 units): How many times per month, on average, people search for the target keyword across all countries in our database.   type: integer nullable  **intents** (10 units): Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`.   type: object nullable  **keyword**:    type: string  **parent_topic**: Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.   type: string nullable  **serp_domain_rating_top10_min**: The keyword must have at least one ranking position in the top 10 results with a DR of up to this value.   type: float nullable  **serp_domain_rating_top5_min**: The keyword must have at least one ranking position in the top 5 results with a DR of up to this value.   type: float nullable  **serp_features**: The enriched results on a search engine results page (SERP) that are not traditional organic results.   type: array(string)   enum: `"ai_overview_sitelink"` `"snippet"` `"ai_overview"` `"local_pack"` `"sitelink"` `"news"` `"image"` `"video"` `"discussion"` `"tweet"` `"paid_top"` `"paid_bottom"` `"paid_sitelink"` `"shopping"` `"knowledge_card"` `"knowledge_panel"` `"question"` `"image_th"` `"video_th"` `"organic_shopping"`  **serp_last_update**: The date when we last checked search engine results for a keyword.   type: datetime nullable  **traffic_potential** (10 units): The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for.   type: integer nullable  **volume** (10 units): An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data.   type: integer nullable  **volume_desktop_pct**: The percentage of searches for a keyword performed on desktop devices.   type: float nullable  **volume_mobile_pct**: The percentage of searches for a keyword performed on mobile devices.   type: float nullable  **word_count**:    type: integer |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `country` | `CountryEnum` | Yes | A two-letter country code (ISO 3166-1 alpha-2). |
 | `search_engine` | `SearchEngineEnum` | No | [Deprecated on 5 Aug 2024]. |
 | `keywords` | `str` | No | A comma-separated list of keywords to show metrics for. |
 | `keyword_list_id` | `int` | No | The id of an existing keyword list to show metrics for. |
+
+<details>
+<summary>Filterable fields (17 fields)</summary>
+
+- `cpc` (integer)
+- `cps` (float)
+- `difficulty` (integer)
+- `first_seen` (datetime)
+- `global_volume` (integer)
+- `intents` (object)
+- `keyword` (string)
+- `parent_topic` (string)
+- `serp_domain_rating_top10_min` (float)
+- `serp_domain_rating_top5_min` (float)
+- `serp_features` (array(string))
+- `serp_last_update` (datetime)
+- `traffic_potential` (integer)
+- `volume` (integer)
+- `volume_desktop_pct` (float)
+- `volume_mobile_pct` (float)
+- `word_count` (integer)
+
+</details>
 
 **Returns:** `list[KeywordsExplorerSearchSuggestionsData]`
 
@@ -388,13 +562,33 @@ Competitors overview.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **country**: The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2).   type: string   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **is_main_position**: Excludes positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter).   type: boolean  **is_main_position_prev**: Excludes positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter) on the comparison date.   type: boolean  **keyword**: The keyword your target ranks for.   type: string  **keyword_difficulty**: An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **keyword_has_data**: Will return `false` if the keyword is still processing and no SERP has been fetched yet.   type: boolean  **keyword_is_frozen**: Indicates whether a keyword has exceeded the tracked keywords limit on your plan. Such keywords are "frozen", meaning they do not have their rankings updated.   type: boolean  **language**: The SERP language that a given keyword is being tracked for.   type: string  **location**: The location (country, state/province, or city) that a given keyword is being tracked in.   type: string  **serp_features**: The SERP features that appear in search results for a keyword.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_updated**: The date when we last checked search engine results for a keyword.   type: datetime nullable  **serp_updated_prev**: The date when we checked search engine results up to the comparison date.   type: datetime nullable  **tags**: A list of tags assigned to a given keyword.   type: array(string)  **volume**: An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter.   type: integer nullable |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `date_compared` | `DateStr` | No | A date to compare metrics with in YYYY-MM-DD format. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 | `device` | `DeviceEnum` | Yes | Choose between mobile and desktop rankings. |
 | `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+
+<details>
+<summary>Filterable fields (14 fields)</summary>
+
+- `country` (string)
+- `is_main_position` (boolean)
+- `is_main_position_prev` (boolean)
+- `keyword` (string)
+- `keyword_difficulty` (integer)
+- `keyword_has_data` (boolean)
+- `keyword_is_frozen` (boolean)
+- `language` (string)
+- `location` (string)
+- `serp_features` (array(string))
+- `serp_updated` (datetime)
+- `serp_updated_prev` (datetime)
+- `tags` (array(string))
+- `volume` (integer)
+
+</details>
 
 **Returns:** `list[RankTrackerCompetitorsOverviewData]`
 
@@ -425,7 +619,7 @@ Competitors pages.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **country**: The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2).   type: string   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **country_prev**: The country that a given keyword is being tracked in on the comparison date. A two-letter country code (ISO 3166-1 alpha-2).   type: string   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **domain**: The page domain.   type: string  **language**: The SERP language that a given keyword is being tracked for.   type: string  **language_prev**: The SERP language on the comparison date.   type: string  **location**: The location (country, state/province, or city) that a given keyword is being tracked in.   type: string  **location_prev**: The location (country, state/province, or city) that a given keyword is being tracked in on the comparison date.   type: string  **tags**: A list of tags assigned to a given keyword.   type: array(string)  **tags_prev**: A list of tags assigned to a given keyword on the comparison date.   type: array(string)  **url**: The page URL.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `target_and_tracked_competitors_only` | `bool` | No | Restrict pages to target and tracked competitors |
 | `date_compared` | `DateStr` | No | A date to compare metrics with in YYYY-MM-DD format. |
@@ -433,6 +627,22 @@ Competitors pages.
 | `device` | `DeviceEnum` | Yes | Choose between mobile and desktop rankings. |
 | `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+
+<details>
+<summary>Filterable fields (10 fields)</summary>
+
+- `country` (string)
+- `country_prev` (string)
+- `domain` (string)
+- `language` (string)
+- `language_prev` (string)
+- `location` (string)
+- `location_prev` (string)
+- `tags` (array(string))
+- `tags_prev` (array(string))
+- `url` (string)
+
+</details>
 
 **Returns:** `list[RankTrackerCompetitorsPagesData]`
 
@@ -506,13 +716,73 @@ Overview.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **best_position_has_thumbnail**: The top position (or target URL’s, if set) has a thumbnail.   type: boolean nullable  **best_position_has_thumbnail_previous**: The top position (or target URL’s, if set) has a thumbnail on the comparison date.   type: boolean nullable  **best_position_has_video_preview**: The top position (or target URL’s, if set) has a video preview.   type: boolean nullable  **best_position_has_video_preview_previous**: The top position (or target URL’s, if set) has a video preview on the comparison date.   type: boolean nullable  **best_position_kind**: The kind of top position (or target URL’s, if set): organic, paid, or a SERP feature.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **best_position_kind_previous**: The kind of top position (or target URL’s, if set) on the comparison date.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **clicks**: Clicks metric refers to the average monthly number of clicks on the search results that people make while searching for the target keyword. Some searches generate clicks on multiple results, while others might not end in any clicks at all.   type: integer nullable  **clicks_per_search**: Clicks Per Search is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country.   type: float nullable  **cost_per_click**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword.   type: integer nullable  **country**: The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2).   type: string   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **country_prev**: The country that a given keyword is being tracked in on the comparison date. A two-letter country code (ISO 3166-1 alpha-2).   type: string   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **created_at**: The date when a keyword was added to the project.   type: datetime  **is_branded**: User intent: branded. The user is searching for a specific brand or company name.   type: boolean  **is_commercial**: User intent: commercial. The user is comparing products or services before making a purchase decision.   type: boolean  **is_informational**: User intent: informational. The user is looking for information or an answer to a specific question.   type: boolean  **is_local**: User intent: local. The user is looking for information relevant to a specific location or nearby services.   type: boolean  **is_main_position**: Excludes positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter).   type: boolean  **is_main_position_prev**: Excludes positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter) on the comparison date.   type: boolean  **is_navigational**: User intent: navigational. The user is searching for a specific website or web page.   type: boolean  **is_transactional**: User intent: transactional. The user is ready to complete an action, often a purchase.   type: boolean  **keyword**: The keyword your target ranks for.   type: string  **keyword_difficulty**: An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **keyword_has_data**: Will return `false` if the keyword is still processing and no SERP has been fetched yet.   type: boolean  **keyword_is_frozen**: Indicates whether a keyword has exceeded the tracked keywords limit on your plan. Such keywords are "frozen", meaning they do not have their rankings updated.   type: boolean  **keyword_prev**: The keyword your target ranks for on the comparison date.   type: string  **keyword_words**: The number of words in a keyword.   type: integer  **keyword_words_prev**: The number of words in a keyword on the comparison date.   type: integer  **language**: The SERP language that a given keyword is being tracked for.   type: string  **language_prev**: The SERP language on the comparison date.   type: string  **location**: The location (country, state/province, or city) that a given keyword is being tracked in.   type: string  **location_prev**: The location (country, state/province, or city) that a given keyword is being tracked in on the comparison date.   type: string  **parent_topic**: Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead.  To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page.   type: string nullable  **position**: The top position (or target URL’s, if set) in organic search.   type: integer nullable  **position_diff**: The change in top position (or target URL’s, if set) between selected dates.   type: integer nullable  **position_prev**: The top position (or target URL’s, if set) on the comparison date.   type: integer nullable  **search_type_image**: Search type Image shows the percentage of searches for a keyword made for images, highlighting interest in visual content.   type: float nullable  **search_type_news**: Search type News shows the percentage of searches for a keyword made for news articles.   type: float nullable  **search_type_video**: Search type Video shows the percentage of searches for a keyword made for video, reflecting interest in video content.   type: float nullable  **search_type_web**: Search type Web shows the percentage of searches for a keyword made for general web content, indicating interest in a wide range of information.   type: float nullable  **serp_features**: The SERP features that appear in search results for a keyword.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_features_prev**: The SERP features that appear in search results for a keyword on the comparison date.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_updated**: The date when we last checked search engine results for a keyword.   type: datetime nullable  **serp_updated_prev**: The date when we checked search engine results up to the comparison date.   type: datetime nullable  **tags**: A list of tags assigned to a given keyword.   type: array(string)  **tags_prev**: A list of tags assigned to a given keyword on the comparison date.   type: array(string)  **target_positions_count**: The number of target URLs ranking for a keyword.   type: integer  **traffic**: An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter.   type: integer nullable  **traffic_diff**: The change in traffic between your selected dates.   type: integer nullable  **traffic_prev**: An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter.   type: integer nullable  **url**: The top-ranking URL (or target URL, if set) in organic search.   type: string nullable  **url_prev**: The top-ranking URL (or target URL, if set) on the comparison date.   type: string nullable  **volume**: An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter.   type: integer nullable  **volume_desktop_pct**: The percentage of the total search volume that comes from desktop devices.   type: float nullable  **volume_mobile_pct**: The percentage of the total search volume that comes from mobile devices.   type: float nullable |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `date_compared` | `DateStr` | No | A date to compare metrics with in YYYY-MM-DD format. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 | `device` | `DeviceEnum` | Yes | Choose between mobile and desktop rankings. |
 | `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+
+<details>
+<summary>Filterable fields (54 fields)</summary>
+
+- `best_position_has_thumbnail` (boolean)
+- `best_position_has_thumbnail_previous` (boolean)
+- `best_position_has_video_preview` (boolean)
+- `best_position_has_video_preview_previous` (boolean)
+- `best_position_kind` (string)
+- `best_position_kind_previous` (string)
+- `clicks` (integer)
+- `clicks_per_search` (float)
+- `cost_per_click` (integer)
+- `country` (string)
+- `country_prev` (string)
+- `created_at` (datetime)
+- `is_branded` (boolean)
+- `is_commercial` (boolean)
+- `is_informational` (boolean)
+- `is_local` (boolean)
+- `is_main_position` (boolean)
+- `is_main_position_prev` (boolean)
+- `is_navigational` (boolean)
+- `is_transactional` (boolean)
+- `keyword` (string)
+- `keyword_difficulty` (integer)
+- `keyword_has_data` (boolean)
+- `keyword_is_frozen` (boolean)
+- `keyword_prev` (string)
+- `keyword_words` (integer)
+- `keyword_words_prev` (integer)
+- `language` (string)
+- `language_prev` (string)
+- `location` (string)
+- `location_prev` (string)
+- `parent_topic` (string)
+- `position` (integer)
+- `position_diff` (integer)
+- `position_prev` (integer)
+- `search_type_image` (float)
+- `search_type_news` (float)
+- `search_type_video` (float)
+- `search_type_web` (float)
+- `serp_features` (array(string))
+- `serp_features_prev` (array(string))
+- `serp_updated` (datetime)
+- `serp_updated_prev` (datetime)
+- `tags` (array(string))
+- `tags_prev` (array(string))
+- `target_positions_count` (integer)
+- `traffic` (integer)
+- `traffic_diff` (integer)
+- `traffic_prev` (integer)
+- `url` (string)
+- `url_prev` (string)
+- `volume` (integer)
+- `volume_desktop_pct` (float)
+- `volume_mobile_pct` (float)
+
+</details>
 
 **Returns:** `list[RankTrackerOverviewData]`
 
@@ -715,13 +985,624 @@ Page explorer.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **ai_content_level**: The estimated percentage of AI-generated text on the page. Possible values: `None`, `Low`, `Moderate`, `High`, `Very High`   type: string nullable  **ai_content_status**: AI detection status for each page. Possible values: - `Success`: Content analyzed successfully - `Content_too_short`: Not enough text for reliable detection - `Not_eligible`: URL isn't an internal HTML page - `Failed`: Internal issue prevented detection - `Detection_off`: Disabled in Crawl settings   type: string nullable  **alternate**: The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database)   type: integer nullable  **alternate_diff**: The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database)   type: integer nullable  **alternate_prev**: The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database)   type: integer nullable  **backlinks**: The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **backlinks_diff**: The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **backlinks_prev**: The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **canonical**: The URL of the canonical version of the page   type: url nullable  **canonical_code**: The HTTP status code of the canonical URL   type: integer nullable  **canonical_counts**: The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **canonical_counts_diff**: The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **canonical_counts_prev**: The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **canonical_group_hash**: The ID of the group of pages that have the same canonical URL   type: integer nullable  **canonical_is_canonical**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: boolean nullable  **canonical_is_canonical_prev**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: boolean nullable  **canonical_no_crawl_reason**: The reason why the canonical version of the page was not crawled   type: string nullable  **canonical_no_crawl_reason_prev**: The reason why the canonical version of the page was not crawled   type: string nullable  **canonical_prev**: The URL of the canonical version of the page   type: url nullable  **canonical_scheme**: The protocol of the canonical URL   type: string nullable  **canonical_scheme_prev**: The protocol of the canonical URL   type: string nullable  **compliant**: Indicates that the page is indexable. An indexable page is an HTML page returning the 200 HTTP status code that has neither the "rel=canonical" tag pointing to a different URL nor the "noindex" directive   type: boolean nullable  **compliant_prev**: Indicates that the page is indexable. An indexable page is an HTML page returning the 200 HTTP status code that has neither the "rel=canonical" tag pointing to a different URL nor the "noindex" directive   type: boolean nullable  **compression**: The data compression scheme   type: string nullable  **compression_prev**: The data compression scheme   type: string nullable  **content_encoding**: The Content-Encoding HTTP response header field   type: string nullable  **content_encoding_prev**: The Content-Encoding HTTP response header field   type: string nullable  **content_length**: The character length of content displayed on the page   type: integer nullable  **content_length_diff**: The character length of content displayed on the page   type: integer nullable  **content_length_prev**: The character length of content displayed on the page   type: integer nullable  **content_nr_word**: The word count of content displayed on the page   type: integer nullable  **content_nr_word_diff**: The word count of content displayed on the page   type: integer nullable  **content_nr_word_prev**: The word count of content displayed on the page   type: integer nullable  **content_type**: The Content-Type HTTP header of the page or resource. You can find the full list of content types [here](https://www.iana.org/assignments/media-types/media-types.xhtml)   type: string nullable  **content_type_prev**: The Content-Type HTTP header of the page or resource. You can find the full list of content types [here](https://www.iana.org/assignments/media-types/media-types.xhtml)   type: string nullable  **css_no_crawl_reason**: The reasons why CSS files linked from the page were not crawled   type: array(null)  **css_no_crawl_reason_prev**: The reasons why CSS files linked from the page were not crawled   type: array(null)  **curl_code**: CURLcode return code. You can find the full list of CURL codes [here](https://curl.haxx.se/libcurl/c/libcurl-errors.html)   type: integer  **depth**: The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page). Please note that redirects are also counted as a level   type: integer nullable  **depth_diff**: The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page). Please note that redirects are also counted as a level   type: integer nullable  **depth_prev**: The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page). Please note that redirects are also counted as a level   type: integer nullable  **dofollow**: The number of incoming external dofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **dofollow_prev**: The number of incoming external dofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **domain**: The domain name part of the URL   type: domain  **duplicate_content**: The number of pages with matching or appreciably similar content   type: integer nullable  **duplicate_content_canonical_hreflang**: The number of page groups with matching or appreciably similar content. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_content_canonical_hreflang_diff**: The number of page groups with matching or appreciably similar content. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_content_canonical_hreflang_prev**: The number of page groups with matching or appreciably similar content. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_content_diff**: The number of pages with matching or appreciably similar content   type: integer nullable  **duplicate_content_prev**: The number of pages with matching or appreciably similar content   type: integer nullable  **duplicate_description**: The number of pages that have the same meta description. If the page has more than one meta description, each will be checked for duplicates   type: integer nullable  **duplicate_description_canonical_hreflang**: The number of page groups that have the same meta description. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_description_canonical_hreflang_diff**: The number of page groups that have the same meta description. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_description_canonical_hreflang_prev**: The number of page groups that have the same meta description. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_description_diff**: The number of pages that have the same meta description. If the page has more than one meta description, each will be checked for duplicates   type: integer nullable  **duplicate_description_prev**: The number of pages that have the same meta description. If the page has more than one meta description, each will be checked for duplicates   type: integer nullable  **duplicate_group_identifier**: The ID of the group of pages that are interconnected via a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_h1**: The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked for duplicates   type: integer nullable  **duplicate_h1_diff**: The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked for duplicates   type: integer nullable  **duplicate_h1_prev**: The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked for duplicates   type: integer nullable  **duplicate_h1canonical_hreflang**: The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_h1canonical_hreflang_diff**: The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_h1canonical_hreflang_prev**: The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_title**: The number of pages that have the same title. If the page has more than one title, each will be checked for duplicates   type: integer nullable  **duplicate_title_canonical_hreflang**: The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_title_canonical_hreflang_diff**: The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_title_canonical_hreflang_prev**: The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang or pagination tags   type: integer nullable  **duplicate_title_diff**: The number of pages that have the same title. If the page has more than one title, each will be checked for duplicates   type: integer nullable  **duplicate_title_prev**: The number of pages that have the same title. If the page has more than one title, each will be checked for duplicates   type: integer nullable  **edu**: The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **edu_diff**: The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **edu_prev**: The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **external_code**: The list of HTTP status codes returned by the external URLs linked from the page   type: array(null)  **external_link_anchor**: The list of anchor texts used in external outgoing links on the page   type: array(null)  **external_link_anchor_prev**: The list of anchor texts used in external outgoing links on the page   type: array(null)  **external_link_domain**: The list of external domains linked to from the page   type: array(domain)  **external_link_domain_prev**: The list of external domains linked to from the page   type: array(domain)  **external_links**: The list of external outgoing links on the page   type: array(url)  **external_links_is_canonical**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: array(null)  **external_links_is_canonical_prev**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: array(null)  **external_links_prev**: The list of external outgoing links on the page   type: array(url)  **external_no_crawl_reason**: The reasons why the external URLs linked from the page were not crawled   type: array(null)  **external_no_crawl_reason_prev**: The reasons why the external URLs linked from the page were not crawled   type: array(null)  **external_scheme**: The protocols of the external outgoing links on the page   type: array(string)  **external_scheme_prev**: The protocols of the external outgoing links on the page   type: array(string)  **final_redirect**: The destination of the final redirecting URL   type: url nullable  **final_redirect_code**: The HTTP status code of the destination of the final redirecting URL   type: integer nullable  **final_redirect_no_crawl_reason**: The reason why the destination of the final redirecting URL was not crawled   type: string nullable  **final_redirect_no_crawl_reason_prev**: The reason why the destination of the final redirecting URL was not crawled   type: string nullable  **final_redirect_prev**: The destination of the final redirecting URL   type: url nullable  **found_in_sitemaps**: The list of sitemaps that reference the URL   type: array(url)  **found_in_sitemaps_length**: The number of sitemaps that reference the URL   type: integer  **found_in_sitemaps_prev**: The list of sitemaps that reference the URL   type: array(url)  **gov**: The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **gov_diff**: The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **gov_prev**: The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **h1**: The page H1 subheader   type: array(string)  **h1_prev**: The page H1 subheader   type: array(string)  **h1length**: The character length of the page H1 subheader   type: array(integer)  **h1length_prev**: The character length of the page H1 subheader   type: array(integer)  **h2**: The page H2 subheader   type: array(string)  **h2_prev**: The page H2 subheader   type: array(string)  **hash_content**: The page content fingerprint. Pages with matching or appreciably similar content have the same content hash   type: integer nullable  **hash_descriptions**: meta_descriptions.hash   type: array(integer)  **hash_h1**: The page H1 subheader fingerprint. Pages with matching H1 tags have the same H1 hash   type: array(integer)  **hash_text**: The page text fingerprint. Pages with matching content have the same text hash   type: integer nullable  **hash_titles**: The page title fingerprint. Pages with matching title tags have the same title hash   type: array(integer)  **hreflang**: Data from hreflang attributes   type: array(null)  **hreflang_code_is_valid**: Indicates that hreflang data is specified properly in the hreflang tags on the page. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)   type: array(null)  **hreflang_code_is_valid_prev**: Indicates that hreflang data is specified properly in the hreflang tags on the page. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)   type: array(null)  **hreflang_country**: The list of regions specified in the hreflang tags on the page   type: array(null)  **hreflang_country_prev**: The list of regions specified in the hreflang tags on the page   type: array(null)  **hreflang_group_hash**: The ID of the group of pages that have the same set of hreflang attributes with the same set of URLs in them   type: integer nullable  **hreflang_inlink_urls**: The list of incoming URLs with hreflang attribute   type: array(url)  **hreflang_inlink_urls_prev**: The list of incoming URLs with hreflang attribute   type: array(url)  **hreflang_issues**: The list of hreflang-related issues a page has   type: array(string)  **hreflang_issues_prev**: The list of hreflang-related issues a page has   type: array(string)  **hreflang_language**: The list of languages specified in the hreflang tags on the page   type: array(null)  **hreflang_language_prev**: The list of languages specified in the hreflang tags on the page   type: array(null)  **hreflang_link**: The list of URLs specified in the hreflang tags on the page   type: array(url)  **hreflang_link_is_canonical**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: array(null)  **hreflang_link_is_canonical_prev**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: array(null)  **hreflang_link_prev**: The list of URLs specified in the hreflang tags on the page   type: array(url)  **hreflang_no_crawl_reason**: The reasons why URLs specified in the hreflang tags on the page were not crawled   type: array(null)  **hreflang_no_crawl_reason_prev**: The reasons why URLs specified in the hreflang tags on the page were not crawled   type: array(null)  **hreflang_pages_urls**: List of hreflang-linked pages URLs the page belongs to   type: array(url)  **hreflang_pages_urls_count**: Count of hreflang-linked pages URLs the page belongs to   type: integer nullable  **hreflang_pages_urls_count_diff**: Count of hreflang-linked pages URLs the page belongs to   type: integer nullable  **hreflang_pages_urls_count_prev**: Count of hreflang-linked pages URLs the page belongs to   type: integer nullable  **hreflang_pages_urls_prev**: List of hreflang-linked pages URLs the page belongs to   type: array(url)  **hreflang_prev**: Data from hreflang attributes   type: array(null)  **html_lang**: Data from the page's HTML lang tag   type: string nullable  **html_lang_code_is_valid**: Indicates that the language (or language-region) code is specified properly in the HTML lang tag. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)   type: boolean nullable  **html_lang_code_is_valid_prev**: Indicates that the language (or language-region) code is specified properly in the HTML lang tag. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)   type: boolean nullable  **html_lang_country**: The region code specified in the page's HTML lang tag   type: string nullable  **html_lang_country_prev**: The region code specified in the page's HTML lang tag   type: string nullable  **html_lang_language**: The language code specified in the page's HTML lang tag   type: string nullable  **html_lang_language_prev**: The language code specified in the page's HTML lang tag   type: string nullable  **html_lang_prev**: Data from the page's HTML lang tag   type: string nullable  **http_code**: The HTTP status code returned by the URL   type: integer  **http_header**: The HTTP headers that the web server returns   type: array(string)  **http_header_prev**: The HTTP headers that the web server returns   type: array(string)  **http_header_robots**: Instructions for web crawlers specified in HTTP headers   type: array(string)  **http_header_robots_prev**: Instructions for web crawlers specified in HTTP headers   type: array(string)  **http_headers_size**: The size of the HTTP headers that the web server returns, measured in bytes   type: integer  **http_headers_size_diff**: The size of the HTTP headers that the web server returns, measured in bytes   type: integer nullable  **http_headers_size_prev**: The size of the HTTP headers that the web server returns, measured in bytes   type: integer nullable  **images_no_crawl_reason**: The reasons why images linked from the page were not crawled   type: array(null)  **images_no_crawl_reason_prev**: The reasons why images linked from the page were not crawled   type: array(null)  **incoming_all_links**: The number of incoming links to the URL of all types   type: integer nullable  **incoming_all_links_diff**: The number of incoming links to the URL of all types   type: integer nullable  **incoming_all_links_prev**: The number of incoming links to the URL of all types   type: integer nullable  **incoming_canonical**: Shows how many times the URL is linked to from a rel="canonical" element   type: integer nullable  **incoming_canonical_diff**: Shows how many times the URL is linked to from a rel="canonical" element   type: integer nullable  **incoming_canonical_prev**: Shows how many times the URL is linked to from a rel="canonical" element   type: integer nullable  **incoming_css**: The number of incoming links to the CSS file   type: integer nullable  **incoming_css_diff**: The number of incoming links to the CSS file   type: integer nullable  **incoming_css_prev**: The number of incoming links to the CSS file   type: integer nullable  **incoming_follow**: The number of incoming dofollow links to the URL from hyperlinks   type: integer nullable  **incoming_follow_diff**: The number of incoming dofollow links to the URL from hyperlinks   type: integer nullable  **incoming_follow_prev**: The number of incoming dofollow links to the URL from hyperlinks   type: integer nullable  **incoming_hreflang**: Shows how many times the URL is linked to from a rel="alternate" hreflang="x" attribute   type: integer nullable  **incoming_hreflang_diff**: Shows how many times the URL is linked to from a rel="alternate" hreflang="x" attribute   type: integer nullable  **incoming_hreflang_prev**: Shows how many times the URL is linked to from a rel="alternate" hreflang="x" attribute   type: integer nullable  **incoming_image**: The number of incoming links to the image file   type: integer nullable  **incoming_image_diff**: The number of incoming links to the image file   type: integer nullable  **incoming_image_prev**: The number of incoming links to the image file   type: integer nullable  **incoming_js**: The number of incoming links to the JS file   type: integer nullable  **incoming_js_diff**: The number of incoming links to the JS file   type: integer nullable  **incoming_js_prev**: The number of incoming links to the JS file   type: integer nullable  **incoming_links**: The number of incoming links to the URL from hyperlinks   type: integer nullable  **incoming_links_diff**: The number of incoming links to the URL from hyperlinks   type: integer nullable  **incoming_links_prev**: The number of incoming links to the URL from hyperlinks   type: integer nullable  **incoming_nofollow**: The number of incoming nofollow links to the URL from hyperlinks   type: integer nullable  **incoming_nofollow_diff**: The number of incoming nofollow links to the URL from hyperlinks   type: integer nullable  **incoming_nofollow_prev**: The number of incoming nofollow links to the URL from hyperlinks   type: integer nullable  **incoming_pagination**: Shows how many times the URL is linked to from rel="prev" or rel="next" elements on pages   type: integer nullable  **incoming_pagination_diff**: Shows how many times the URL is linked to from rel="prev" or rel="next" elements on pages   type: integer nullable  **incoming_pagination_prev**: Shows how many times the URL is linked to from rel="prev" or rel="next" elements on pages   type: integer nullable  **incoming_redirect**: The number of incoming redirecting links to the URL   type: integer nullable  **incoming_redirect_diff**: The number of incoming redirecting links to the URL   type: integer nullable  **incoming_redirect_prev**: The number of incoming redirecting links to the URL   type: integer nullable  **indexnow_error**: The error description for a failed auto-submission   type: string nullable  **indexnow_error_prev**: The error description for a failed auto-submission   type: string nullable  **indexnow_reason**: The reason the page was considered for auto-submission to IndexNow   type: string nullable  **indexnow_reason_prev**: The reason the page was considered for auto-submission to IndexNow   type: string nullable  **indexnow_status**: The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings   type: string nullable  **indexnow_status_prev**: The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings   type: string nullable  **indexnow_submitted_at**: The date and time when the URL was auto-submitted to IndexNow   type: date nullable  **indexnow_submitted_at_prev**: The date and time when the URL was auto-submitted to IndexNow   type: date nullable  **internal_code**: The list of HTTP status codes returned by the internal URLs linked to from the page   type: array(null)  **internal_inlink_urls**: The list of URLs for incoming internal links   type: array(url)  **internal_inlink_urls_prev**: The list of URLs for incoming internal links   type: array(url)  **internal_link_anchor**: The list of anchor texts used in internal outgoing links on the page   type: array(null)  **internal_link_anchor_prev**: The list of anchor texts used in internal outgoing links on the page   type: array(null)  **internal_link_domain**: The domain (or its subdomains, depending on the scope of the crawl) linked to from internal outgoing links on the page   type: array(domain)  **internal_link_domain_prev**: The domain (or its subdomains, depending on the scope of the crawl) linked to from internal outgoing links on the page   type: array(domain)  **internal_links**: The list of internal outgoing links on the page   type: array(url)  **internal_links_is_canonical**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: array(null)  **internal_links_is_canonical_prev**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: array(null)  **internal_links_prev**: The list of internal outgoing links on the page   type: array(url)  **internal_no_crawl_reason**: The reasons why the internal URLs linked to from the page were not crawled   type: array(null)  **internal_no_crawl_reason_prev**: The reasons why the internal URLs linked to from the page were not crawled   type: array(null)  **internal_scheme**: The protocols of the internal outgoing links on the page   type: array(string)  **internal_scheme_prev**: The protocols of the internal outgoing links on the page   type: array(string)  **is_html**: Indicates that the content type of the web document is HTML   type: boolean  **is_in_sitemap**: Indicates that the URL is included in the website's sitemap file   type: boolean nullable  **is_in_sitemap_prev**: Indicates that the URL is included in the website's sitemap file   type: boolean nullable  **is_page_title_used_in_serp**: Indicates that the page and SERP titles match   type: boolean nullable  **is_redirect_loop**: Checks if the URL has a redirect loop   type: boolean nullable  **is_redirect_loop_prev**: Checks if the URL has a redirect loop   type: boolean nullable  **is_rendered**: Indicates that the crawler had executed JavaScript on the page to generate content   type: boolean nullable  **is_rendered_prev**: Indicates that the crawler had executed JavaScript on the page to generate content   type: boolean nullable  **is_valid_internal_html**: The HTML page on the crawled domain or its subdomain that returns a 200 HTTP status code   type: boolean  **is_valid_internal_html_prev**: The HTML page on the crawled domain or its subdomain that returns a 200 HTTP status code   type: boolean nullable  **js_no_crawl_reason**: The reasons why JavaScript files linked from the page were not crawled   type: array(null)  **js_no_crawl_reason_prev**: The reasons why JavaScript files linked from the page were not crawled   type: array(null)  **jsonld_attributes**: Names of the schema properties found on the page (with indices)   type: array(string)  **jsonld_attributes_prev**: Names of the schema properties found on the page (with indices)   type: array(string)  **jsonld_schema_types**: Schema objects found on the page   type: array(string)  **jsonld_schema_types_prev**: Schema objects found on the page   type: array(string)  **jsonld_validation_kinds**: Issues with the structured data found on the page   type: array(string)  **jsonld_validation_kinds_prev**: Issues with the structured data found on the page   type: array(string)  **jsonld_values**: Values of the schema properties found on the page   type: array(string)  **jsonld_values_prev**: Values of the schema properties found on the page   type: array(string)  **keywords**: The page meta keywords   type: array(string)  **keywords_prev**: The page meta keywords   type: array(string)  **length**: The character length of the URL   type: integer  **links_count_css**: The number of CSS files linked from the page   type: integer nullable  **links_count_css_prev**: The number of CSS files linked from the page   type: integer nullable  **links_count_external**: The number of external outgoing links on the page   type: integer nullable  **links_count_external3xx**: The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: integer nullable  **links_count_external3xx_diff**: The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: integer nullable  **links_count_external3xx_prev**: The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: integer nullable  **links_count_external4xx**: The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: integer nullable  **links_count_external4xx_diff**: The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: integer nullable  **links_count_external4xx_prev**: The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: integer nullable  **links_count_external5xx**: The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: integer nullable  **links_count_external5xx_diff**: The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: integer nullable  **links_count_external5xx_prev**: The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: integer nullable  **links_count_external_diff**: The number of external outgoing links on the page   type: integer nullable  **links_count_external_follow**: The number of external outgoing dofollow links on the page   type: integer nullable  **links_count_external_follow_diff**: The number of external outgoing dofollow links on the page   type: integer nullable  **links_count_external_follow_prev**: The number of external outgoing dofollow links on the page   type: integer nullable  **links_count_external_nofollow**: The number of external outgoing nofollow links on the page   type: integer nullable  **links_count_external_nofollow_diff**: The number of external outgoing nofollow links on the page   type: integer nullable  **links_count_external_nofollow_prev**: The number of external outgoing nofollow links on the page   type: integer nullable  **links_count_external_non_canonical**: The number of external outgoing links on the page that point to non-canonical pages   type: integer nullable  **links_count_external_non_canonical_diff**: The number of external outgoing links on the page that point to non-canonical pages   type: integer nullable  **links_count_external_non_canonical_prev**: The number of external outgoing links on the page that point to non-canonical pages   type: integer nullable  **links_count_external_prev**: The number of external outgoing links on the page   type: integer nullable  **links_count_external_xxx**: The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: integer nullable  **links_count_external_xxx_diff**: The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: integer nullable  **links_count_external_xxx_prev**: The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: integer nullable  **links_count_images**: The number of images linked from the page   type: integer nullable  **links_count_images_diff**: The number of images linked from the page   type: integer nullable  **links_count_images_prev**: The number of images linked from the page   type: integer nullable  **links_count_images_with_alt**: The number of images linked from the page that have an alt attribute (alternate text)   type: integer nullable  **links_count_images_with_alt_diff**: The number of images linked from the page that have an alt attribute (alternate text)   type: integer nullable  **links_count_images_with_alt_prev**: The number of images linked from the page that have an alt attribute (alternate text)   type: integer nullable  **links_count_images_without_alt**: The number of images linked from the page that have no alt attribute (alternate text)   type: integer nullable  **links_count_images_without_alt_diff**: The number of images linked from the page that have no alt attribute (alternate text)   type: integer nullable  **links_count_images_without_alt_prev**: The number of images linked from the page that have no alt attribute (alternate text)   type: integer nullable  **links_count_internal**: The number of internal outgoing links on the page   type: integer nullable  **links_count_internal3xx**: The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: integer nullable  **links_count_internal3xx_diff**: The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: integer nullable  **links_count_internal3xx_prev**: The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: integer nullable  **links_count_internal4xx**: The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: integer nullable  **links_count_internal4xx_diff**: The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: integer nullable  **links_count_internal4xx_prev**: The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: integer nullable  **links_count_internal5xx**: The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: integer nullable  **links_count_internal5xx_diff**: The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: integer nullable  **links_count_internal5xx_prev**: The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: integer nullable  **links_count_internal_diff**: The number of internal outgoing links on the page   type: integer nullable  **links_count_internal_follow**: The number of internal outgoing dofollow links on the page   type: integer nullable  **links_count_internal_follow_diff**: The number of internal outgoing dofollow links on the page   type: integer nullable  **links_count_internal_follow_prev**: The number of internal outgoing dofollow links on the page   type: integer nullable  **links_count_internal_nofollow**: The number of internal outgoing nofollow links on the page   type: integer nullable  **links_count_internal_nofollow_diff**: The number of internal outgoing nofollow links on the page   type: integer nullable  **links_count_internal_nofollow_prev**: The number of internal outgoing nofollow links on the page   type: integer nullable  **links_count_internal_non_canonical**: The number of internal outgoing links on the page that point to non-canonical pages   type: integer nullable  **links_count_internal_non_canonical_diff**: The number of internal outgoing links on the page that point to non-canonical pages   type: integer nullable  **links_count_internal_non_canonical_prev**: The number of internal outgoing links on the page that point to non-canonical pages   type: integer nullable  **links_count_internal_prev**: The number of internal outgoing links on the page   type: integer nullable  **links_count_internal_xxx**: The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: integer nullable  **links_count_internal_xxx_diff**: The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: integer nullable  **links_count_internal_xxx_prev**: The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: integer nullable  **links_count_js**: The number of JavaScript files linked from the page   type: integer nullable  **links_count_js_diff**: The number of JavaScript files linked from the page   type: integer nullable  **links_count_js_prev**: The number of JavaScript files linked from the page   type: integer nullable  **links_css**: The list of CSS files linked from the page   type: array(url)  **links_css_code**: The list of HTTP status codes returned by CSS files linked from the page   type: array(null)  **links_css_domain**: The list of domains that contain CSS files linked from the page   type: array(domain)  **links_css_domain_prev**: The list of domains that contain CSS files linked from the page   type: array(domain)  **links_css_prev**: The list of CSS files linked from the page   type: array(url)  **links_css_scheme**: The protocols of CSS files linked from the page   type: array(string)  **links_css_scheme_prev**: The protocols of CSS files linked from the page   type: array(string)  **links_external3xx**: The list of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: array(url)  **links_external3xx_prev**: The list of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: array(url)  **links_external4xx**: The list of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: array(url)  **links_external4xx_prev**: The list of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: array(url)  **links_external5xx**: The list of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: array(url)  **links_external5xx_prev**: The list of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: array(url)  **links_external_follow**: The list of external outgoing dofollow links on the page   type: array(url)  **links_external_follow_prev**: The list of external outgoing dofollow links on the page   type: array(url)  **links_external_nofollow**: The list of external outgoing nofollow links on the page   type: array(url)  **links_external_nofollow_prev**: The list of external outgoing nofollow links on the page   type: array(url)  **links_external_non_canonical**: The list of external outgoing links on the page that point to non-canonical pages   type: array(url)  **links_external_non_canonical_prev**: The list of external outgoing links on the page that point to non-canonical pages   type: array(url)  **links_external_xxx**: The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: array(url)  **links_external_xxx_prev**: The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: array(url)  **links_hreflang_code**: The list of HTTP status codes returned by the URLs specified in hreflang tags on the page   type: array(null)  **links_images**: The list of images linked from the page   type: array(url)  **links_images_alt**: The list of alternate texts of images linked from the page   type: array(null)  **links_images_alt_prev**: The list of alternate texts of images linked from the page   type: array(null)  **links_images_code**: The list of HTTP status codes returned by images linked from the page   type: array(null)  **links_images_domain**: The list of domains that contain images linked from the page   type: array(domain)  **links_images_domain_prev**: The list of domains that contain images linked from the page   type: array(domain)  **links_images_prev**: The list of images linked from the page   type: array(url)  **links_images_scheme**: The protocols of images linked from the page   type: array(string)  **links_images_scheme_prev**: The protocols of images linked from the page   type: array(string)  **links_images_with_alt**: The list of images linked from the page that have an alt attribute (alternate text)   type: array(url)  **links_images_with_alt_prev**: The list of images linked from the page that have an alt attribute (alternate text)   type: array(url)  **links_images_without_alt**: The list of images linked from the page that have no alt attribute (alternate text)   type: array(url)  **links_images_without_alt_prev**: The list of images linked from the page that have no alt attribute (alternate text)   type: array(url)  **links_internal3xx**: The list of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: array(url)  **links_internal3xx_prev**: The list of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes   type: array(url)  **links_internal4xx**: The list of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: array(url)  **links_internal4xx_prev**: The list of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes   type: array(url)  **links_internal5xx**: The list of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: array(url)  **links_internal5xx_prev**: The list of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes   type: array(url)  **links_internal_follow**: The list of internal outgoing dofollow links on the page   type: array(url)  **links_internal_follow_prev**: The list of internal outgoing dofollow links on the page   type: array(url)  **links_internal_nofollow**: The list of internal outgoing nofollow links on the page   type: array(url)  **links_internal_nofollow_prev**: The list of internal outgoing nofollow links on the page   type: array(url)  **links_internal_non_canonical**: The list of internal outgoing links on the page that point to non-canonical pages   type: array(url)  **links_internal_non_canonical_prev**: The list of internal outgoing links on the page that point to non-canonical pages   type: array(url)  **links_internal_xxx**: The list of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: array(url)  **links_internal_xxx_prev**: The list of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code   type: array(url)  **links_js**: The list of JavaScript files linked from the page   type: array(url)  **links_js_code**: The list of HTTP status codes returned by JavaScript files linked from the page   type: array(null)  **links_js_domain**: The list of domains that contain JavaScript files linked from the page   type: array(domain)  **links_js_domain_prev**: The list of domains that contain JavaScript files linked from the page   type: array(domain)  **links_js_prev**: The list of JavaScript files linked from the page   type: array(url)  **links_js_scheme**: The protocols of JavaScript files linked from the page   type: array(string)  **links_js_scheme_prev**: The protocols of JavaScript files linked from the page   type: array(string)  **loading_time**: The time it takes for the crawler to load the full content of the document, measured in milliseconds   type: integer  **loading_time_diff**: The time it takes for the crawler to load the full content of the document, measured in milliseconds   type: integer nullable  **loading_time_prev**: The time it takes for the crawler to load the full content of the document, measured in milliseconds   type: integer nullable  **meta_description**: Meta description   type: array(string)  **meta_description_length**: Meta description length   type: array(integer)  **meta_description_length_prev**: Meta description length   type: array(integer)  **meta_description_prev**: Meta description   type: array(string)  **meta_refresh**: The time set in a meta refresh tag, in seconds   type: array(string)  **meta_refresh_prev**: The time set in a meta refresh tag, in seconds   type: array(string)  **meta_robots**: Instructions for web crawlers specified in HTML robots meta tags on the page   type: array(string)  **meta_robots_prev**: Instructions for web crawlers specified in HTML robots meta tags on the page   type: array(string)  **meta_twitter_tags_app_google_play**: The app ID in the Google Play Store specified in the twitter:app:id:ipad meta property   type: string nullable  **meta_twitter_tags_app_google_play_prev**: The app ID in the Google Play Store specified in the twitter:app:id:ipad meta property   type: string nullable  **meta_twitter_tags_app_ipad**: The app ID in the iTunes App Store specified in the twitter:app:id:ipad meta property   type: string nullable  **meta_twitter_tags_app_ipad_prev**: The app ID in the iTunes App Store specified in the twitter:app:id:ipad meta property   type: string nullable  **meta_twitter_tags_app_iphone**: The app ID in the iTunes App Store specified in the twitter:app:id:iphone meta property   type: string nullable  **meta_twitter_tags_app_iphone_prev**: The app ID in the iTunes App Store specified in the twitter:app:id:iphone meta property   type: string nullable  **meta_twitter_tags_attributes**: The list of X (Twitter) Card properties on the page   type: array(string)  **meta_twitter_tags_attributes_prev**: The list of X (Twitter) Card properties on the page   type: array(string)  **meta_twitter_tags_card**: The X (Twitter) Card type can be "summary", "summary\_large\_image", "app", or "player"   type: string nullable  **meta_twitter_tags_card_prev**: The X (Twitter) Card type can be "summary", "summary\_large\_image", "app", or "player"   type: string nullable  **meta_twitter_tags_description**: meta_twitter_tags.description   type: string nullable  **meta_twitter_tags_description_prev**: meta_twitter_tags.description   type: string nullable  **meta_twitter_tags_image**: The image URL specified in the twitter:image meta property   type: string nullable  **meta_twitter_tags_image_prev**: The image URL specified in the twitter:image meta property   type: string nullable  **meta_twitter_tags_image_url_invalid**: Indicates that the URL specified in the twitter:image meta property is a valid absolute URL   type: boolean nullable  **meta_twitter_tags_image_url_invalid_prev**: Indicates that the URL specified in the twitter:image meta property is a valid absolute URL   type: boolean nullable  **meta_twitter_tags_player**: The HTTPS URL of player iframe specified in the twitter:player meta property   type: string nullable  **meta_twitter_tags_player_height**: The height of iframe in pixels specified in the twitter:player:width meta property   type: integer nullable  **meta_twitter_tags_player_height_diff**: The height of iframe in pixels specified in the twitter:player:width meta property   type: integer nullable  **meta_twitter_tags_player_height_prev**: The height of iframe in pixels specified in the twitter:player:width meta property   type: integer nullable  **meta_twitter_tags_player_prev**: The HTTPS URL of player iframe specified in the twitter:player meta property   type: string nullable  **meta_twitter_tags_player_width**: The width of iframe in pixels specified in the twitter:player:width meta property   type: integer nullable  **meta_twitter_tags_player_width_diff**: The width of iframe in pixels specified in the twitter:player:width meta property   type: integer nullable  **meta_twitter_tags_player_width_prev**: The width of iframe in pixels specified in the twitter:player:width meta property   type: integer nullable  **meta_twitter_tags_site**: The X (Twitter) handle specified in the twitter:site meta property   type: string nullable  **meta_twitter_tags_site_prev**: The X (Twitter) handle specified in the twitter:site meta property   type: string nullable  **meta_twitter_tags_title**: The title text specified in the twitter:title meta property   type: string nullable  **meta_twitter_tags_title_prev**: The title text specified in the twitter:title meta property   type: string nullable  **meta_twitter_tags_valid**: Indicates that the page has all the necessary tags required in a X (Twitter) Card   type: boolean nullable  **meta_twitter_tags_valid_prev**: Indicates that the page has all the necessary tags required in a X (Twitter) Card   type: boolean nullable  **meta_twitter_tags_values**: Data from the X (Twitter) Card properties on the page   type: array(string)  **meta_twitter_tags_values_prev**: Data from the X (Twitter) Card properties on the page   type: array(string)  **navigation_next**: The URL specified in the rel="next" element on the page   type: url nullable  **navigation_next_code**: The HTTP status code returned by the URL specified in the rel="next" element on a page   type: integer nullable  **navigation_next_no_crawl_reason**: The reason why the URL specified in the rel="next" element on a page was not crawled   type: string nullable  **navigation_next_no_crawl_reason_prev**: The reason why the URL specified in the rel="next" element on a page was not crawled   type: string nullable  **navigation_next_prev**: The URL specified in the rel="next" element on the page   type: url nullable  **navigation_prev_code**: The HTTP status code returned by the URL specified in the rel="prev" element on a page   type: integer nullable  **navigation_prev_no_crawl_reason**: The reason why the URL specified in the rel="prev" element on a page was not crawled   type: string nullable  **navigation_prev_no_crawl_reason_prev**: The reason why the URL specified in the rel="prev" element on a page was not crawled   type: string nullable  **no_crawl_reason**: The reason why the URL was not crawled   type: string nullable  **no_crawl_reason_prev**: The reason why the URL was not crawled   type: string nullable  **nofollow**: The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **nofollow_diff**: The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **nofollow_prev**: The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **nr_h1**: The number of H1 subheaders on the page   type: integer  **nr_h1_prev**: The number of H1 subheaders on the page   type: integer nullable  **nr_meta_description**: Number of Meta descriptions   type: integer  **nr_meta_description_diff**: Number of Meta descriptions   type: integer nullable  **nr_meta_description_prev**: Number of Meta descriptions   type: integer nullable  **nr_redirect_chain_urls**: The number of redirect chain URLs   type: integer nullable  **nr_redirect_chain_urls_diff**: The number of redirect chain URLs   type: integer nullable  **nr_redirect_chain_urls_prev**: The number of redirect chain URLs   type: integer nullable  **nr_titles**: The number of title tags on the page   type: integer  **nr_titles_diff**: The number of title tags on the page   type: integer nullable  **nr_titles_prev**: The number of title tags on the page   type: integer nullable  **og_tags_attributes**: The list of Open Graph properties on a page   type: array(string)  **og_tags_attributes_prev**: The list of Open Graph properties on a page   type: array(string)  **og_tags_image**: The image URL specified in the og:image meta property   type: string nullable  **og_tags_image_prev**: The image URL specified in the og:image meta property   type: string nullable  **og_tags_image_url_invalid**: Indicates that the URL specified in the og:image meta property is a valid absolute URL   type: boolean nullable  **og_tags_image_url_invalid_prev**: Indicates that the URL specified in the og:image meta property is a valid absolute URL   type: boolean nullable  **og_tags_inconsistent_canonical**: Indicates that the URL specified in the og:url meta property matches the URL specified as the canonical version of the page   type: boolean nullable  **og_tags_inconsistent_canonical_prev**: Indicates that the URL specified in the og:url meta property matches the URL specified as the canonical version of the page   type: boolean nullable  **og_tags_title**: The title text specified in the og:title meta property   type: string nullable  **og_tags_title_prev**: The title text specified in the og:title meta property   type: string nullable  **og_tags_type**: The object type specified in the og:type meta property   type: string nullable  **og_tags_type_prev**: The object type specified in the og:type meta property   type: string nullable  **og_tags_url**: The URL specified in the og:url meta property   type: string nullable  **og_tags_url_prev**: The URL specified in the og:url meta property   type: string nullable  **og_tags_url_valid**: Indicates that the URL specified in the og:url meta property is a valid absolute URL   type: boolean nullable  **og_tags_url_valid_prev**: Indicates that the URL specified in the og:url meta property is a valid absolute URL   type: boolean nullable  **og_tags_valid**: Indicates that the page has all four required Open Graph properties: og:title, og:type, og:image, and og:url   type: boolean nullable  **og_tags_valid_prev**: Indicates that the page has all four required Open Graph properties: og:title, og:type, og:image, and og:url   type: boolean nullable  **og_tags_value**: Data from Open Graph properties on a page   type: array(string)  **og_tags_value_prev**: Data from Open Graph properties on a page   type: array(string)  **origin**: Shows where the URL was originally found during the crawl   type: url nullable  **origin_prev**: Shows where the URL was originally found during the crawl   type: url nullable  **page_is_nofollow**: Check if the page is nofollow, based on http header and meta robots instructions   type: boolean nullable  **page_is_nofollow_prev**: Check if the page is nofollow, based on http header and meta robots instructions   type: boolean nullable  **page_is_noindex**: Check if the page is noindex, based on http header and meta robots instructions   type: boolean nullable  **page_is_noindex_prev**: Check if the page is noindex, based on http header and meta robots instructions   type: boolean nullable  **page_rating**: Page Rating (PR) shows the URL's internal and external backlink profile strength relative to other URLs included in the crawl   type: integer nullable  **page_raw_ur**: URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur)   type: integer nullable  **page_raw_ur_diff**: URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur)   type: integer nullable  **page_raw_ur_prev**: URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur)   type: integer nullable  **page_type**: Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's     considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference     them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links)   type: array(string)  **page_type_prev**: Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's     considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference     them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links)   type: array(string)  **pagination_group**: The ID of the group of pages interconnected via their rel="next" and rel="prev" links   type: integer nullable  **pagination_group_prev**: The ID of the group of pages interconnected via their rel="next" and rel="prev" links   type: integer nullable  **positions**: The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_diff**: The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_prev**: The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_top10**: The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_top10_diff**: The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_top10_prev**: The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_top3**: The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_top3_diff**: The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **positions_top3_prev**: The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer)   type: integer nullable  **psi_crux_cls_category**: Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: string nullable  **psi_crux_cls_category_prev**: Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: string nullable  **psi_crux_cls_distributions_proportion**: What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: array(null)  **psi_crux_cls_distributions_proportion_prev**: What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: array(null)  **psi_crux_cls_percentile**: Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_crux_cls_percentile_diff**: Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: integer nullable  **psi_crux_cls_percentile_prev**: Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_crux_fid_category**: Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: string nullable  **psi_crux_fid_category_prev**: Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: string nullable  **psi_crux_fid_distributions_proportion**: What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: array(null)  **psi_crux_fid_distributions_proportion_prev**: What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: array(null)  **psi_crux_fid_percentile**: First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_crux_fid_percentile_diff**: First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: integer nullable  **psi_crux_fid_percentile_prev**: First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_crux_inp_category**: Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/)   type: string nullable  **psi_crux_inp_category_prev**: Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/)   type: string nullable  **psi_crux_inp_distributions_proportion**: What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://web.dev/inp/)   type: array(null)  **psi_crux_inp_distributions_proportion_prev**: What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://web.dev/inp/)   type: array(null)  **psi_crux_inp_percentile**: Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/)   type: float nullable  **psi_crux_inp_percentile_diff**: Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/)   type: integer nullable  **psi_crux_inp_percentile_prev**: Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/)   type: float nullable  **psi_crux_lcp_category**: Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: string nullable  **psi_crux_lcp_category_prev**: Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: string nullable  **psi_crux_lcp_distributions_proportion**: What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: array(null)  **psi_crux_lcp_distributions_proportion_prev**: What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: array(null)  **psi_crux_lcp_percentile**: Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_crux_lcp_percentile_diff**: Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: integer nullable  **psi_crux_lcp_percentile_prev**: Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_lighthouse_cls_error_message**: The message returned by Lighthouse if there is an error when measuring CLS   type: string nullable  **psi_lighthouse_cls_error_message_prev**: The message returned by Lighthouse if there is an error when measuring CLS   type: string nullable  **psi_lighthouse_cls_value**: Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_lighthouse_cls_value_diff**: Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: integer nullable  **psi_lighthouse_cls_value_prev**: Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_lighthouse_lcp_error_message**: The message returned by Lighthouse if there is an error when measuring LCP   type: string nullable  **psi_lighthouse_lcp_error_message_prev**: The message returned by Lighthouse if there is an error when measuring LCP   type: string nullable  **psi_lighthouse_lcp_value**: Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_lighthouse_lcp_value_diff**: Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: integer nullable  **psi_lighthouse_lcp_value_prev**: Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_lighthouse_score**: This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/)   type: integer nullable  **psi_lighthouse_score_diff**: This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/)   type: integer nullable  **psi_lighthouse_score_prev**: This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/)   type: integer nullable  **psi_lighthouse_tbt_error_message**: The message returned by Lighthouse if there is an error when measuring TBT   type: string nullable  **psi_lighthouse_tbt_error_message_prev**: The message returned by Lighthouse if there is an error when measuring TBT   type: string nullable  **psi_lighthouse_tbt_value**: Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. This score comes from Lighthouse in a simulated test environment. TBT is the recommended alternative to FID for lab tests. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_lighthouse_tbt_value_diff**: Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. This score comes from Lighthouse in a simulated test environment. TBT is the recommended alternative to FID for lab tests. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: integer nullable  **psi_lighthouse_tbt_value_prev**: Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. This score comes from Lighthouse in a simulated test environment. TBT is the recommended alternative to FID for lab tests. [Learn more](https://ahrefs.com/blog/core-web-vitals/)   type: float nullable  **psi_mobile_issues**: List of mobile-related issues on the page detected by Lighthouse   type: array(string)  **psi_mobile_issues_explanations**: Details about the mobile issues detected by Lighthouse   type: array(string)  **psi_mobile_issues_explanations_prev**: Details about the mobile issues detected by Lighthouse   type: array(string)  **psi_mobile_issues_prev**: List of mobile-related issues on the page detected by Lighthouse   type: array(string)  **psi_request_error_message**: The message returned by PageSpeed Insights API if there is an error. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool)   type: string nullable  **psi_request_error_message_prev**: The message returned by PageSpeed Insights API if there is an error. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool)   type: string nullable  **psi_request_status**: The result of a request to PageSpeed Insights API. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool)   type: string nullable  **psi_request_status_prev**: The result of a request to PageSpeed Insights API. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool)   type: string nullable  **redirect**: The destination of the redirecting URL   type: url nullable  **redirect_chain_urls**: The list of redirect chain URLs   type: array(url)  **redirect_chain_urls_code**: The list of HTTP status codes returned by the redirect chain URLs   type: array(null)  **redirect_chain_urls_no_crawl_reason**: The reasons why the redirect chain URLs were not crawled   type: array(null)  **redirect_chain_urls_no_crawl_reason_prev**: The reasons why the redirect chain URLs were not crawled   type: array(null)  **redirect_chain_urls_prev**: The list of redirect chain URLs   type: array(url)  **redirect_code**: The HTTP status code of the destination of the redirecting URL   type: integer nullable  **redirect_counts**: The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **redirect_counts_diff**: The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **redirect_counts_prev**: The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linking pages, as one page can contain multiple backlinks   type: integer nullable  **redirect_is_canonical**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: boolean nullable  **redirect_is_canonical_prev**: Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical   type: boolean nullable  **redirect_no_crawl_reason**: The reason why the destination of the redirecting URL was not crawled   type: string nullable  **redirect_no_crawl_reason_prev**: The reason why the destination of the redirecting URL was not crawled   type: string nullable  **redirect_prev**: The destination of the redirecting URL   type: url nullable  **redirect_scheme**: The protocol of the redirecting URL   type: string nullable  **redirect_scheme_prev**: The protocol of the redirecting URL   type: string nullable  **refclass_c**: The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP addresses sharing the first three numbers of their numerical label. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the IP network   type: integer nullable  **refclass_c_diff**: The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP addresses sharing the first three numbers of their numerical label. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the IP network   type: integer nullable  **refclass_c_prev**: The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP addresses sharing the first three numbers of their numerical label. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the IP network   type: integer nullable  **refhosts**: The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer database)   type: integer nullable  **refhosts_diff**: The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer database)   type: integer nullable  **refhosts_prev**: The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer database)   type: integer nullable  **refips**: The number of unique external IP addresses that incorporate websites with at least 1 link pointing to the URL. Several domains can share one IP address   type: integer nullable  **refips_prev**: The number of unique external IP addresses that incorporate websites with at least 1 link pointing to the URL. Several domains can share one IP address   type: integer nullable  **refpages**: The number of unique external pages linking to the URL (data from Ahrefs' Site Explorer database)   type: integer nullable  **refpages_diff**: The number of unique external pages linking to the URL (data from Ahrefs' Site Explorer database)   type: integer nullable  **refpages_prev**: The number of unique external pages linking to the URL (data from Ahrefs' Site Explorer database)   type: integer nullable  **robots_allow_rules**: Allow: rules   type: array(null)  **robots_allow_rules_prev**: Allow: rules   type: array(null)  **robots_crawl_delay**: Crawl-delay:   type: integer nullable  **robots_crawl_delay_prev**: Crawl-delay:   type: integer nullable  **robots_disallow_rules**: Disallow: rules   type: array(null)  **robots_disallow_rules_prev**: Disallow: rules   type: array(null)  **robots_error**: The error occurred while crawling the robots.txt file   type: string nullable  **robots_error_prev**: The error occurred while crawling the robots.txt file   type: string nullable  **robots_error_text**: Robots.txt error text   type: string nullable  **robots_error_text_prev**: Robots.txt error text   type: string nullable  **robots_redirect_loop**: Robots.txt error redirect loop   type: array(null)  **robots_redirect_loop_prev**: Robots.txt error redirect loop   type: array(null)  **robots_sitemaps**: The list of sitemaps referenced in the robots.txt file   type: array(null)  **robots_sitemaps_prev**: The list of sitemaps referenced in the robots.txt file   type: array(null)  **rss**: The number of incoming external links from RSS feeds (data from Ahrefs' Site Explorer database)   type: integer nullable  **rss_diff**: The number of incoming external links from RSS feeds (data from Ahrefs' Site Explorer database)   type: integer nullable  **rss_prev**: The number of incoming external links from RSS feeds (data from Ahrefs' Site Explorer database)   type: integer nullable  **scheme**: Hypertext Transfer Protocol of the URL (HTTP or HTTPS)   type: string  **self_canonical**: Indicates that the page has a self-referential canonical URL   type: boolean nullable  **self_canonical_prev**: Indicates that the page has a self-referential canonical URL   type: boolean nullable  **self_hreflang**: Data from hreflang tag with a self-referential URL   type: array(null)  **self_hreflang_code_is_valid**: Indicates that hreflang data is specified properly in hreflang tag with a self-referential URL. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)   type: array(null)  **self_hreflang_code_is_valid_prev**: Indicates that hreflang data is specified properly in hreflang tag with a self-referential URL. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)   type: array(null)  **self_hreflang_country**: The region specified in the hreflang tag with a self-referential URL   type: array(null)  **self_hreflang_country_prev**: The region specified in the hreflang tag with a self-referential URL   type: array(null)  **self_hreflang_language**: The language specified in the hreflang tag with a self-referential URL   type: array(null)  **self_hreflang_language_prev**: The language specified in the hreflang tag with a self-referential URL   type: array(null)  **self_hreflang_prev**: Data from hreflang tag with a self-referential URL   type: array(null)  **serp_title**: The title displayed for the page in its top keyword's SERP on desktop   type: string nullable  **serp_title_prev**: The title displayed for the page in its top keyword's SERP on desktop   type: string nullable  **sitemap_error**: The error occurred while crawling the sitemap   type: string nullable  **sitemap_error_prev**: The error occurred while crawling the sitemap   type: string nullable  **sitemap_error_text**: Sitemap error text   type: string nullable  **sitemap_error_text_prev**: Sitemap error text   type: string nullable  **sitemap_is_index**: Indicates that the sitemap is a sitemap index file   type: boolean nullable  **sitemap_is_index_prev**: Indicates that the sitemap is a sitemap index file   type: boolean nullable  **sitemap_nr_urls**: The number of URLs referenced in the sitemap   type: integer nullable  **sitemap_nr_urls_prev**: The number of URLs referenced in the sitemap   type: integer nullable  **sitemap_save_max_size**: Max size of sitemap allows content to be saved   type: integer nullable  **sitemap_save_max_size_diff**: Max size of sitemap allows content to be saved   type: integer nullable  **sitemap_save_max_size_prev**: Max size of sitemap allows content to be saved   type: integer nullable  **sitemap_unzipped_size**: Sitemap size (uncompressed)   type: integer nullable  **sitemap_unzipped_size_diff**: Sitemap size (uncompressed)   type: integer nullable  **sitemap_unzipped_size_prev**: Sitemap size (uncompressed)   type: integer nullable  **size**: The size of the page or resource, measured in bytes   type: integer  **size_diff**: The size of the page or resource, measured in bytes   type: integer nullable  **size_prev**: The size of the page or resource, measured in bytes   type: integer nullable  **source**: Source from which the URL can be reached   type: array(string)  **source_prev**: Source from which the URL can be reached   type: array(string)  **stamp**: The time and date when the URL was crawled   type: date  **stamp_prev**: The time and date when the URL was crawled   type: date nullable  **time_to_first_byte**: The time it takes for the crawler to receive the first byte of the response from a web server, measured in milliseconds   type: integer  **time_to_first_byte_prev**: The time it takes for the crawler to receive the first byte of the response from a web server, measured in milliseconds   type: integer nullable  **title**: The page title   type: array(string)  **title_prev**: The page title   type: array(string)  **titles_length**: The character length of the page title   type: array(integer)  **titles_length_prev**: The character length of the page title   type: array(integer)  **top_keyword**: The keyword that brings the page the most organic traffic across all countries   type: string nullable  **top_keyword_position**: The position that the page holds for its top keyword   type: integer nullable  **top_keyword_position_diff**: The position that the page holds for its top keyword   type: integer nullable  **top_keyword_position_prev**: The position that the page holds for its top keyword   type: integer nullable  **top_keyword_prev**: The keyword that brings the page the most organic traffic across all countries   type: string nullable  **traffic**: Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are based on a mixture of clickstream data, the estimated monthly search volumes of keywords for which the page ranks, and the current ranking position for the URL in the search results. You can learn more [here](https://ahrefs.com/blog/ahrefs-seo-metrics/#organictraffic)   type: float nullable  **traffic_diff**: Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are based on a mixture of clickstream data, the estimated monthly search volumes of keywords for which the page ranks, and the current ranking position for the URL in the search results. You can learn more [here](https://ahrefs.com/blog/ahrefs-seo-metrics/#organictraffic)   type: float nullable  **traffic_prev**: Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are based on a mixture of clickstream data, the estimated monthly search volumes of keywords for which the page ranks, and the current ranking position for the URL in the search results. You can learn more [here](https://ahrefs.com/blog/ahrefs-seo-metrics/#organictraffic)   type: float nullable  **url**: The web address of the page or resource   type: url  **url_prev**: The web address of the page or resource   type: url nullable |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | No | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `filter_mode` | `FilterModeEnum` | No | Indicates which pages to return compared to the previous crawl. If not specified, all URLs that match your filter conditions are returned. `added`: URLs that are a new match for your filter conditions. `new`: URLs that are newly crawled and match your filter conditions. `removed`: URLs that stopped matching your filter conditions. `missing`: URLs that weren't crawled, but previously matched your filter conditions. `no_change`: URLs that match your filter conditions in a crawl and the crawl before it. |
 | `issue_id` | `str` | No | The unique identifier of an issue. When specified, only URLs affected by this issue are returned. You can get issue IDs by querying the `site-audit/issues` endpoint. |
 | `date_compared` | `str` | No | A timestamp in `YYYY-MM-DDThh:mm:ss` format specifying the crawl date to compare metrics with. Follows the same rules as the `date` field. |
 | `date` | `str` | No | A timestamp in `YYYY-MM-DDThh:mm:ss` format specifying the crawl date to retrieve metrics from. Defaults to the most recent available crawl if omitted. For scheduled crawls, we return data from the latest crawl finished before the specified timestamp. For Always-on audit crawls, we return data as of the provided date and time. If the time component is omitted, it defaults to `00:00:00`. The timestamp is interpreted in UTC. |
 | `project_id` | `int` | Yes | The unique identifier of the project. Only projects with verified ownership are supported. You can find the project ID in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` |
+
+<details>
+<summary>Filterable fields (605 fields)</summary>
+
+- `ai_content_level` (string)
+- `ai_content_status` (string)
+- `alternate` (integer)
+- `alternate_diff` (integer)
+- `alternate_prev` (integer)
+- `backlinks` (integer)
+- `backlinks_diff` (integer)
+- `backlinks_prev` (integer)
+- `canonical` (url)
+- `canonical_code` (integer)
+- `canonical_counts` (integer)
+- `canonical_counts_diff` (integer)
+- `canonical_counts_prev` (integer)
+- `canonical_group_hash` (integer)
+- `canonical_is_canonical` (boolean)
+- `canonical_is_canonical_prev` (boolean)
+- `canonical_no_crawl_reason` (string)
+- `canonical_no_crawl_reason_prev` (string)
+- `canonical_prev` (url)
+- `canonical_scheme` (string)
+- `canonical_scheme_prev` (string)
+- `compliant` (boolean)
+- `compliant_prev` (boolean)
+- `compression` (string)
+- `compression_prev` (string)
+- `content_encoding` (string)
+- `content_encoding_prev` (string)
+- `content_length` (integer)
+- `content_length_diff` (integer)
+- `content_length_prev` (integer)
+- `content_nr_word` (integer)
+- `content_nr_word_diff` (integer)
+- `content_nr_word_prev` (integer)
+- `content_type` (string)
+- `content_type_prev` (string)
+- `css_no_crawl_reason` (array(null))
+- `css_no_crawl_reason_prev` (array(null))
+- `curl_code` (integer)
+- `depth` (integer)
+- `depth_diff` (integer)
+- `depth_prev` (integer)
+- `dofollow` (integer)
+- `dofollow_prev` (integer)
+- `domain` (domain)
+- `duplicate_content` (integer)
+- `duplicate_content_canonical_hreflang` (integer)
+- `duplicate_content_canonical_hreflang_diff` (integer)
+- `duplicate_content_canonical_hreflang_prev` (integer)
+- `duplicate_content_diff` (integer)
+- `duplicate_content_prev` (integer)
+- `duplicate_description` (integer)
+- `duplicate_description_canonical_hreflang` (integer)
+- `duplicate_description_canonical_hreflang_diff` (integer)
+- `duplicate_description_canonical_hreflang_prev` (integer)
+- `duplicate_description_diff` (integer)
+- `duplicate_description_prev` (integer)
+- `duplicate_group_identifier` (integer)
+- `duplicate_h1` (integer)
+- `duplicate_h1_diff` (integer)
+- `duplicate_h1_prev` (integer)
+- `duplicate_h1canonical_hreflang` (integer)
+- `duplicate_h1canonical_hreflang_diff` (integer)
+- `duplicate_h1canonical_hreflang_prev` (integer)
+- `duplicate_title` (integer)
+- `duplicate_title_canonical_hreflang` (integer)
+- `duplicate_title_canonical_hreflang_diff` (integer)
+- `duplicate_title_canonical_hreflang_prev` (integer)
+- `duplicate_title_diff` (integer)
+- `duplicate_title_prev` (integer)
+- `edu` (integer)
+- `edu_diff` (integer)
+- `edu_prev` (integer)
+- `external_code` (array(null))
+- `external_link_anchor` (array(null))
+- `external_link_anchor_prev` (array(null))
+- `external_link_domain` (array(domain))
+- `external_link_domain_prev` (array(domain))
+- `external_links` (array(url))
+- `external_links_is_canonical` (array(null))
+- `external_links_is_canonical_prev` (array(null))
+- `external_links_prev` (array(url))
+- `external_no_crawl_reason` (array(null))
+- `external_no_crawl_reason_prev` (array(null))
+- `external_scheme` (array(string))
+- `external_scheme_prev` (array(string))
+- `final_redirect` (url)
+- `final_redirect_code` (integer)
+- `final_redirect_no_crawl_reason` (string)
+- `final_redirect_no_crawl_reason_prev` (string)
+- `final_redirect_prev` (url)
+- `found_in_sitemaps` (array(url))
+- `found_in_sitemaps_length` (integer)
+- `found_in_sitemaps_prev` (array(url))
+- `gov` (integer)
+- `gov_diff` (integer)
+- `gov_prev` (integer)
+- `h1` (array(string))
+- `h1_prev` (array(string))
+- `h1length` (array(integer))
+- `h1length_prev` (array(integer))
+- `h2` (array(string))
+- `h2_prev` (array(string))
+- `hash_content` (integer)
+- `hash_descriptions` (array(integer))
+- `hash_h1` (array(integer))
+- `hash_text` (integer)
+- `hash_titles` (array(integer))
+- `hreflang` (array(null))
+- `hreflang_code_is_valid` (array(null))
+- `hreflang_code_is_valid_prev` (array(null))
+- `hreflang_country` (array(null))
+- `hreflang_country_prev` (array(null))
+- `hreflang_group_hash` (integer)
+- `hreflang_inlink_urls` (array(url))
+- `hreflang_inlink_urls_prev` (array(url))
+- `hreflang_issues` (array(string))
+- `hreflang_issues_prev` (array(string))
+- `hreflang_language` (array(null))
+- `hreflang_language_prev` (array(null))
+- `hreflang_link` (array(url))
+- `hreflang_link_is_canonical` (array(null))
+- `hreflang_link_is_canonical_prev` (array(null))
+- `hreflang_link_prev` (array(url))
+- `hreflang_no_crawl_reason` (array(null))
+- `hreflang_no_crawl_reason_prev` (array(null))
+- `hreflang_pages_urls` (array(url))
+- `hreflang_pages_urls_count` (integer)
+- `hreflang_pages_urls_count_diff` (integer)
+- `hreflang_pages_urls_count_prev` (integer)
+- `hreflang_pages_urls_prev` (array(url))
+- `hreflang_prev` (array(null))
+- `html_lang` (string)
+- `html_lang_code_is_valid` (boolean)
+- `html_lang_code_is_valid_prev` (boolean)
+- `html_lang_country` (string)
+- `html_lang_country_prev` (string)
+- `html_lang_language` (string)
+- `html_lang_language_prev` (string)
+- `html_lang_prev` (string)
+- `http_code` (integer)
+- `http_header` (array(string))
+- `http_header_prev` (array(string))
+- `http_header_robots` (array(string))
+- `http_header_robots_prev` (array(string))
+- `http_headers_size` (integer)
+- `http_headers_size_diff` (integer)
+- `http_headers_size_prev` (integer)
+- `images_no_crawl_reason` (array(null))
+- `images_no_crawl_reason_prev` (array(null))
+- `incoming_all_links` (integer)
+- `incoming_all_links_diff` (integer)
+- `incoming_all_links_prev` (integer)
+- `incoming_canonical` (integer)
+- `incoming_canonical_diff` (integer)
+- `incoming_canonical_prev` (integer)
+- `incoming_css` (integer)
+- `incoming_css_diff` (integer)
+- `incoming_css_prev` (integer)
+- `incoming_follow` (integer)
+- `incoming_follow_diff` (integer)
+- `incoming_follow_prev` (integer)
+- `incoming_hreflang` (integer)
+- `incoming_hreflang_diff` (integer)
+- `incoming_hreflang_prev` (integer)
+- `incoming_image` (integer)
+- `incoming_image_diff` (integer)
+- `incoming_image_prev` (integer)
+- `incoming_js` (integer)
+- `incoming_js_diff` (integer)
+- `incoming_js_prev` (integer)
+- `incoming_links` (integer)
+- `incoming_links_diff` (integer)
+- `incoming_links_prev` (integer)
+- `incoming_nofollow` (integer)
+- `incoming_nofollow_diff` (integer)
+- `incoming_nofollow_prev` (integer)
+- `incoming_pagination` (integer)
+- `incoming_pagination_diff` (integer)
+- `incoming_pagination_prev` (integer)
+- `incoming_redirect` (integer)
+- `incoming_redirect_diff` (integer)
+- `incoming_redirect_prev` (integer)
+- `indexnow_error` (string)
+- `indexnow_error_prev` (string)
+- `indexnow_reason` (string)
+- `indexnow_reason_prev` (string)
+- `indexnow_status` (string)
+- `indexnow_status_prev` (string)
+- `indexnow_submitted_at` (date)
+- `indexnow_submitted_at_prev` (date)
+- `internal_code` (array(null))
+- `internal_inlink_urls` (array(url))
+- `internal_inlink_urls_prev` (array(url))
+- `internal_link_anchor` (array(null))
+- `internal_link_anchor_prev` (array(null))
+- `internal_link_domain` (array(domain))
+- `internal_link_domain_prev` (array(domain))
+- `internal_links` (array(url))
+- `internal_links_is_canonical` (array(null))
+- `internal_links_is_canonical_prev` (array(null))
+- `internal_links_prev` (array(url))
+- `internal_no_crawl_reason` (array(null))
+- `internal_no_crawl_reason_prev` (array(null))
+- `internal_scheme` (array(string))
+- `internal_scheme_prev` (array(string))
+- `is_html` (boolean)
+- `is_in_sitemap` (boolean)
+- `is_in_sitemap_prev` (boolean)
+- `is_page_title_used_in_serp` (boolean)
+- `is_redirect_loop` (boolean)
+- `is_redirect_loop_prev` (boolean)
+- `is_rendered` (boolean)
+- `is_rendered_prev` (boolean)
+- `is_valid_internal_html` (boolean)
+- `is_valid_internal_html_prev` (boolean)
+- `js_no_crawl_reason` (array(null))
+- `js_no_crawl_reason_prev` (array(null))
+- `jsonld_attributes` (array(string))
+- `jsonld_attributes_prev` (array(string))
+- `jsonld_schema_types` (array(string))
+- `jsonld_schema_types_prev` (array(string))
+- `jsonld_validation_kinds` (array(string))
+- `jsonld_validation_kinds_prev` (array(string))
+- `jsonld_values` (array(string))
+- `jsonld_values_prev` (array(string))
+- `keywords` (array(string))
+- `keywords_prev` (array(string))
+- `length` (integer)
+- `links_count_css` (integer)
+- `links_count_css_prev` (integer)
+- `links_count_external` (integer)
+- `links_count_external3xx` (integer)
+- `links_count_external3xx_diff` (integer)
+- `links_count_external3xx_prev` (integer)
+- `links_count_external4xx` (integer)
+- `links_count_external4xx_diff` (integer)
+- `links_count_external4xx_prev` (integer)
+- `links_count_external5xx` (integer)
+- `links_count_external5xx_diff` (integer)
+- `links_count_external5xx_prev` (integer)
+- `links_count_external_diff` (integer)
+- `links_count_external_follow` (integer)
+- `links_count_external_follow_diff` (integer)
+- `links_count_external_follow_prev` (integer)
+- `links_count_external_nofollow` (integer)
+- `links_count_external_nofollow_diff` (integer)
+- `links_count_external_nofollow_prev` (integer)
+- `links_count_external_non_canonical` (integer)
+- `links_count_external_non_canonical_diff` (integer)
+- `links_count_external_non_canonical_prev` (integer)
+- `links_count_external_prev` (integer)
+- `links_count_external_xxx` (integer)
+- `links_count_external_xxx_diff` (integer)
+- `links_count_external_xxx_prev` (integer)
+- `links_count_images` (integer)
+- `links_count_images_diff` (integer)
+- `links_count_images_prev` (integer)
+- `links_count_images_with_alt` (integer)
+- `links_count_images_with_alt_diff` (integer)
+- `links_count_images_with_alt_prev` (integer)
+- `links_count_images_without_alt` (integer)
+- `links_count_images_without_alt_diff` (integer)
+- `links_count_images_without_alt_prev` (integer)
+- `links_count_internal` (integer)
+- `links_count_internal3xx` (integer)
+- `links_count_internal3xx_diff` (integer)
+- `links_count_internal3xx_prev` (integer)
+- `links_count_internal4xx` (integer)
+- `links_count_internal4xx_diff` (integer)
+- `links_count_internal4xx_prev` (integer)
+- `links_count_internal5xx` (integer)
+- `links_count_internal5xx_diff` (integer)
+- `links_count_internal5xx_prev` (integer)
+- `links_count_internal_diff` (integer)
+- `links_count_internal_follow` (integer)
+- `links_count_internal_follow_diff` (integer)
+- `links_count_internal_follow_prev` (integer)
+- `links_count_internal_nofollow` (integer)
+- `links_count_internal_nofollow_diff` (integer)
+- `links_count_internal_nofollow_prev` (integer)
+- `links_count_internal_non_canonical` (integer)
+- `links_count_internal_non_canonical_diff` (integer)
+- `links_count_internal_non_canonical_prev` (integer)
+- `links_count_internal_prev` (integer)
+- `links_count_internal_xxx` (integer)
+- `links_count_internal_xxx_diff` (integer)
+- `links_count_internal_xxx_prev` (integer)
+- `links_count_js` (integer)
+- `links_count_js_diff` (integer)
+- `links_count_js_prev` (integer)
+- `links_css` (array(url))
+- `links_css_code` (array(null))
+- `links_css_domain` (array(domain))
+- `links_css_domain_prev` (array(domain))
+- `links_css_prev` (array(url))
+- `links_css_scheme` (array(string))
+- `links_css_scheme_prev` (array(string))
+- `links_external3xx` (array(url))
+- `links_external3xx_prev` (array(url))
+- `links_external4xx` (array(url))
+- `links_external4xx_prev` (array(url))
+- `links_external5xx` (array(url))
+- `links_external5xx_prev` (array(url))
+- `links_external_follow` (array(url))
+- `links_external_follow_prev` (array(url))
+- `links_external_nofollow` (array(url))
+- `links_external_nofollow_prev` (array(url))
+- `links_external_non_canonical` (array(url))
+- `links_external_non_canonical_prev` (array(url))
+- `links_external_xxx` (array(url))
+- `links_external_xxx_prev` (array(url))
+- `links_hreflang_code` (array(null))
+- `links_images` (array(url))
+- `links_images_alt` (array(null))
+- `links_images_alt_prev` (array(null))
+- `links_images_code` (array(null))
+- `links_images_domain` (array(domain))
+- `links_images_domain_prev` (array(domain))
+- `links_images_prev` (array(url))
+- `links_images_scheme` (array(string))
+- `links_images_scheme_prev` (array(string))
+- `links_images_with_alt` (array(url))
+- `links_images_with_alt_prev` (array(url))
+- `links_images_without_alt` (array(url))
+- `links_images_without_alt_prev` (array(url))
+- `links_internal3xx` (array(url))
+- `links_internal3xx_prev` (array(url))
+- `links_internal4xx` (array(url))
+- `links_internal4xx_prev` (array(url))
+- `links_internal5xx` (array(url))
+- `links_internal5xx_prev` (array(url))
+- `links_internal_follow` (array(url))
+- `links_internal_follow_prev` (array(url))
+- `links_internal_nofollow` (array(url))
+- `links_internal_nofollow_prev` (array(url))
+- `links_internal_non_canonical` (array(url))
+- `links_internal_non_canonical_prev` (array(url))
+- `links_internal_xxx` (array(url))
+- `links_internal_xxx_prev` (array(url))
+- `links_js` (array(url))
+- `links_js_code` (array(null))
+- `links_js_domain` (array(domain))
+- `links_js_domain_prev` (array(domain))
+- `links_js_prev` (array(url))
+- `links_js_scheme` (array(string))
+- `links_js_scheme_prev` (array(string))
+- `loading_time` (integer)
+- `loading_time_diff` (integer)
+- `loading_time_prev` (integer)
+- `meta_description` (array(string))
+- `meta_description_length` (array(integer))
+- `meta_description_length_prev` (array(integer))
+- `meta_description_prev` (array(string))
+- `meta_refresh` (array(string))
+- `meta_refresh_prev` (array(string))
+- `meta_robots` (array(string))
+- `meta_robots_prev` (array(string))
+- `meta_twitter_tags_app_google_play` (string)
+- `meta_twitter_tags_app_google_play_prev` (string)
+- `meta_twitter_tags_app_ipad` (string)
+- `meta_twitter_tags_app_ipad_prev` (string)
+- `meta_twitter_tags_app_iphone` (string)
+- `meta_twitter_tags_app_iphone_prev` (string)
+- `meta_twitter_tags_attributes` (array(string))
+- `meta_twitter_tags_attributes_prev` (array(string))
+- `meta_twitter_tags_card` (string)
+- `meta_twitter_tags_card_prev` (string)
+- `meta_twitter_tags_description` (string)
+- `meta_twitter_tags_description_prev` (string)
+- `meta_twitter_tags_image` (string)
+- `meta_twitter_tags_image_prev` (string)
+- `meta_twitter_tags_image_url_invalid` (boolean)
+- `meta_twitter_tags_image_url_invalid_prev` (boolean)
+- `meta_twitter_tags_player` (string)
+- `meta_twitter_tags_player_height` (integer)
+- `meta_twitter_tags_player_height_diff` (integer)
+- `meta_twitter_tags_player_height_prev` (integer)
+- `meta_twitter_tags_player_prev` (string)
+- `meta_twitter_tags_player_width` (integer)
+- `meta_twitter_tags_player_width_diff` (integer)
+- `meta_twitter_tags_player_width_prev` (integer)
+- `meta_twitter_tags_site` (string)
+- `meta_twitter_tags_site_prev` (string)
+- `meta_twitter_tags_title` (string)
+- `meta_twitter_tags_title_prev` (string)
+- `meta_twitter_tags_valid` (boolean)
+- `meta_twitter_tags_valid_prev` (boolean)
+- `meta_twitter_tags_values` (array(string))
+- `meta_twitter_tags_values_prev` (array(string))
+- `navigation_next` (url)
+- `navigation_next_code` (integer)
+- `navigation_next_no_crawl_reason` (string)
+- `navigation_next_no_crawl_reason_prev` (string)
+- `navigation_next_prev` (url)
+- `navigation_prev_code` (integer)
+- `navigation_prev_no_crawl_reason` (string)
+- `navigation_prev_no_crawl_reason_prev` (string)
+- `no_crawl_reason` (string)
+- `no_crawl_reason_prev` (string)
+- `nofollow` (integer)
+- `nofollow_diff` (integer)
+- `nofollow_prev` (integer)
+- `nr_h1` (integer)
+- `nr_h1_prev` (integer)
+- `nr_meta_description` (integer)
+- `nr_meta_description_diff` (integer)
+- `nr_meta_description_prev` (integer)
+- `nr_redirect_chain_urls` (integer)
+- `nr_redirect_chain_urls_diff` (integer)
+- `nr_redirect_chain_urls_prev` (integer)
+- `nr_titles` (integer)
+- `nr_titles_diff` (integer)
+- `nr_titles_prev` (integer)
+- `og_tags_attributes` (array(string))
+- `og_tags_attributes_prev` (array(string))
+- `og_tags_image` (string)
+- `og_tags_image_prev` (string)
+- `og_tags_image_url_invalid` (boolean)
+- `og_tags_image_url_invalid_prev` (boolean)
+- `og_tags_inconsistent_canonical` (boolean)
+- `og_tags_inconsistent_canonical_prev` (boolean)
+- `og_tags_title` (string)
+- `og_tags_title_prev` (string)
+- `og_tags_type` (string)
+- `og_tags_type_prev` (string)
+- `og_tags_url` (string)
+- `og_tags_url_prev` (string)
+- `og_tags_url_valid` (boolean)
+- `og_tags_url_valid_prev` (boolean)
+- `og_tags_valid` (boolean)
+- `og_tags_valid_prev` (boolean)
+- `og_tags_value` (array(string))
+- `og_tags_value_prev` (array(string))
+- `origin` (url)
+- `origin_prev` (url)
+- `page_is_nofollow` (boolean)
+- `page_is_nofollow_prev` (boolean)
+- `page_is_noindex` (boolean)
+- `page_is_noindex_prev` (boolean)
+- `page_rating` (integer)
+- `page_raw_ur` (integer)
+- `page_raw_ur_diff` (integer)
+- `page_raw_ur_prev` (integer)
+- `page_type` (array(string))
+- `page_type_prev` (array(string))
+- `pagination_group` (integer)
+- `pagination_group_prev` (integer)
+- `positions` (integer)
+- `positions_diff` (integer)
+- `positions_prev` (integer)
+- `positions_top10` (integer)
+- `positions_top10_diff` (integer)
+- `positions_top10_prev` (integer)
+- `positions_top3` (integer)
+- `positions_top3_diff` (integer)
+- `positions_top3_prev` (integer)
+- `psi_crux_cls_category` (string)
+- `psi_crux_cls_category_prev` (string)
+- `psi_crux_cls_distributions_proportion` (array(null))
+- `psi_crux_cls_distributions_proportion_prev` (array(null))
+- `psi_crux_cls_percentile` (float)
+- `psi_crux_cls_percentile_diff` (integer)
+- `psi_crux_cls_percentile_prev` (float)
+- `psi_crux_fid_category` (string)
+- `psi_crux_fid_category_prev` (string)
+- `psi_crux_fid_distributions_proportion` (array(null))
+- `psi_crux_fid_distributions_proportion_prev` (array(null))
+- `psi_crux_fid_percentile` (float)
+- `psi_crux_fid_percentile_diff` (integer)
+- `psi_crux_fid_percentile_prev` (float)
+- `psi_crux_inp_category` (string)
+- `psi_crux_inp_category_prev` (string)
+- `psi_crux_inp_distributions_proportion` (array(null))
+- `psi_crux_inp_distributions_proportion_prev` (array(null))
+- `psi_crux_inp_percentile` (float)
+- `psi_crux_inp_percentile_diff` (integer)
+- `psi_crux_inp_percentile_prev` (float)
+- `psi_crux_lcp_category` (string)
+- `psi_crux_lcp_category_prev` (string)
+- `psi_crux_lcp_distributions_proportion` (array(null))
+- `psi_crux_lcp_distributions_proportion_prev` (array(null))
+- `psi_crux_lcp_percentile` (float)
+- `psi_crux_lcp_percentile_diff` (integer)
+- `psi_crux_lcp_percentile_prev` (float)
+- `psi_lighthouse_cls_error_message` (string)
+- `psi_lighthouse_cls_error_message_prev` (string)
+- `psi_lighthouse_cls_value` (float)
+- `psi_lighthouse_cls_value_diff` (integer)
+- `psi_lighthouse_cls_value_prev` (float)
+- `psi_lighthouse_lcp_error_message` (string)
+- `psi_lighthouse_lcp_error_message_prev` (string)
+- `psi_lighthouse_lcp_value` (float)
+- `psi_lighthouse_lcp_value_diff` (integer)
+- `psi_lighthouse_lcp_value_prev` (float)
+- `psi_lighthouse_score` (integer)
+- `psi_lighthouse_score_diff` (integer)
+- `psi_lighthouse_score_prev` (integer)
+- `psi_lighthouse_tbt_error_message` (string)
+- `psi_lighthouse_tbt_error_message_prev` (string)
+- `psi_lighthouse_tbt_value` (float)
+- `psi_lighthouse_tbt_value_diff` (integer)
+- `psi_lighthouse_tbt_value_prev` (float)
+- `psi_mobile_issues` (array(string))
+- `psi_mobile_issues_explanations` (array(string))
+- `psi_mobile_issues_explanations_prev` (array(string))
+- `psi_mobile_issues_prev` (array(string))
+- `psi_request_error_message` (string)
+- `psi_request_error_message_prev` (string)
+- `psi_request_status` (string)
+- `psi_request_status_prev` (string)
+- `redirect` (url)
+- `redirect_chain_urls` (array(url))
+- `redirect_chain_urls_code` (array(null))
+- `redirect_chain_urls_no_crawl_reason` (array(null))
+- `redirect_chain_urls_no_crawl_reason_prev` (array(null))
+- `redirect_chain_urls_prev` (array(url))
+- `redirect_code` (integer)
+- `redirect_counts` (integer)
+- `redirect_counts_diff` (integer)
+- `redirect_counts_prev` (integer)
+- `redirect_is_canonical` (boolean)
+- `redirect_is_canonical_prev` (boolean)
+- `redirect_no_crawl_reason` (string)
+- `redirect_no_crawl_reason_prev` (string)
+- `redirect_prev` (url)
+- `redirect_scheme` (string)
+- `redirect_scheme_prev` (string)
+- `refclass_c` (integer)
+- `refclass_c_diff` (integer)
+- `refclass_c_prev` (integer)
+- `refhosts` (integer)
+- `refhosts_diff` (integer)
+- `refhosts_prev` (integer)
+- `refips` (integer)
+- `refips_prev` (integer)
+- `refpages` (integer)
+- `refpages_diff` (integer)
+- `refpages_prev` (integer)
+- `robots_allow_rules` (array(null))
+- `robots_allow_rules_prev` (array(null))
+- `robots_crawl_delay` (integer)
+- `robots_crawl_delay_prev` (integer)
+- `robots_disallow_rules` (array(null))
+- `robots_disallow_rules_prev` (array(null))
+- `robots_error` (string)
+- `robots_error_prev` (string)
+- `robots_error_text` (string)
+- `robots_error_text_prev` (string)
+- `robots_redirect_loop` (array(null))
+- `robots_redirect_loop_prev` (array(null))
+- `robots_sitemaps` (array(null))
+- `robots_sitemaps_prev` (array(null))
+- `rss` (integer)
+- `rss_diff` (integer)
+- `rss_prev` (integer)
+- `scheme` (string)
+- `self_canonical` (boolean)
+- `self_canonical_prev` (boolean)
+- `self_hreflang` (array(null))
+- `self_hreflang_code_is_valid` (array(null))
+- `self_hreflang_code_is_valid_prev` (array(null))
+- `self_hreflang_country` (array(null))
+- `self_hreflang_country_prev` (array(null))
+- `self_hreflang_language` (array(null))
+- `self_hreflang_language_prev` (array(null))
+- `self_hreflang_prev` (array(null))
+- `serp_title` (string)
+- `serp_title_prev` (string)
+- `sitemap_error` (string)
+- `sitemap_error_prev` (string)
+- `sitemap_error_text` (string)
+- `sitemap_error_text_prev` (string)
+- `sitemap_is_index` (boolean)
+- `sitemap_is_index_prev` (boolean)
+- `sitemap_nr_urls` (integer)
+- `sitemap_nr_urls_prev` (integer)
+- `sitemap_save_max_size` (integer)
+- `sitemap_save_max_size_diff` (integer)
+- `sitemap_save_max_size_prev` (integer)
+- `sitemap_unzipped_size` (integer)
+- `sitemap_unzipped_size_diff` (integer)
+- `sitemap_unzipped_size_prev` (integer)
+- `size` (integer)
+- `size_diff` (integer)
+- `size_prev` (integer)
+- `source` (array(string))
+- `source_prev` (array(string))
+- `stamp` (date)
+- `stamp_prev` (date)
+- `time_to_first_byte` (integer)
+- `time_to_first_byte_prev` (integer)
+- `title` (array(string))
+- `title_prev` (array(string))
+- `titles_length` (array(integer))
+- `titles_length_prev` (array(integer))
+- `top_keyword` (string)
+- `top_keyword_position` (integer)
+- `top_keyword_position_diff` (integer)
+- `top_keyword_position_prev` (integer)
+- `top_keyword_prev` (string)
+- `traffic` (float)
+- `traffic_diff` (float)
+- `traffic_prev` (float)
+- `url` (url)
+- `url_prev` (url)
+
+</details>
 
 **Returns:** `list[SiteAuditPageExplorerData]`
 
@@ -1381,13 +2262,103 @@ Backlinks.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `link_group_count`, which is not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **ahrefs_rank_source**: The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.   type: integer  **ahrefs_rank_target**: The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.   type: integer  **alt**: The alt attribute of the link.   type: string nullable  **anchor**: The clickable words in a link that point to a URL.   type: string  **broken_redirect_new_target**: The new destination of a modified redirect.   type: string nullable  **broken_redirect_reason**: The reason the redirect was considered broken during the last crawl.   type: string nullable   enum: `"droppedmanual"` `"droppedtooold"` `"dropped"` `"codechanged"` `"nxdomain"` `"robotsdisallowed"` `"curlerror"` `"invalidtarget"` `"nomorecanonical"` `"isnowparked"` `"targetchanged"`  **broken_redirect_source**: The redirecting URL that was modified, causing the redirect to become broken.   type: string nullable  **class_c** (5 units): The number of unique class_c subnets linking to the referring page.   type: integer  **discovered_status**: The reason the link was discovered during the last crawl: the page was crawled for the first time, the link was added to the page, or the link re-appeared after being removed.   type: string nullable   enum: `"pagefound"` `"linkfound"` `"linkrestored"`  **domain_rating_source**: The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **domain_rating_target**: The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **drop_reason**: The reason we removed the link from our index.   type: string nullable   enum: `"manual"` `"noratingunused"` `"notop"` `"tooold"` `"oldunavailable"` `"rescursive"` `"duplicate"` `"nxdomain"` `"malformed"` `"blockedport"` `"disallowed"` `"unlinked"`  **encoding**: The character set encoding of the referring page HTML.   type: string  **first_seen**: The date the referring page URL was first discovered.   type: datetime  **first_seen_link**: The date we first found a backlink to your target on a given referring page.   type: datetime  **http_code**: The return code from HTTP protocol returned during the referring page crawl.   type: integer  **http_crawl**: The link was discovered without executing javascript and rendering the page.   type: boolean  **ip_source**: The referring domain IP address.   type: string nullable  **is_alternate**: The link with the rel=“alternate” attribute.   type: boolean  **is_canonical**: The link with the rel=“canonical” attribute.   type: boolean  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_form**: The link was found in a form HTML tag.   type: boolean  **is_frame**: The link was found in an iframe HTML tag.   type: boolean  **is_homepage_link**: The link was found on the homepage of a referring website.   type: boolean  **is_image**: The link is a regular link that has an image inside their href attribute.   type: boolean  **is_lost**: The link currently does not exist anymore.   type: boolean  **is_new**: The link was discovered on the last crawl.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_redirect**: The link pointing to your target via a redirect.   type: boolean  **is_redirect_lost**: The redirected link currently does not exist anymore.   type: boolean  **is_root_source**: The referring domain name is a root domain name.   type: boolean  **is_root_target**: The target domain name is a root domain name.   type: boolean  **is_rss**: The link was found in an RSS feed.   type: boolean  **is_spam**: Indicates whether the backlink comes from a known spammy domain.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_text**: The link is a standard href hyperlink.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **js_crawl**: The link was discovered after executing javascript and rendering the page.   type: boolean  **languages**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **last_seen**: The date we discovered that the link was lost.   type: datetime nullable  **last_visited**: The date we last verified a live link to your target page.   type: datetime  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_group_count**: The number of backlinks that were grouped together based on the aggregation parameter. This field cannot be used with aggregation 'all'.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains_source_domain**: The number of unique root domains linked from the referring domain.   type: integer  **linked_domains_source_page**: The number of unique root domains linked from the referring page.   type: integer  **linked_domains_target_domain**: The number of unique root domains linked from the target domain.   type: integer  **links_external**: The number of external links from the referring page.   type: integer  **links_internal**: The number of internal links from the referring page.   type: integer  **lost_reason**: The reason the link was lost during the last crawl.   type: string nullable   enum: `"removedfromhtml"` `"notcanonical"` `"noindex"` `"pageredirected"` `"pageerror"` `"lostredirect"` `"notfound"`  **name_source**: The complete referring domain name, including subdomains.   type: string  **name_target**: The complete target domain name, including subdomains.   type: string  **noindex**: The referring page has the noindex meta attribute.   type: boolean  **page_size**: The size in bytes of the referring page content.   type: integer  **port_source**: The network port of the referring page URL.   type: integer  **port_target**: The network port of the target page URL.   type: integer  **positions**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **positions_source_domain**: The number of keywords that the referring domain ranks for in the top 100 positions.   type: integer  **powered_by**: Web technologies used to build and serve the referring page content.   type: array(string)  **redirect_code**: The HTTP status code of a referring page pointing to your target via a redirect.   type: integer nullable  **redirect_kind**: The HTTP status codes returned by the target redirecting URL or redirect chain.   type: array(integer)  **refdomains_source** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **refdomains_source_domain** (5 units): The number of unique referring domains linking to the referring domain.   type: integer  **refdomains_target_domain** (5 units): The number of unique referring domains linking to the target domain.   type: integer  **root_name_source**: The root domain name of the referring domain, not including subdomains.   type: string  **root_name_target**: The root domain name of the target domain, not including subdomains.   type: string  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **source_page_author**: The author of the referring page.   type: string nullable  **source_page_publish_date**: the date we identified the page was published   type: date nullable  **title**: The html title of the referring page.   type: string  **tld_class_source**: The top level domain class of the referring domain.   type: string   enum: `"gov"` `"edu"` `"normal"`  **tld_class_target**: The top level domain class of the target domain.   type: string   enum: `"gov"` `"edu"` `"normal"`  **traffic** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **traffic_domain** (10 units): The referring domain's estimated monthly organic traffic from search.   type: integer  **url_from**: The URL of the page containing a link to your target.   type: string  **url_from_plain**: The referring page URL optimized for use as a filter.   type: string  **url_rating_source**: The strength of the referring page's backlink profile compared to the others in our database on a 100-point scale.   type: float  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string  **url_to_plain**: The target page URL optimized for use as a filter.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `aggregation` | `AggregationEnum` | No | The backlinks grouping mode. |
 | `history` | `str` | No | A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. |
+
+<details>
+<summary>Filterable fields (84 fields)</summary>
+
+- `ahrefs_rank_source` (integer)
+- `ahrefs_rank_target` (integer)
+- `alt` (string)
+- `anchor` (string)
+- `broken_redirect_new_target` (string)
+- `broken_redirect_reason` (string)
+- `broken_redirect_source` (string)
+- `class_c` (integer)
+- `discovered_status` (string)
+- `domain_rating_source` (float)
+- `domain_rating_target` (float)
+- `drop_reason` (string)
+- `encoding` (string)
+- `first_seen` (datetime)
+- `first_seen_link` (datetime)
+- `http_code` (integer)
+- `http_crawl` (boolean)
+- `ip_source` (string)
+- `is_alternate` (boolean)
+- `is_canonical` (boolean)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_form` (boolean)
+- `is_frame` (boolean)
+- `is_homepage_link` (boolean)
+- `is_image` (boolean)
+- `is_lost` (boolean)
+- `is_new` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_redirect` (boolean)
+- `is_redirect_lost` (boolean)
+- `is_root_source` (boolean)
+- `is_root_target` (boolean)
+- `is_rss` (boolean)
+- `is_spam` (boolean)
+- `is_sponsored` (boolean)
+- `is_text` (boolean)
+- `is_ugc` (boolean)
+- `js_crawl` (boolean)
+- `languages` (array(string))
+- `last_seen` (datetime)
+- `last_visited` (datetime)
+- `len_url_redirect` (integer)
+- `link_group_count` (integer)
+- `link_type` (string)
+- `linked_domains_source_domain` (integer)
+- `linked_domains_source_page` (integer)
+- `linked_domains_target_domain` (integer)
+- `links_external` (integer)
+- `links_internal` (integer)
+- `lost_reason` (string)
+- `name_source` (string)
+- `name_target` (string)
+- `noindex` (boolean)
+- `page_size` (integer)
+- `port_source` (integer)
+- `port_target` (integer)
+- `positions` (integer)
+- `positions_source_domain` (integer)
+- `powered_by` (array(string))
+- `redirect_code` (integer)
+- `redirect_kind` (array(integer))
+- `refdomains_source` (integer)
+- `refdomains_source_domain` (integer)
+- `refdomains_target_domain` (integer)
+- `root_name_source` (string)
+- `root_name_target` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `source_page_publish_date` (date)
+- `title` (string)
+- `tld_class_source` (string)
+- `tld_class_target` (string)
+- `traffic` (integer)
+- `traffic_domain` (integer)
+- `url_from` (string)
+- `url_from_plain` (string)
+- `url_rating_source` (float)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+- `url_to_plain` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerAllBacklinksData]`
 
@@ -1490,12 +2461,62 @@ Anchors.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **anchor**: The clickable words in a link that point to a URL.   type: string  **discovered_status**: The reason the link was discovered during the last crawl: the page was crawled for the first time, the link was added to the page, or the link re-appeared after being removed.   type: string nullable   enum: `"pagefound"` `"linkfound"` `"linkrestored"`  **dofollow_links**: The number of links with a given anchor to your target that don’t have the “nofollow” attribute.   type: integer  **domain_rating**: The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **drop_reason**: The reason we removed the link from our index.   type: string nullable   enum: `"manual"` `"noratingunused"` `"notop"` `"tooold"` `"oldunavailable"` `"rescursive"` `"duplicate"` `"nxdomain"` `"malformed"` `"blockedport"` `"disallowed"` `"unlinked"`  **first_seen**: The date we first found a link with a given anchor to your target.   type: datetime  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_homepage_link**: The link was found on the homepage of a referring website.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_root_domain**: The domain name is a root domain name.   type: boolean  **is_spam**: Indicates whether the backlink comes from a known spammy domain.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **languages**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **last_seen**: The date we discovered the last backlink with a given anchor was lost.   type: datetime nullable  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains**: The number of unique root domains linked from the referring page.   type: integer  **links_external**: The number of external links from the referring page.   type: integer  **links_to_target**: The number of inbound backlinks your target has with a given anchor.   type: integer  **lost_links**: The number of backlinks with a given anchor lost during the selected time period.   type: integer  **lost_reason**: The reason the link was lost during the last crawl.   type: string nullable   enum: `"removedfromhtml"` `"notcanonical"` `"noindex"` `"pageredirected"` `"pageerror"` `"lostredirect"` `"notfound"`  **new_links**: The number of new backlinks with a given anchor found during the selected time period.   type: integer  **noindex**: The referring page has the noindex meta attribute.   type: boolean  **positions**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **positions_source_domain**: The number of keywords that the referring domain ranks for in the top 100 positions.   type: integer  **powered_by**: Web technologies used to build and serve the referring page content.   type: array(string)  **refdomains** (5 units): The number of unique domains linking to your target with a given anchor.   type: integer  **refdomains_source** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **refpages**: The number of pages containing a link with a given anchor to your target.   type: integer  **root_domain_name**: The root domain name of the referring domain, not including subdomains.   type: string  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **source_page_author**: The author of the referring page.   type: string nullable  **title**: The html title of the referring page.   type: string  **top_domain_rating**: The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.   type: float  **traffic_domain** (10 units): The referring domain's estimated monthly organic traffic from search.   type: integer  **traffic_page** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **url_from**: The URL of the page containing a link to your target.   type: string  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `history` | `str` | No | A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. |
+
+<details>
+<summary>Filterable fields (44 fields)</summary>
+
+- `anchor` (string)
+- `discovered_status` (string)
+- `dofollow_links` (integer)
+- `domain_rating` (float)
+- `drop_reason` (string)
+- `first_seen` (datetime)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_homepage_link` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_root_domain` (boolean)
+- `is_spam` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages` (array(string))
+- `last_seen` (datetime)
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains` (integer)
+- `links_external` (integer)
+- `links_to_target` (integer)
+- `lost_links` (integer)
+- `lost_reason` (string)
+- `new_links` (integer)
+- `noindex` (boolean)
+- `positions` (integer)
+- `positions_source_domain` (integer)
+- `powered_by` (array(string))
+- `refdomains` (integer)
+- `refdomains_source` (integer)
+- `refpages` (integer)
+- `root_domain_name` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `title` (string)
+- `top_domain_rating` (float)
+- `traffic_domain` (integer)
+- `traffic_page` (integer)
+- `url_from` (string)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerAnchorsData]`
 
@@ -1546,12 +2567,72 @@ Best by External Links.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **anchor**: The clickable words in a link that point to a URL.   type: string  **dofollow_to_target**: The number of links to your target page that don’t have the “nofollow” attribute.   type: integer  **domain_rating_source**: The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **first_seen_link**: The date we first found a link to your target.   type: datetime  **http_code_source**: The return code from HTTP protocol returned during the referring page crawl.   type: integer  **http_code_target**: The return code from HTTP protocol returned during the target page crawl.   type: integer nullable  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_homepage_link**: The link was found on the homepage of a referring website.   type: boolean  **is_lost**: The link currently does not exist anymore.   type: boolean  **is_new**: The link was discovered on the last crawl.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_root_source**: The referring domain name is a root domain name.   type: boolean  **is_spam**: Indicates whether the backlink comes from a known spammy domain.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **languages_source**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **languages_target**: The languages listed in the target page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **last_seen**: The date your target page lost its last live link.   type: datetime nullable  **last_visited_source**: The date we last verified a live link to your target page.   type: datetime  **last_visited_target**: The date we last crawled your target page.   type: datetime nullable  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains_source**: The number of unique root domains linked from the referring page.   type: integer  **links_external_source**: The number of external links from the referring page.   type: integer  **links_to_target**: The number of inbound backlinks the target page has.   type: integer  **lost_links_to_target**: The number of backlinks lost during the selected time period.   type: integer  **new_links_to_target**: The number of new backlinks found during the selected time period.   type: integer  **nofollow_to_target**: The number of links to your target page that have the “nofollow” attribute.   type: integer  **positions_source**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **positions_source_domain**: The number of keywords that the referring domain ranks for in the top 100 positions.   type: integer  **powered_by_source**: Web technologies used to build and serve the referring page content.   type: array(string)  **powered_by_target**: Web technologies used to build and serve the target page content.   type: array(string)  **redirects_to_target**: The number of inbound redirects to your target page.   type: integer  **refdomains_source** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **refdomains_target** (5 units): The number of unique referring domains linking to the target page.   type: integer  **root_name_source**: The root domain name of the referring domain, not including subdomains.   type: string  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **source_page_author**: The author of the referring page.   type: string nullable  **target_redirect**: The target's redirect if any.   type: string nullable  **title_source**: The html title of the referring page.   type: string  **title_target**: The html title of the target page.   type: string nullable  **top_domain_rating_source**: The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale.   type: float  **traffic_domain_source** (10 units): The referring domain's estimated monthly organic traffic from search.   type: integer  **traffic_source** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **url_from_plain**: The referring page URL optimized for use as a filter.   type: string  **url_rating_source**: The strength of the referring page's backlink profile compared to the others in our database on a 100-point scale.   type: float  **url_rating_target**: The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.   type: float nullable  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string  **url_to_plain**: The target page URL optimized for use as a filter.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `history` | `str` | No | A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. |
+
+<details>
+<summary>Filterable fields (54 fields)</summary>
+
+- `anchor` (string)
+- `dofollow_to_target` (integer)
+- `domain_rating_source` (float)
+- `first_seen_link` (datetime)
+- `http_code_source` (integer)
+- `http_code_target` (integer)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_homepage_link` (boolean)
+- `is_lost` (boolean)
+- `is_new` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_root_source` (boolean)
+- `is_spam` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages_source` (array(string))
+- `languages_target` (array(string))
+- `last_seen` (datetime)
+- `last_visited_source` (datetime)
+- `last_visited_target` (datetime)
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains_source` (integer)
+- `links_external_source` (integer)
+- `links_to_target` (integer)
+- `lost_links_to_target` (integer)
+- `new_links_to_target` (integer)
+- `nofollow_to_target` (integer)
+- `positions_source` (integer)
+- `positions_source_domain` (integer)
+- `powered_by_source` (array(string))
+- `powered_by_target` (array(string))
+- `redirects_to_target` (integer)
+- `refdomains_source` (integer)
+- `refdomains_target` (integer)
+- `root_name_source` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `target_redirect` (string)
+- `title_source` (string)
+- `title_target` (string)
+- `top_domain_rating_source` (float)
+- `traffic_domain_source` (integer)
+- `traffic_source` (integer)
+- `url_from_plain` (string)
+- `url_rating_source` (float)
+- `url_rating_target` (float)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+- `url_to_plain` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerBestByExternalLinksData]`
 
@@ -1590,11 +2671,65 @@ Best by Internal Links.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **anchor**: The clickable words in a link that point to a URL.   type: string  **canonical_to_target**: The number of inbound canonical links to your target page.   type: integer  **dofollow_to_target**: The number of links to your target page that don’t have the “nofollow” attribute.   type: integer  **domain_rating_source**: The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **first_seen_link**: The date we first found a link to your target.   type: datetime  **http_code_source**: The return code from HTTP protocol returned during the referring page crawl.   type: integer  **http_code_target**: The return code from HTTP protocol returned during the target page crawl.   type: integer nullable  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_homepage_link**: The link was found on the homepage of a referring website.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_root_source**: The referring domain name is a root domain name.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **languages_source**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **languages_target**: The languages listed in the target page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **last_seen**: The date your target page lost its last live link.   type: datetime nullable  **last_visited_source**: The date we last verified a live link to your target page.   type: datetime  **last_visited_target**: The date we last crawled your target page.   type: datetime nullable  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains_source**: The number of unique root domains linked from the referring page.   type: integer  **links_external_source**: The number of external links from the referring page.   type: integer  **links_to_target**: The number of inbound backlinks the target page has.   type: integer  **nofollow_to_target**: The number of links to your target page that have the “nofollow” attribute.   type: integer  **positions_source**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **positions_source_domain**: The number of keywords that the referring domain ranks for in the top 100 positions.   type: integer  **powered_by_source**: Web technologies used to build and serve the referring page content.   type: array(string)  **powered_by_target**: Web technologies used to build and serve the target page content.   type: array(string)  **redirects_to_target**: The number of inbound redirects to your target page.   type: integer  **refdomains_source** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **root_name_source**: The root domain name of the referring domain, not including subdomains.   type: string  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **source_page_author**: The author of the referring page.   type: string nullable  **target_redirect**: The target's redirect if any.   type: string nullable  **title_source**: The html title of the referring page.   type: string  **title_target**: The html title of the target page.   type: string nullable  **traffic_domain_source** (10 units): The referring domain's estimated monthly organic traffic from search.   type: integer  **traffic_source** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **url_from_plain**: The referring page URL optimized for use as a filter.   type: string  **url_rating_source**: The strength of the referring page's backlink profile compared to the others in our database on a 100-point scale.   type: float  **url_rating_target**: The strength of the target page's backlink profile compared to the others in our database on a 100-point scale.   type: float nullable  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string  **url_to_plain**: The target page URL optimized for use as a filter.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
+
+<details>
+<summary>Filterable fields (48 fields)</summary>
+
+- `anchor` (string)
+- `canonical_to_target` (integer)
+- `dofollow_to_target` (integer)
+- `domain_rating_source` (float)
+- `first_seen_link` (datetime)
+- `http_code_source` (integer)
+- `http_code_target` (integer)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_homepage_link` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_root_source` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages_source` (array(string))
+- `languages_target` (array(string))
+- `last_seen` (datetime)
+- `last_visited_source` (datetime)
+- `last_visited_target` (datetime)
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains_source` (integer)
+- `links_external_source` (integer)
+- `links_to_target` (integer)
+- `nofollow_to_target` (integer)
+- `positions_source` (integer)
+- `positions_source_domain` (integer)
+- `powered_by_source` (array(string))
+- `powered_by_target` (array(string))
+- `redirects_to_target` (integer)
+- `refdomains_source` (integer)
+- `root_name_source` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `target_redirect` (string)
+- `title_source` (string)
+- `title_target` (string)
+- `traffic_domain_source` (integer)
+- `traffic_source` (integer)
+- `url_from_plain` (string)
+- `url_rating_source` (float)
+- `url_rating_target` (float)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+- `url_to_plain` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerBestByInternalLinksData]`
 
@@ -1629,12 +2764,93 @@ Broken Backlinks.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `link_group_count`, `last_visited_target`, `http_code_target`, which are not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **ahrefs_rank_source**: The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.   type: integer  **ahrefs_rank_target**: The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest.   type: integer  **alt**: The alt attribute of the link.   type: string nullable  **anchor**: The clickable words in a link that point to a URL.   type: string  **class_c** (5 units): The number of unique class_c subnets linking to the referring page.   type: integer  **domain_rating_source**: The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **domain_rating_target**: The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **encoding**: The character set encoding of the referring page HTML.   type: string  **first_seen**: The date the referring page URL was first discovered.   type: datetime  **first_seen_link**: The date we first found a backlink to your target on a given referring page.   type: datetime  **http_code**: The return code from HTTP protocol returned during the referring page crawl.   type: integer  **http_code_target**: The return code from HTTP protocol returned during the target page crawl.   type: integer nullable  **http_crawl**: The link was discovered without executing javascript and rendering the page.   type: boolean  **ip_source**: The referring domain IP address.   type: string nullable  **is_alternate**: The link with the rel=“alternate” attribute.   type: boolean  **is_canonical**: The link with the rel=“canonical” attribute.   type: boolean  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_form**: The link was found in a form HTML tag.   type: boolean  **is_frame**: The link was found in an iframe HTML tag.   type: boolean  **is_homepage_link**: The link was found on the homepage of a referring website.   type: boolean  **is_image**: The link is a regular link that has an image inside their href attribute.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_redirect**: The link pointing to your target via a redirect.   type: boolean  **is_root_source**: The referring domain name is a root domain name.   type: boolean  **is_root_target**: The target domain name is a root domain name.   type: boolean  **is_rss**: The link was found in an RSS feed.   type: boolean  **is_spam**: Indicates whether the backlink comes from a known spammy domain.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_text**: The link is a standard href hyperlink.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **js_crawl**: The link was discovered after executing javascript and rendering the page.   type: boolean  **languages**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **last_seen**: The date we discovered that the link was lost.   type: datetime nullable  **last_visited**: The date we last re-crawled the referring page to verify the backlink is alive.   type: datetime  **last_visited_target**: The date we last re-crawled the target page to verify that it is broken.   type: datetime nullable  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_group_count**: The number of backlinks that were grouped together based on the aggregation parameter. This field cannot be used with aggregation 'all'.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains_source_domain**: The number of unique root domains linked from the referring domain.   type: integer  **linked_domains_source_page**: The number of unique root domains linked from the referring page.   type: integer  **linked_domains_target_domain**: The number of unique root domains linked from the target domain.   type: integer  **links_external**: The number of external links from the referring page.   type: integer  **links_internal**: The number of internal links from the referring page.   type: integer  **name_source**: The complete referring domain name, including subdomains.   type: string  **name_target**: The complete target domain name, including subdomains.   type: string  **page_size**: The size in bytes of the referring page content.   type: integer  **port_source**: The network port of the referring page URL.   type: integer  **port_target**: The network port of the target page URL.   type: integer  **positions**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **positions_source_domain**: The number of keywords that the referring domain ranks for in the top 100 positions.   type: integer  **powered_by**: Web technologies used to build and serve the referring page content.   type: array(string)  **redirect_code**: The HTTP status code of a referring page pointing to your target via a redirect.   type: integer nullable  **redirect_kind**: The HTTP status codes returned by the target redirecting URL or redirect chain.   type: array(integer)  **refdomains_source** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **refdomains_source_domain** (5 units): The number of unique referring domains linking to the referring domain.   type: integer  **refdomains_target_domain** (5 units): The number of unique referring domains linking to the target domain.   type: integer  **root_name_source**: The root domain name of the referring domain, not including subdomains.   type: string  **root_name_target**: The root domain name of the target domain, not including subdomains.   type: string  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **source_page_author**: The author of the referring page.   type: string nullable  **title**: The html title of the referring page.   type: string  **tld_class_source**: The top level domain class of the referring domain.   type: string   enum: `"gov"` `"edu"` `"normal"`  **tld_class_target**: The top level domain class of the target domain.   type: string   enum: `"gov"` `"edu"` `"normal"`  **traffic** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **traffic_domain** (10 units): The referring domain's estimated monthly organic traffic from search.   type: integer  **url_from**: The URL of the page containing a link to your target.   type: string  **url_from_plain**: The referring page URL optimized for use as a filter.   type: string  **url_rating_source**: The strength of the referring page's backlink profile compared to the others in our database on a 100-point scale.   type: float  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string  **url_to_plain**: The target page URL optimized for use as a filter.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `aggregation` | `AggregationEnum` | No | The backlinks grouping mode. |
+
+<details>
+<summary>Filterable fields (75 fields)</summary>
+
+- `ahrefs_rank_source` (integer)
+- `ahrefs_rank_target` (integer)
+- `alt` (string)
+- `anchor` (string)
+- `class_c` (integer)
+- `domain_rating_source` (float)
+- `domain_rating_target` (float)
+- `encoding` (string)
+- `first_seen` (datetime)
+- `first_seen_link` (datetime)
+- `http_code` (integer)
+- `http_code_target` (integer)
+- `http_crawl` (boolean)
+- `ip_source` (string)
+- `is_alternate` (boolean)
+- `is_canonical` (boolean)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_form` (boolean)
+- `is_frame` (boolean)
+- `is_homepage_link` (boolean)
+- `is_image` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_redirect` (boolean)
+- `is_root_source` (boolean)
+- `is_root_target` (boolean)
+- `is_rss` (boolean)
+- `is_spam` (boolean)
+- `is_sponsored` (boolean)
+- `is_text` (boolean)
+- `is_ugc` (boolean)
+- `js_crawl` (boolean)
+- `languages` (array(string))
+- `last_seen` (datetime)
+- `last_visited` (datetime)
+- `last_visited_target` (datetime)
+- `len_url_redirect` (integer)
+- `link_group_count` (integer)
+- `link_type` (string)
+- `linked_domains_source_domain` (integer)
+- `linked_domains_source_page` (integer)
+- `linked_domains_target_domain` (integer)
+- `links_external` (integer)
+- `links_internal` (integer)
+- `name_source` (string)
+- `name_target` (string)
+- `page_size` (integer)
+- `port_source` (integer)
+- `port_target` (integer)
+- `positions` (integer)
+- `positions_source_domain` (integer)
+- `powered_by` (array(string))
+- `redirect_code` (integer)
+- `redirect_kind` (array(integer))
+- `refdomains_source` (integer)
+- `refdomains_source_domain` (integer)
+- `refdomains_target_domain` (integer)
+- `root_name_source` (string)
+- `root_name_target` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `title` (string)
+- `tld_class_source` (string)
+- `tld_class_target` (string)
+- `traffic` (integer)
+- `traffic_domain` (integer)
+- `url_from` (string)
+- `url_from_plain` (string)
+- `url_rating_source` (float)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+- `url_to_plain` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerBrokenBacklinksData]`
 
@@ -1796,11 +3012,49 @@ Outgoing external anchors.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **anchor**: The clickable words in a link that point to a URL.   type: string  **dofollow_links**: The number of outbound links with a given anchor from your target that don’t have the “nofollow” attribute.   type: integer  **domain**: A linked domain that has at least one link from your target with a given anchor.   type: string  **domain_rating**: The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **first_seen**: The date we first found a link with a given anchor on your target.   type: datetime  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **languages**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains**: The number of unique domains linked from your target with a given anchor.   type: integer  **linked_domains_source**: The number of unique root domains linked from the source page.   type: integer  **linked_pages**: The number of unique pages linked from your target with a given anchor.   type: integer  **links_external**: The number of external links from the referring page.   type: integer  **links_from_target**: The number of outbound links your target has with a given anchor.   type: integer  **port_source**: The network port of the referring page URL.   type: integer  **port_target**: The network port of the target page URL.   type: integer  **positions**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **powered_by**: Web technologies used to build and serve the referring page content.   type: array(string)  **refdomains_source** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **title**: The html title of the referring page.   type: string  **traffic_page** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **url_from**: The URL of the page containing a link to your target.   type: string  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
+
+<details>
+<summary>Filterable fields (32 fields)</summary>
+
+- `anchor` (string)
+- `dofollow_links` (integer)
+- `domain` (string)
+- `domain_rating` (float)
+- `first_seen` (datetime)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages` (array(string))
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains` (integer)
+- `linked_domains_source` (integer)
+- `linked_pages` (integer)
+- `links_external` (integer)
+- `links_from_target` (integer)
+- `port_source` (integer)
+- `port_target` (integer)
+- `positions` (integer)
+- `powered_by` (array(string))
+- `refdomains_source` (integer)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `title` (string)
+- `traffic_page` (integer)
+- `url_from` (string)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerLinkedAnchorsExternalData]`
 
@@ -1824,11 +3078,48 @@ Outgoing internal anchors.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **anchor**: The clickable words in a link that point to a URL.   type: string  **dofollow_links**: The number of outbound links with a given anchor from your target that don’t have the “nofollow” attribute.   type: integer  **domain**: A linked domain that has at least one link from your target with a given anchor.   type: string  **domain_rating**: The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **first_seen**: The date we first found a link with a given anchor on your target.   type: datetime  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **languages**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains_source**: The number of unique root domains linked from the source page.   type: integer  **linked_pages**: The number of unique pages linked from your target with a given anchor.   type: integer  **links_external**: The number of external links from the referring page.   type: integer  **links_from_target**: The number of outbound links your target has with a given anchor.   type: integer  **port_source**: The network port of the referring page URL.   type: integer  **port_target**: The network port of the target page URL.   type: integer  **positions**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **powered_by**: Web technologies used to build and serve the referring page content.   type: array(string)  **refdomains_source** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **title**: The html title of the referring page.   type: string  **traffic_page** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **url_from**: The URL of the page containing a link to your target.   type: string  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
+
+<details>
+<summary>Filterable fields (31 fields)</summary>
+
+- `anchor` (string)
+- `dofollow_links` (integer)
+- `domain` (string)
+- `domain_rating` (float)
+- `first_seen` (datetime)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages` (array(string))
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains_source` (integer)
+- `linked_pages` (integer)
+- `links_external` (integer)
+- `links_from_target` (integer)
+- `port_source` (integer)
+- `port_target` (integer)
+- `positions` (integer)
+- `powered_by` (array(string))
+- `refdomains_source` (integer)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `title` (string)
+- `traffic_page` (integer)
+- `url_from` (string)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerLinkedAnchorsInternalData]`
 
@@ -1851,11 +3142,53 @@ Linked Domains.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **anchor**: The clickable words in a link that point to a URL.   type: string  **dofollow_linked_domains**: The number of unique root domains with dofollow links linked from the linked domain.   type: integer  **dofollow_links**: The number of links from your target to the linked domain that don’t have the “nofollow” attribute.   type: integer  **dofollow_refdomains** (5 units): The number of unique domains with dofollow links to the linked domain.   type: integer  **domain**: A linked domain that has at least one link from your target.   type: string  **domain_rating**: The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **first_seen**: The date we first found a link to the linked domain from your target.   type: datetime  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_root_domain**: The domain name is a root domain name.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **languages**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domain_traffic** (10 units): The linked domain’s estimated monthly organic traffic from search   type: integer  **linked_domains**: The number of unique root domains linked from the referring page.   type: integer  **linked_pages**: The number of the domain's pages linked from your target.   type: integer  **links_external**: The number of external links from the referring page.   type: integer  **links_from_target**: The number of links to the linked domain from your target.   type: integer  **port_source**: The network port of the referring page URL.   type: integer  **port_target**: The network port of the target page URL.   type: integer  **positions**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **powered_by**: Web technologies used to build and serve the referring page content.   type: array(string)  **refdomains** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **root_domain_name**: The root domain name of the referring domain, not including subdomains.   type: string  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **title**: The html title of the referring page.   type: string  **traffic_page** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **url_from**: The URL of the page containing a link from your target.   type: string  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the outgoing link points to.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
+
+<details>
+<summary>Filterable fields (36 fields)</summary>
+
+- `anchor` (string)
+- `dofollow_linked_domains` (integer)
+- `dofollow_links` (integer)
+- `dofollow_refdomains` (integer)
+- `domain` (string)
+- `domain_rating` (float)
+- `first_seen` (datetime)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_root_domain` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages` (array(string))
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domain_traffic` (integer)
+- `linked_domains` (integer)
+- `linked_pages` (integer)
+- `links_external` (integer)
+- `links_from_target` (integer)
+- `port_source` (integer)
+- `port_target` (integer)
+- `positions` (integer)
+- `powered_by` (array(string))
+- `refdomains` (integer)
+- `root_domain_name` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `title` (string)
+- `traffic_page` (integer)
+- `url_from` (string)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerLinkeddomainsData]`
 
@@ -1968,7 +3301,7 @@ Organic competitors.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **competitor_domain**: A competitor's domain of your target in “domains" group mode.   type: domain nullable  **competitor_url**: A competitor's URL of your target in pages" group mode.   type: url nullable  **cpc_competitor**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents for a competitor.   type: integer nullable  **cpc_target**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents for a target.   type: integer nullable  **domain_rating**: The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **group_mode**: To see competing pages instead, use the “exact URL” target mode or “path” target mode if your target doesn't have multiple pages.   type: string   enum: `"domains"` `"pages"`  **keyword_difficulty_competitor** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale for a competitor.   type: integer nullable  **keyword_difficulty_target** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale for a target.   type: integer nullable  **keywords_common**: Organic keywords that both your target and a competitor are ranking for.   type: integer  **keywords_competitor**: Organic keywords that a competitor is ranking for, but your target isn't.   type: integer  **keywords_target**: Organic keywords that your target is ranking for, but a competitor isn't.   type: integer  **pages**: The total number of pages from a target ranking in search results.   type: integer nullable  **pages_diff**: The change in pages between your selected dates.   type: integer  **pages_merged**: The pages field optimized for sorting.   type: integer  **pages_prev**: The total number of pages from a target ranking in search results on the comparison date.   type: integer nullable  **share**: The percentage of common keywords out of the total number of keywords that your target and a competitor both rank for.   type: float  **traffic** (10 units): An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter.   type: integer nullable  **traffic_diff**: The change in traffic between your selected dates.   type: integer  **traffic_merged** (10 units): The traffic field optimized for sorting.   type: integer  **traffic_prev** (10 units): An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter on the comparison date.   type: integer nullable  **value** (10 units): The estimated value of a page's monthly organic search traffic, in USD cents.   type: integer nullable  **value_diff**: The change in value between your selected dates.   type: integer  **value_merged** (10 units): The value field optimized for sorting.   type: integer nullable  **value_prev** (10 units): The estimated value of a page's monthly organic search traffic, in USD cents on the comparison date.   type: integer nullable  **volume_competitor** (10 units): An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter for a competitor.   type: integer nullable  **volume_target** (10 units): An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter for a target.   type: integer nullable  **words_competitor**: The number of words in a keyword for a competitor.   type: integer  **words_target**: The number of words in a keyword for a target.   type: integer |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
@@ -1977,6 +3310,40 @@ Organic competitors.
 | `date_compared` | `DateStr` | No | A date to compare metrics with in YYYY-MM-DD format. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+
+<details>
+<summary>Filterable fields (28 fields)</summary>
+
+- `competitor_domain` (domain)
+- `competitor_url` (url)
+- `cpc_competitor` (integer)
+- `cpc_target` (integer)
+- `domain_rating` (float)
+- `group_mode` (string)
+- `keyword_difficulty_competitor` (integer)
+- `keyword_difficulty_target` (integer)
+- `keywords_common` (integer)
+- `keywords_competitor` (integer)
+- `keywords_target` (integer)
+- `pages` (integer)
+- `pages_diff` (integer)
+- `pages_merged` (integer)
+- `pages_prev` (integer)
+- `share` (float)
+- `traffic` (integer)
+- `traffic_diff` (integer)
+- `traffic_merged` (integer)
+- `traffic_prev` (integer)
+- `value` (integer)
+- `value_diff` (integer)
+- `value_merged` (integer)
+- `value_prev` (integer)
+- `volume_competitor` (integer)
+- `volume_target` (integer)
+- `words_competitor` (integer)
+- `words_target` (integer)
+
+</details>
 
 **Returns:** `list[SiteExplorerOrganicCompetitorsData]`
 
@@ -2014,7 +3381,7 @@ Organic keywords.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **best_position**: The top position your target ranks for in the organic search results for a keyword.   type: integer nullable  **best_position_diff**: The change in position between your selected dates.   type: integer nullable  **best_position_has_thumbnail**: The top position has a thumbnail.   type: boolean nullable  **best_position_has_thumbnail_prev**: The top position has a thumbnail on the comparison date.   type: boolean nullable  **best_position_has_video**: The top position has a video.   type: boolean nullable  **best_position_has_video_prev**: The top position has a video on the comparison date.   type: boolean nullable  **best_position_kind**: The kind of the top position: organic, paid, or a SERP feature.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **best_position_kind_merged**: The kind of the top position optimized for sorting.   type: string   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **best_position_kind_prev**: The kind of the top position on the comparison date.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **best_position_prev**: The top position on the comparison date.   type: integer nullable  **best_position_set**: The ranking group of the top position.   type: string   enum: `"top_3"` `"top_4_10"` `"top_11_50"` `"top_51_more"`  **best_position_set_prev**: The ranking group of the top position on the comparison date.   type: string nullable   enum: `"top_3"` `"top_4_10"` `"top_11_50"` `"top_51_more"`  **best_position_url**: The ranking URL in organic search results.   type: string nullable  **best_position_url_prev**: The ranking URL on the comparison date.   type: string nullable  **best_position_url_raw**: The ranking page URL in encoded format.   type: string nullable  **best_position_url_raw_prev**: The ranking page URL on the comparison date in encoded format.   type: string nullable  **cpc**: Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents.   type: integer nullable  **cpc_merged**: The CPC field optimized for sorting.   type: integer nullable  **cpc_prev**: The CPC metric on the comparison date.   type: integer nullable  **entities**: Organizations, products, persons, works, events, and locations found in a keyword.   type: array(object)  **event_entities**: Events found in a keyword.   type: array(string)  **is_best_position_set_top_11_50**: The ranking group of the top position is 11-50.   type: boolean  **is_best_position_set_top_11_50_prev**: The ranking group of the top position was 11-50 on the comparison date.   type: boolean nullable  **is_best_position_set_top_3**: The ranking group of the top position is Top 3.   type: boolean  **is_best_position_set_top_3_prev**: The ranking group of the top position was Top 3 on the comparison date.   type: boolean nullable  **is_best_position_set_top_4_10**: The ranking group of the top position is 4-10.   type: boolean  **is_best_position_set_top_4_10_prev**: The ranking group of the top position was 4-10 on the comparison date.   type: boolean nullable  **is_branded**: User intent: branded. The user is searching for a specific brand or company name.   type: boolean  **is_commercial**: User intent: commercial. The user is comparing products or services before making a purchase decision.   type: boolean  **is_informational**: User intent: informational. The user is looking for information or an answer to a specific question.   type: boolean  **is_local**: User intent: local. The user is looking for information relevant to a specific location or nearby services.   type: boolean  **is_main_position**: Excludes positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter).   type: boolean  **is_main_position_prev**: Excludes positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter) on the comparison date.   type: boolean  **is_navigational**: User intent: navigational. The user is searching for a specific website or web page.   type: boolean  **is_transactional**: User intent: transactional. The user is ready to complete an action, often a purchase.   type: boolean  **keyword**: The keyword your target ranks for.   type: string  **keyword_country**: The country of a keyword your target ranks for.   type: string   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **keyword_difficulty** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **keyword_difficulty_merged** (10 units): The keyword difficulty field optimized for sorting.   type: integer nullable  **keyword_difficulty_prev** (10 units): The keyword difficulty on the comparison date.   type: integer nullable  **keyword_merged**: The keyword field optimized for sorting.   type: string  **keyword_prev**: The keyword your target ranks for on the comparison date.   type: string  **language**: The SERP language.   type: string  **language_prev**: The SERP language on the comparison date.   type: string nullable  **last_update**: The date when we last checked search engine results for a keyword.   type: datetime  **last_update_prev**: The date when we checked search engine results up to the comparison date.   type: datetime nullable  **location_entities**: Locations found in a keyword.   type: array(string)  **organisation_entities**: Organizations found in a keyword.   type: array(string)  **person_entities**: Persons found in a keyword.   type: array(string)  **position_kind**: The kind of a position: organic, paid or a SERP feature. This applies to all positions for a given keyword and URL before picking the top position.   type: string   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **position_kind_prev**: The kind of a position on the comparison date.   type: string   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **positions_kinds**: The kinds of the top positions.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **positions_kinds_prev**: The kinds of the top positions on the comparison date.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **product_entities**: Products found in a keyword.   type: array(string)  **serp_features**: The SERP features that appear in search results for a keyword.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_features_count**: The number of SERP features that appear in search results for a keyword.   type: integer  **serp_features_count_prev**: The number of SERP features on the comparison date.   type: integer nullable  **serp_features_merged**: The SERP features field optimized for sorting.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_features_prev**: The SERP features that appear in search results for a keyword on the comparison date.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_target_main_positions_count**: The number of target URLs ranking for a keyword excluding positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter).   type: integer  **serp_target_main_positions_count_prev**: The number of target URLs ranking for a keyword excluding positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter) on the comparison date.   type: integer nullable  **serp_target_positions_count**: The number of target URLs ranking for a keyword.   type: integer  **serp_target_positions_count_prev**: The number of target URLs ranking for a keyword on the comparison date.   type: integer nullable  **status**: The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search results ("right"), or no change ("both").   type: string   enum: `"left"` `"right"` `"both"`  **sum_paid_traffic** (10 units): An estimation of the number of monthly visits that your target gets from paid search for a keyword.   type: integer nullable  **sum_paid_traffic_merged** (10 units): The paid traffic field optimized for sorting.   type: integer  **sum_paid_traffic_prev** (10 units): The paid traffic on the comparison date.   type: integer nullable  **sum_traffic** (10 units): An estimation of the number of monthly visitors that your target gets from organic search for a keyword.   type: integer nullable  **sum_traffic_merged** (10 units): The traffic field optimized for sorting.   type: integer  **sum_traffic_prev** (10 units): The traffic on the comparison date.   type: integer nullable  **title**: The title displayed for the page in a keyword's SERP.   type: string  **title_prev**: The title displayed for the page in a keyword's SERP on the comparison date.   type: string  **volume** (10 units): An estimation of the number of searches for a keyword over the latest month.   type: integer nullable  **volume_desktop_pct**: The percentage of the total search volume that comes from desktop devices.   type: float nullable  **volume_merged** (10 units): The search volume field optimized for sorting.   type: integer nullable  **volume_mobile_pct**: The percentage of the total search volume that comes from mobile devices.   type: float nullable  **volume_prev** (10 units): The search volume on the comparison date.   type: integer nullable  **words**: The number of words in a keyword.   type: integer  **words_merged**: The number of words in a keyword optimized for sorting.   type: integer  **words_prev**: The number of words in a keyword on the comparison date.   type: integer  **work_entities**: Works found in a keyword.   type: array(string) |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
@@ -2023,6 +3390,93 @@ Organic keywords.
 | `date_compared` | `DateStr` | No | A date to compare metrics with in YYYY-MM-DD format. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+
+<details>
+<summary>Filterable fields (81 fields)</summary>
+
+- `best_position` (integer)
+- `best_position_diff` (integer)
+- `best_position_has_thumbnail` (boolean)
+- `best_position_has_thumbnail_prev` (boolean)
+- `best_position_has_video` (boolean)
+- `best_position_has_video_prev` (boolean)
+- `best_position_kind` (string)
+- `best_position_kind_merged` (string)
+- `best_position_kind_prev` (string)
+- `best_position_prev` (integer)
+- `best_position_set` (string)
+- `best_position_set_prev` (string)
+- `best_position_url` (string)
+- `best_position_url_prev` (string)
+- `best_position_url_raw` (string)
+- `best_position_url_raw_prev` (string)
+- `cpc` (integer)
+- `cpc_merged` (integer)
+- `cpc_prev` (integer)
+- `entities` (array(object))
+- `event_entities` (array(string))
+- `is_best_position_set_top_11_50` (boolean)
+- `is_best_position_set_top_11_50_prev` (boolean)
+- `is_best_position_set_top_3` (boolean)
+- `is_best_position_set_top_3_prev` (boolean)
+- `is_best_position_set_top_4_10` (boolean)
+- `is_best_position_set_top_4_10_prev` (boolean)
+- `is_branded` (boolean)
+- `is_commercial` (boolean)
+- `is_informational` (boolean)
+- `is_local` (boolean)
+- `is_main_position` (boolean)
+- `is_main_position_prev` (boolean)
+- `is_navigational` (boolean)
+- `is_transactional` (boolean)
+- `keyword` (string)
+- `keyword_country` (string)
+- `keyword_difficulty` (integer)
+- `keyword_difficulty_merged` (integer)
+- `keyword_difficulty_prev` (integer)
+- `keyword_merged` (string)
+- `keyword_prev` (string)
+- `language` (string)
+- `language_prev` (string)
+- `last_update` (datetime)
+- `last_update_prev` (datetime)
+- `location_entities` (array(string))
+- `organisation_entities` (array(string))
+- `person_entities` (array(string))
+- `position_kind` (string)
+- `position_kind_prev` (string)
+- `positions_kinds` (array(string))
+- `positions_kinds_prev` (array(string))
+- `product_entities` (array(string))
+- `serp_features` (array(string))
+- `serp_features_count` (integer)
+- `serp_features_count_prev` (integer)
+- `serp_features_merged` (array(string))
+- `serp_features_prev` (array(string))
+- `serp_target_main_positions_count` (integer)
+- `serp_target_main_positions_count_prev` (integer)
+- `serp_target_positions_count` (integer)
+- `serp_target_positions_count_prev` (integer)
+- `status` (string)
+- `sum_paid_traffic` (integer)
+- `sum_paid_traffic_merged` (integer)
+- `sum_paid_traffic_prev` (integer)
+- `sum_traffic` (integer)
+- `sum_traffic_merged` (integer)
+- `sum_traffic_prev` (integer)
+- `title` (string)
+- `title_prev` (string)
+- `volume` (integer)
+- `volume_desktop_pct` (float)
+- `volume_merged` (integer)
+- `volume_mobile_pct` (float)
+- `volume_prev` (integer)
+- `words` (integer)
+- `words_merged` (integer)
+- `words_prev` (integer)
+- `work_entities` (array(string))
+
+</details>
 
 **Returns:** `list[SiteExplorerOrganicKeywordsData]`
 
@@ -2186,7 +3640,7 @@ Paid pages.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **ads_count**: The number of unique ads with a page.   type: integer  **ads_count_diff**: The change in ads between your selected dates.   type: integer  **ads_count_prev**: The number of ads on the comparison date.   type: integer  **cpc**   type: integer nullable  **cpc_prev**: The CPC metric on the comparison date.   type: integer nullable  **description**: The description of an ad as seen in search results.   type: string  **description_prev**: The description of an ad on the comparison date.   type: string  **has_thumbnail**: The position has a thumbnail.   type: boolean  **has_thumbnail_prev**: The position has a thumbnail on the comparison date.   type: boolean  **has_video**: The position has a video.   type: boolean  **has_video_prev**: The position has a video on the comparison date.   type: boolean  **keyword**: The keyword your target ranks for.   type: string  **keyword_difficulty** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **keyword_difficulty_prev** (10 units): The keyword difficulty on the comparison date.   type: integer nullable  **keyword_prev**: The keyword your target ranks for on the comparison date.   type: string  **keywords**: The total number of keywords that your target ranks for in paid search results.   type: integer  **keywords_diff**: The change in keywords between your selected dates.   type: integer  **keywords_diff_percent**: The change in keywords between your selected dates, in percents.   type: integer  **keywords_merged**: The total number of keywords optimized for sorting.   type: integer  **keywords_prev**: The keyword your target ranks for on the comparison date.   type: integer  **position**: The position your target ranks for in the paid search results for a keyword.   type: integer  **position_kind**: The kind of a position: organic, paid or a SERP feature. This applies to all positions for a given keyword and URL before picking the top position.   type: string   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **position_kind_prev**: The kind of a position on the comparison date.   type: string   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **position_prev**: The position of your target for a given keyword on the comparison date.   type: integer  **raw_url**: The ranking page URL in encoded format.   type: string  **raw_url_prev**: The ranking page URL on the comparison date in encoded format.   type: string  **referring_domains** (5 units): The number of unique domains linking to a page.   type: integer nullable  **serp_features**   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_features_prev**: The SERP features on the comparison date.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **status**: The status of a page: the new page that just started to rank in paid results ("left"), the lost page that disappeared from paid results ("right"), or no change ("both").   type: string   enum: `"left"` `"right"` `"both"`  **sum_traffic** (10 units): An estimation of the monthly paid search traffic that a page gets from all the keywords that it ranks for.   type: integer nullable  **sum_traffic_merged** (10 units): The paid traffic field optimized for sorting.   type: integer  **sum_traffic_prev** (10 units): The paid traffic on the comparison date.   type: integer nullable  **title**: The title of an ad as seen in search results.   type: string  **title_prev**: The title of an ad on the comparison date.   type: string  **top_keyword**: The keyword that brings the most paid traffic to a page.   type: string nullable  **top_keyword_best_position**: The ranking position that a page holds for its top keyword.   type: integer nullable  **top_keyword_best_position_diff**: The change in the top position between your selected dates.   type: integer nullable  **top_keyword_best_position_kind**: The kind of the top position: organic, paid or a SERP feature.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **top_keyword_best_position_kind_prev**: The kind of the top position on the comparison date.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **top_keyword_best_position_prev**: The top position on the comparison date.   type: integer nullable  **top_keyword_best_position_title**: The title displayed for the page in its top keyword's SERP.   type: string nullable  **top_keyword_best_position_title_prev**: The title displayed for the page in its top keyword's SERP on the comparison date.   type: string nullable  **top_keyword_country**: The country in which a page ranks for its top keyword.   type: string nullable   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **top_keyword_country_prev**: The country in which a page ranks for its top keyword on the comparison date.   type: string nullable   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **top_keyword_prev**: The keyword that brings the most paid traffic to a page on the comparison date.   type: string nullable  **top_keyword_volume** (10 units): An estimation of the average monthly number of searches for the top keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter.   type: integer nullable  **top_keyword_volume_prev** (10 units): The search volume on the comparison date.   type: integer nullable  **traffic** (10 units): An estimation of the number of monthly visitors that your target gets from paid search for a keyword.   type: integer  **traffic_diff**: The change in traffic between your selected dates.   type: integer  **traffic_diff_percent**: The change in traffic between your selected dates, in percents.   type: integer  **traffic_prev** (10 units): The traffic from a keyword on the comparison date.   type: integer  **ur**: URL Rating (UR) shows the strength of your target page’s backlink profile on a 100-point logarithmic scale.   type: float nullable  **url**: The ranking page URL.   type: url nullable  **url_prev**: The ranking page URL on the comparison date.   type: url nullable  **url_visual**: The URL of an ad as seen in search results.   type: string  **url_visual_prev**: The URL of an ad on the comparison date.   type: string  **value** (10 units): The estimated cost of a page's monthly paid search traffic, in USD cents.   type: integer nullable  **value_diff**: The change in traffic value between your selected dates.   type: integer  **value_diff_percent**: The change in traffic value between your selected dates, in percents.   type: integer  **value_merged** (10 units): The traffic value field optimized for sorting.   type: integer nullable  **value_prev** (10 units): The traffic value on the comparison date.   type: integer nullable  **volume** (10 units): An estimation of the number of searches for a keyword over the latest month.   type: integer nullable  **volume_prev** (10 units): The search volume on the comparison date.   type: integer nullable  **words**: The number of words in a keyword.   type: integer  **words_prev**: The number of words in a keyword on the comparison date.   type: integer |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
@@ -2195,6 +3649,78 @@ Paid pages.
 | `date_compared` | `DateStr` | No | A date to compare metrics with in YYYY-MM-DD format. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+
+<details>
+<summary>Filterable fields (66 fields)</summary>
+
+- `ads_count` (integer)
+- `ads_count_diff` (integer)
+- `ads_count_prev` (integer)
+- `cpc` (integer)
+- `cpc_prev` (integer)
+- `description` (string)
+- `description_prev` (string)
+- `has_thumbnail` (boolean)
+- `has_thumbnail_prev` (boolean)
+- `has_video` (boolean)
+- `has_video_prev` (boolean)
+- `keyword` (string)
+- `keyword_difficulty` (integer)
+- `keyword_difficulty_prev` (integer)
+- `keyword_prev` (string)
+- `keywords` (integer)
+- `keywords_diff` (integer)
+- `keywords_diff_percent` (integer)
+- `keywords_merged` (integer)
+- `keywords_prev` (integer)
+- `position` (integer)
+- `position_kind` (string)
+- `position_kind_prev` (string)
+- `position_prev` (integer)
+- `raw_url` (string)
+- `raw_url_prev` (string)
+- `referring_domains` (integer)
+- `serp_features` (array(string))
+- `serp_features_prev` (array(string))
+- `status` (string)
+- `sum_traffic` (integer)
+- `sum_traffic_merged` (integer)
+- `sum_traffic_prev` (integer)
+- `title` (string)
+- `title_prev` (string)
+- `top_keyword` (string)
+- `top_keyword_best_position` (integer)
+- `top_keyword_best_position_diff` (integer)
+- `top_keyword_best_position_kind` (string)
+- `top_keyword_best_position_kind_prev` (string)
+- `top_keyword_best_position_prev` (integer)
+- `top_keyword_best_position_title` (string)
+- `top_keyword_best_position_title_prev` (string)
+- `top_keyword_country` (string)
+- `top_keyword_country_prev` (string)
+- `top_keyword_prev` (string)
+- `top_keyword_volume` (integer)
+- `top_keyword_volume_prev` (integer)
+- `traffic` (integer)
+- `traffic_diff` (integer)
+- `traffic_diff_percent` (integer)
+- `traffic_prev` (integer)
+- `ur` (float)
+- `url` (url)
+- `url_prev` (url)
+- `url_visual` (string)
+- `url_visual_prev` (string)
+- `value` (integer)
+- `value_diff` (integer)
+- `value_diff_percent` (integer)
+- `value_merged` (integer)
+- `value_prev` (integer)
+- `volume` (integer)
+- `volume_prev` (integer)
+- `words` (integer)
+- `words_prev` (integer)
+
+</details>
 
 **Returns:** `list[SiteExplorerPaidPagesData]`
 
@@ -2255,12 +3781,65 @@ Refdomains.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **anchor**: The clickable words in a link that point to a URL.   type: string  **discovered_status**: The reason the link was discovered during the last crawl: the page was crawled for the first time, the link was added to the page, or the link re-appeared after being removed.   type: string nullable   enum: `"pagefound"` `"linkfound"` `"linkrestored"`  **dofollow_linked_domains**: The number of unique root domains with dofollow links linked from the referring domain.   type: integer  **dofollow_links**: The number of links from the referring domain to your target that don't have the “nofollow” attribute.   type: integer  **dofollow_refdomains** (5 units): The number of unique domains with dofollow links to the referring domain.   type: integer  **domain**: A referring domain that has at least one link to your target.   type: string  **domain_rating**: The strength of a domain's backlink profile compared to the others in our database on a 100-point scale.   type: float  **drop_reason**: The reason we removed the link from our index.   type: string nullable   enum: `"manual"` `"noratingunused"` `"notop"` `"tooold"` `"oldunavailable"` `"rescursive"` `"duplicate"` `"nxdomain"` `"malformed"` `"blockedport"` `"disallowed"` `"unlinked"`  **first_seen**: The date we first found a backlink to your target from the referring domain.   type: datetime  **ip_source**: The referring domain IP address.   type: string nullable  **is_content**: The link was found in the biggest piece of content on the page.   type: boolean  **is_dofollow**: The link has no special nofollow attribute.   type: boolean  **is_homepage_link**: The link was found on the homepage of a referring website.   type: boolean  **is_nofollow**: The link or the referring page has the nofollow attribute set.   type: boolean  **is_non_html**: The link points to a URL with non-HTML content.   type: boolean  **is_root_domain**: The domain name is a root domain name.   type: boolean  **is_spam**: Indicates whether the backlink comes from a known spammy domain.   type: boolean  **is_sponsored**: The link has the Sponsored attribute set in the referring page HTML.   type: boolean  **is_ugc**: The link has the User Generated Content attribute set in the referring page HTML.   type: boolean  **languages**: The languages listed in the referring page metadata or detected by the crawler to appear in the HTML.   type: array(string)  **last_seen**: The date your target lost its last live backlink for the referring domain.   type: datetime nullable  **len_url_redirect**: The number of redirect chain URLs.   type: integer  **link_type**: The kind of the backlink.   type: string   enum: `"redirect"` `"frame"` `"text"` `"form"` `"canonical"` `"alternate"` `"rss"` `"image"`  **linked_domains**: The number of unique root domains linked from the referring page.   type: integer  **links_external**: The number of external links from the referring page.   type: integer  **links_to_target**: The number of backlinks from the referring domain to your target.   type: integer  **lost_links**: The number of backlinks lost from the referring domain for the selected time period.   type: integer  **lost_reason**: The reason the link was lost during the last crawl.   type: string nullable   enum: `"removedfromhtml"` `"notcanonical"` `"noindex"` `"pageredirected"` `"pageerror"` `"lostredirect"` `"notfound"`  **new_links**: The number of new backlinks found from the referring domain for the selected time period.   type: integer  **noindex**: The referring page has the noindex meta attribute.   type: boolean  **port_source**: The network port of the referring page URL.   type: integer  **port_target**: The network port of the target page URL.   type: integer  **positions**: The number of keywords that the referring page ranks for in the top 100 positions.   type: integer  **positions_source_domain**: The number of keywords that the referring domain ranks for in the top 100 positions.   type: integer  **powered_by**: Web technologies used to build and serve the referring page content.   type: array(string)  **refdomains** (5 units): The number of unique referring domains linking to the referring page.   type: integer  **root_domain_name**: The root domain name of the referring domain, not including subdomains.   type: string  **snippet_left**: The snippet of text appearing just before the link.   type: string  **snippet_right**: The snippet of text appearing just after the link.   type: string  **source_page_author**: The author of the referring page.   type: string nullable  **title**: The html title of the referring page.   type: string  **traffic_domain** (10 units): The referring domain's estimated monthly organic traffic from search.   type: integer  **traffic_page** (10 units): The referring page's estimated monthly organic traffic from search.   type: integer  **url_from**: The URL of the page containing a link to your target.   type: string  **url_redirect**: A redirect chain the target URL of the link points to.   type: array(url)  **url_redirect_with_target**: The target URL of the link with its redirect chain.   type: array(string)  **url_to**: The URL the backlink points to.   type: string |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `history` | `str` | No | A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. |
+
+<details>
+<summary>Filterable fields (47 fields)</summary>
+
+- `anchor` (string)
+- `discovered_status` (string)
+- `dofollow_linked_domains` (integer)
+- `dofollow_links` (integer)
+- `dofollow_refdomains` (integer)
+- `domain` (string)
+- `domain_rating` (float)
+- `drop_reason` (string)
+- `first_seen` (datetime)
+- `ip_source` (string)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_homepage_link` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_root_domain` (boolean)
+- `is_spam` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages` (array(string))
+- `last_seen` (datetime)
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains` (integer)
+- `links_external` (integer)
+- `links_to_target` (integer)
+- `lost_links` (integer)
+- `lost_reason` (string)
+- `new_links` (integer)
+- `noindex` (boolean)
+- `port_source` (integer)
+- `port_target` (integer)
+- `positions` (integer)
+- `positions_source_domain` (integer)
+- `powered_by` (array(string))
+- `refdomains` (integer)
+- `root_domain_name` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `title` (string)
+- `traffic_domain` (integer)
+- `traffic_page` (integer)
+- `url_from` (string)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+
+</details>
 
 **Returns:** `list[SiteExplorerRefdomainsData]`
 
@@ -2315,7 +3894,7 @@ Top pages.
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
 | `limit` | `int` | No | The number of results to return. |
 | `order_by` | `str` | No | A column to order results by. See response schema for valid column identifiers. |
-| `where` | `str` | No | The filter expression. The following column identifiers are recognized (this differs from the identifiers recognized by the `select` parameter).  **cpc**   type: integer nullable  **cpc_prev**: The CPC metric on the comparison date.   type: integer nullable  **has_thumbnail**: The position has a thumbnail.   type: boolean  **has_thumbnail_prev**: The position has a thumbnail on the comparison date.   type: boolean  **has_video**: The position has a video.   type: boolean  **has_video_prev**: The position has a video on the comparison date.   type: boolean  **keyword**: The keyword your target ranks for.   type: string  **keyword_difficulty** (10 units): An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale.   type: integer nullable  **keyword_difficulty_prev** (10 units): The keyword difficulty on the comparison date.   type: integer nullable  **keyword_prev**: The keyword your target ranks for on the comparison date.   type: string  **keywords**: The total number of keywords that your target ranks for in the top 100 organic search results.   type: integer  **keywords_diff**: The change in keywords between your selected dates.   type: integer  **keywords_diff_percent**: The change in keywords between your selected dates, in percents.   type: integer  **keywords_merged**: The total number of keywords optimized for sorting.   type: integer  **keywords_prev**: The keyword your target ranks for on the comparison date.   type: integer  **position**: The position your target ranks for in the organic search results for a keyword.   type: integer  **position_kind**: The kind of a position: organic, paid or a SERP feature. This applies to all positions for a given keyword and URL before picking the top position.   type: string   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **position_kind_prev**: The kind of a position on the comparison date.   type: string   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **position_prev**: The position of your target for a given keyword on the comparison date.   type: integer  **raw_url**: The ranking page URL in encoded format.   type: string  **raw_url_prev**: The ranking page URL on the comparison date in encoded format.   type: string  **referring_domains** (5 units): The number of unique domains linking to a page.   type: integer nullable  **serp_features**   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **serp_features_prev**: The SERP features on the comparison date.   type: array(string)   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"` `"image_th"` `"video_th"` `"ai_overview_found"`  **status**: The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search results ("right"), or no change ("both").   type: string   enum: `"left"` `"right"` `"both"`  **sum_traffic** (10 units): An estimation of the monthly organic search traffic that a page gets from all the keywords that it ranks for.   type: integer nullable  **sum_traffic_merged** (10 units): The traffic field optimized for sorting.   type: integer  **sum_traffic_prev** (10 units): The traffic on the comparison date.   type: integer nullable  **top_keyword**: The keyword that brings the most organic traffic to a page.   type: string nullable  **top_keyword_best_position**: The ranking position that a page holds for its top keyword.   type: integer nullable  **top_keyword_best_position_diff**: The change in the top position between your selected dates.   type: integer nullable  **top_keyword_best_position_kind**: The kind of the top position: organic, paid or a SERP feature.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **top_keyword_best_position_kind_prev**: The kind of the top position on the comparison date.   type: string nullable   enum: `"paid_top"` `"paid_bottom"` `"paid_right"` `"paid_sitelink"` `"organic"` `"sitelink"` `"snippet"` `"image"` `"article"` `"knowledge_card"` `"knowledge_panel"` `"local_pack"` `"local_teaser"` `"news"` `"question"` `"review"` `"shopping"` `"tweet"` `"spelling"` `"video"` `"discussion"` `"ai_overview"` `"ai_overview_sitelink"` `"organic_shopping"`  **top_keyword_best_position_prev**: The top position on the comparison date.   type: integer nullable  **top_keyword_best_position_title**: The title displayed for the page in its top keyword's SERP.   type: string nullable  **top_keyword_best_position_title_prev**: The title displayed for the page in its top keyword's SERP on the comparison date.   type: string nullable  **top_keyword_country**: The country in which a page ranks for its top keyword.   type: string nullable   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **top_keyword_country_prev**: The country in which a page ranks for its top keyword on the comparison date.   type: string nullable   enum: `"AD"` `"AE"` `"AF"` `"AG"` `"AI"` `"AL"` `"AM"` `"AO"` `"AQ"` `"AR"` `"AS"` `"AT"` `"AU"` `"AW"` `"AX"` `"AZ"` `"BA"` `"BB"` `"BD"` `"BE"` `"BF"` `"BG"` `"BH"` `"BI"` `"BJ"` `"BL"` `"BM"` `"BN"` `"BO"` `"BQ"` `"BR"` `"BS"` `"BT"` `"BV"` `"BW"` `"BY"` `"BZ"` `"CA"` `"CC"` `"CD"` `"CF"` `"CG"` `"CH"` `"CI"` `"CK"` `"CL"` `"CM"` `"CN"` `"CO"` `"CR"` `"CU"` `"CV"` `"CW"` `"CX"` `"CY"` `"CZ"` `"DE"` `"DJ"` `"DK"` `"DM"` `"DO"` `"DZ"` `"EC"` `"EE"` `"EG"` `"EH"` `"ER"` `"ES"` `"ET"` `"FI"` `"FJ"` `"FK"` `"FM"` `"FO"` `"FR"` `"GA"` `"GB"` `"GD"` `"GE"` `"GF"` `"GG"` `"GH"` `"GI"` `"GL"` `"GM"` `"GN"` `"GP"` `"GQ"` `"GR"` `"GS"` `"GT"` `"GU"` `"GW"` `"GY"` `"HK"` `"HM"` `"HN"` `"HR"` `"HT"` `"HU"` `"ID"` `"IE"` `"IL"` `"IM"` `"IN"` `"IO"` `"IQ"` `"IR"` `"IS"` `"IT"` `"JE"` `"JM"` `"JO"` `"JP"` `"KE"` `"KG"` `"KH"` `"KI"` `"KM"` `"KN"` `"KP"` `"KR"` `"KW"` `"KY"` `"KZ"` `"LA"` `"LB"` `"LC"` `"LI"` `"LK"` `"LR"` `"LS"` `"LT"` `"LU"` `"LV"` `"LY"` `"MA"` `"MC"` `"MD"` `"ME"` `"MF"` `"MG"` `"MH"` `"MK"` `"ML"` `"MM"` `"MN"` `"MO"` `"MP"` `"MQ"` `"MR"` `"MS"` `"MT"` `"MU"` `"MV"` `"MW"` `"MX"` `"MY"` `"MZ"` `"NA"` `"NC"` `"NE"` `"NF"` `"NG"` `"NI"` `"NL"` `"NO"` `"NP"` `"NR"` `"NU"` `"NZ"` `"OM"` `"OTHER"` `"PA"` `"PE"` `"PF"` `"PG"` `"PH"` `"PK"` `"PL"` `"PM"` `"PN"` `"PR"` `"PS"` `"PT"` `"PW"` `"PY"` `"QA"` `"RE"` `"RO"` `"RS"` `"RU"` `"RW"` `"SA"` `"SB"` `"SC"` `"SD"` `"SE"` `"SG"` `"SH"` `"SI"` `"SJ"` `"SK"` `"SL"` `"SM"` `"SN"` `"SO"` `"SR"` `"SS"` `"ST"` `"SV"` `"SX"` `"SY"` `"SZ"` `"TC"` `"TD"` `"TF"` `"TG"` `"TH"` `"TJ"` `"TK"` `"TL"` `"TM"` `"TN"` `"TO"` `"TR"` `"TT"` `"TV"` `"TW"` `"TZ"` `"UA"` `"UG"` `"UM"` `"US"` `"UY"` `"UZ"` `"VA"` `"VC"` `"VE"` `"VG"` `"VI"` `"VN"` `"VU"` `"WF"` `"WS"` `"YE"` `"YT"` `"ZA"` `"ZM"` `"ZW"`  **top_keyword_prev**: The keyword that brings the most organic traffic to a page on the comparison date.   type: string nullable  **top_keyword_volume** (10 units): An estimation of the average monthly number of searches for the top keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter.   type: integer nullable  **top_keyword_volume_prev** (10 units): The search volume on the comparison date.   type: integer nullable  **traffic** (10 units): An estimation of the number of monthly visitors that your target gets from organic search for a keyword.   type: integer  **traffic_diff**: The change in traffic between your selected dates.   type: integer  **traffic_diff_percent**: The change in traffic between your selected dates, in percents.   type: integer  **traffic_prev** (10 units): The traffic from a keyword on the comparison date.   type: integer  **ur**: URL Rating (UR) shows the strength of your target page’s backlink profile on a 100-point logarithmic scale.   type: float nullable  **url**: The ranking page URL.   type: url nullable  **url_prev**: The ranking page URL on the comparison date.   type: url nullable  **value** (10 units): The estimated value of a page's monthly organic search traffic, in USD cents.   type: integer nullable  **value_diff**: The change in traffic value between your selected dates.   type: integer  **value_diff_percent**: The change in traffic value between your selected dates, in percents.   type: integer  **value_merged** (10 units): The traffic value field optimized for sorting.   type: integer nullable  **value_prev** (10 units): The traffic value on the comparison date.   type: integer nullable  **volume** (10 units): An estimation of the number of searches for a keyword over the latest month.   type: integer nullable  **volume_prev** (10 units): The search volume on the comparison date.   type: integer nullable  **words**: The number of words in a keyword.   type: integer  **words_prev**: The number of words in a keyword on the comparison date.   type: integer |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `protocol` | `ProtocolEnum` | No | The protocol of your target. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
@@ -2324,6 +3903,69 @@ Top pages.
 | `date_compared` | `DateStr` | No | A date to compare metrics with in YYYY-MM-DD format. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
+
+<details>
+<summary>Filterable fields (57 fields)</summary>
+
+- `cpc` (integer)
+- `cpc_prev` (integer)
+- `has_thumbnail` (boolean)
+- `has_thumbnail_prev` (boolean)
+- `has_video` (boolean)
+- `has_video_prev` (boolean)
+- `keyword` (string)
+- `keyword_difficulty` (integer)
+- `keyword_difficulty_prev` (integer)
+- `keyword_prev` (string)
+- `keywords` (integer)
+- `keywords_diff` (integer)
+- `keywords_diff_percent` (integer)
+- `keywords_merged` (integer)
+- `keywords_prev` (integer)
+- `position` (integer)
+- `position_kind` (string)
+- `position_kind_prev` (string)
+- `position_prev` (integer)
+- `raw_url` (string)
+- `raw_url_prev` (string)
+- `referring_domains` (integer)
+- `serp_features` (array(string))
+- `serp_features_prev` (array(string))
+- `status` (string)
+- `sum_traffic` (integer)
+- `sum_traffic_merged` (integer)
+- `sum_traffic_prev` (integer)
+- `top_keyword` (string)
+- `top_keyword_best_position` (integer)
+- `top_keyword_best_position_diff` (integer)
+- `top_keyword_best_position_kind` (string)
+- `top_keyword_best_position_kind_prev` (string)
+- `top_keyword_best_position_prev` (integer)
+- `top_keyword_best_position_title` (string)
+- `top_keyword_best_position_title_prev` (string)
+- `top_keyword_country` (string)
+- `top_keyword_country_prev` (string)
+- `top_keyword_prev` (string)
+- `top_keyword_volume` (integer)
+- `top_keyword_volume_prev` (integer)
+- `traffic` (integer)
+- `traffic_diff` (integer)
+- `traffic_diff_percent` (integer)
+- `traffic_prev` (integer)
+- `ur` (float)
+- `url` (url)
+- `url_prev` (url)
+- `value` (integer)
+- `value_diff` (integer)
+- `value_diff_percent` (integer)
+- `value_merged` (integer)
+- `value_prev` (integer)
+- `volume` (integer)
+- `volume_prev` (integer)
+- `words` (integer)
+- `words_prev` (integer)
+
+</details>
 
 **Returns:** `list[SiteExplorerTopPagesData]`
 
