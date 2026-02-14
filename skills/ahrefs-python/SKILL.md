@@ -147,8 +147,4 @@ Most list endpoints share these parameters:
 
 ## API Methods
 
-For the full list of 48 methods across 6 API sections, see `references/api-methods.md`.
-
-All methods have full type hints and docstrings. Inspect the installed package for parameter and response field details:
-- `ahrefs.types._generated` - all request/response models and enums
-- `ahrefs._generated_methods` - all method signatures with docstrings
+For the full list of 48 methods with parameters, types, and response fields, see `references/api-methods.md`.
