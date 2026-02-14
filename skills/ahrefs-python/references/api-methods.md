@@ -54,7 +54,7 @@ AI Responses.
 | `links` | `list[dict[str, Any] \| None]` | (10 units) The links used for the response. |
 | `question` | `str` | The question asked by the user. |
 | `response` | `str` | (10 units) The response from the model. |
-| `volume` | `int` | (10 units) Estimated monthly searches. This is based on our estimates for Google, combining the search volumes of rel... |
+| `volume` | `int` | (10 units) Estimated monthly searches. This is based on our estimates for Google, combining the search volumes of related keywords where this question appears in People Also Ask section. |
 
 ### `brand_radar_impressions_history()`
 
@@ -126,7 +126,7 @@ Overview - Impressions.
 | Field | Type | Description |
 |-------|------|-------------|
 | `brand` | `str` | Brand name (either your brand or a competitor provided in the request). |
-| `no_tracked_brands` | `int` | Estimated impressions from responses related to the specified market that do not mention any provided brands (value i... |
+| `no_tracked_brands` | `int` | Estimated impressions from responses related to the specified market that do not mention any provided brands (value is zero when `market` is not specified). |
 | `only_competitors_brands` | `int` | Estimated impressions from responses mentioning only competitor brands. |
 | `only_target_brand` | `int` | Estimated impressions from responses mentioning only your brand. |
 | `target_and_competitors_brands` | `int` | Estimated impressions from responses mentioning both your and competitor brands. |
@@ -202,7 +202,7 @@ Overview - Mentions.
 | Field | Type | Description |
 |-------|------|-------------|
 | `brand` | `str` | Brand name (either your brand or a competitor provided in the request). |
-| `no_tracked_brands` | `int` | Estimated mentions from responses related to the specified market that do not mention any provided brands (value is z... |
+| `no_tracked_brands` | `int` | Estimated mentions from responses related to the specified market that do not mention any provided brands (value is zero when `market` is not specified). |
 | `only_competitors_brands` | `int` | Estimated mentions from responses mentioning only competitor brands. |
 | `only_target_brand` | `int` | Estimated mentions from responses mentioning only your brand. |
 | `target_and_competitors_brands` | `int` | Estimated mentions from responses mentioning both your and competitor brands. |
@@ -295,21 +295,21 @@ Matching terms.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, i... |
-| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search result... |
-| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point ... |
+| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents. |
+| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country. |
+| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
-| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our dat... |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `com... |
+| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
 | `keyword` | `str` |  |
-| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page ins... |
+| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
 | `serp_last_update` | `str \| None` | The date when we last checked search engine results for a keyword. |
-| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords... |
-| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of d... |
+| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for. |
+| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data. |
 | `volume_desktop_pct` | `float \| None` | The percentage of searches for a keyword performed on desktop devices. |
 | `volume_mobile_pct` | `float \| None` | The percentage of searches for a keyword performed on mobile devices. |
-| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be include... |
+| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be included in the `order_by` parameter |
 
 ### `keywords_explorer_overview()`
 
@@ -364,26 +364,26 @@ Overview.
 | Field | Type | Description |
 |-------|------|-------------|
 | `clicks` | `int \| None` | The average monthly number of clicks on the search results that people make while searching for the target keyword. |
-| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, i... |
-| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search result... |
-| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point ... |
+| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents. |
+| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country. |
+| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
-| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our dat... |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `com... |
+| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
 | `keyword` | `str` |  |
-| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page ins... |
+| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `parent_volume` | `int \| None` | (10 units) The search volume of the parent topic. |
-| `searches_pct_clicks_organic_and_paid` | `float \| None` | The average monthly percentage of people who clicked on both organic and paid results while searching for the target ... |
+| `searches_pct_clicks_organic_and_paid` | `float \| None` | The average monthly percentage of people who clicked on both organic and paid results while searching for the target keyword. |
 | `searches_pct_clicks_organic_only` | `float \| None` | The average monthly percentage of people who clicked only on organic results while searching for the target keyword. |
 | `searches_pct_clicks_paid_only` | `float \| None` | The average monthly percentage of people who clicked only on paid results while searching for the target keyword. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
 | `serp_last_update` | `str \| None` | The date when we last checked search engine results for a keyword. |
-| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords... |
-| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of d... |
+| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for. |
+| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data. |
 | `volume_desktop_pct` | `float \| None` | The percentage of searches for a keyword performed on desktop devices. |
 | `volume_mobile_pct` | `float \| None` | The percentage of searches for a keyword performed on mobile devices. |
-| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be include... |
-| `volume_monthly_history` | `list[dict[str, Any] \| None]` | (2 units per historical month, with a minimum of 50 units) Historical monthly search volume estimates of a keyword fo... |
+| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be included in the `order_by` parameter |
+| `volume_monthly_history` | `list[dict[str, Any] \| None]` | (2 units per historical month, with a minimum of 50 units) Historical monthly search volume estimates of a keyword for the period set by the `volume_monthly_date_from` and `volume_monthly_date_to` parameters. |
 
 ### `keywords_explorer_related_terms()`
 
@@ -431,21 +431,21 @@ Related terms.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, i... |
-| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search result... |
-| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point ... |
+| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents. |
+| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country. |
+| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
-| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our dat... |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `com... |
+| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
 | `keyword` | `str` |  |
-| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page ins... |
+| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
 | `serp_last_update` | `str \| None` | The date when we last checked search engine results for a keyword. |
-| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords... |
-| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of d... |
+| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for. |
+| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data. |
 | `volume_desktop_pct` | `float \| None` | The percentage of searches for a keyword performed on desktop devices. |
 | `volume_mobile_pct` | `float \| None` | The percentage of searches for a keyword performed on mobile devices. |
-| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be include... |
+| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be included in the `order_by` parameter |
 
 ### `keywords_explorer_search_suggestions()`
 
@@ -492,21 +492,21 @@ Search suggestions.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, i... |
-| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search result... |
-| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point ... |
+| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents. |
+| `cps` | `float \| None` | Clicks Per Search (or CPS) is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country. |
+| `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
-| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our dat... |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `com... |
+| `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
 | `keyword` | `str` |  |
-| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page ins... |
+| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
 | `serp_last_update` | `str \| None` | The date when we last checked search engine results for a keyword. |
-| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords... |
-| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of d... |
+| `traffic_potential` | `int \| None` | (10 units) The sum of organic traffic that the #1 ranking page for your target keyword receives from all the keywords that it ranks for. |
+| `volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for a keyword over the latest known 12 months of data. |
 | `volume_desktop_pct` | `float \| None` | The percentage of searches for a keyword performed on desktop devices. |
 | `volume_mobile_pct` | `float \| None` | The percentage of searches for a keyword performed on mobile devices. |
-| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be include... |
+| `volume_monthly` | `int \| None` | (10 units) An estimation of the number of searches for a keyword over the latest month. This field may not be included in the `order_by` parameter |
 
 ### `keywords_explorer_volume_by_country()`
 
@@ -594,19 +594,19 @@ Competitors overview.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `competitors_list` | `list[dict[str, Any] \| None]` | Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `posit... |
+| `competitors_list` | `list[dict[str, Any] \| None]` | Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view. |
 | `country` | `CountryEnum1` | The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2). |
 | `keyword` | `str` | The keyword your target ranks for. |
 | `keyword_difficulty` | `int \| None` | An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `keyword_has_data` | `bool` | Will return `false` if the keyword is still processing and no SERP has been fetched yet. |
-| `keyword_is_frozen` | `bool` | Indicates whether a keyword has exceeded the tracked keywords limit on your plan. Such keywords are "frozen", meaning... |
+| `keyword_is_frozen` | `bool` | Indicates whether a keyword has exceeded the tracked keywords limit on your plan. Such keywords are "frozen", meaning they do not have their rankings updated. |
 | `language` | `str` | The SERP language that a given keyword is being tracked for. |
 | `location` | `str` | The location (country, state/province, or city) that a given keyword is being tracked in. |
 | `serp_features` | `list[SerpFeaturesItemEnum1 \| None]` | The SERP features that appear in search results for a keyword. |
 | `serp_updated` | `str \| None` | The date when we last checked search engine results for a keyword. |
 | `serp_updated_prev` | `str \| None` | The date when we checked search engine results up to the comparison date. |
 | `tags` | `list[str \| None]` | A list of tags assigned to a given keyword. |
-| `volume` | `int \| None` | An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known ... |
+| `volume` | `int \| None` | An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter. |
 
 ### `rank_tracker_competitors_pages()`
 
@@ -649,11 +649,11 @@ Competitors pages.
 | Field | Type | Description |
 |-------|------|-------------|
 | `keywords` | `int` | The total number of keywords that your target ranks for in the top 100 organic search results. |
-| `share_of_traffic_value` | `float` | The share of your target's organic search traffic value compared to the total organic search traffic value for all tr... |
+| `share_of_traffic_value` | `float` | The share of your target's organic search traffic value compared to the total organic search traffic value for all tracked keywords. |
 | `share_of_traffic_value_prev` | `float` | The share of traffic value on the comparison date. |
 | `share_of_voice` | `float` | The share of your target's organic search traffic compared to the total organic search traffic for all tracked keywords. |
 | `share_of_voice_prev` | `float` | The share of voice on the comparison date. |
-| `status` | `StatusEnum` | The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search res... |
+| `status` | `StatusEnum` | The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search results ("right"), or no change ("both"). |
 | `title` | `str \| None` | The title displayed for the page in its top keyword's SERP. |
 | `title_prev` | `str \| None` | The title on the comparison date. |
 | `traffic` | `int` | An estimation of the number of monthly visits that a page gets from organic search. |
@@ -694,7 +694,7 @@ Competitors metrics.
 | `pos_4_10` | `int` | The total number of tracked keywords for which your target's top organic position is within the 4th to 10th results. |
 | `pos_51_plus` | `int` | The total number of tracked keywords for which your target's top organic position is the 51st or higher. |
 | `pos_no_rank` | `int` | The total number of tracked keywords where your target doesn't rank. |
-| `share_of_traffic_value` | `float` | The share of your target's organic search traffic value compared to the total organic search traffic value for all tr... |
+| `share_of_traffic_value` | `float` | The share of your target's organic search traffic value compared to the total organic search traffic value for all tracked keywords. |
 | `share_of_voice` | `float` | The share of your target's organic search traffic compared to the total organic search traffic for all tracked keywords. |
 | `sitelinks_count` | `int` | The total number of tracked keywords for which your target ranks in Sitelinks. |
 | `thumbnail_count` | `int` | The total number of tracked keywords for which your target ranks in a Thumbnail. |
@@ -797,11 +797,11 @@ Overview.
 | `best_position_has_video_preview_previous` | `bool \| None` | The top position (or target URL’s, if set) has a video preview on the comparison date. |
 | `best_position_kind` | `BestPositionKindEnum \| None` | The kind of top position (or target URL’s, if set): organic, paid, or a SERP feature. |
 | `best_position_kind_previous` | `BestPositionKindEnum \| None` | The kind of top position (or target URL’s, if set) on the comparison date. |
-| `clicks` | `int \| None` | Clicks metric refers to the average monthly number of clicks on the search results that people make while searching f... |
-| `clicks_per_search` | `float \| None` | Clicks Per Search is the ratio of Clicks to Keyword Search volume. It shows how many different search results get cli... |
+| `clicks` | `int \| None` | Clicks metric refers to the average monthly number of clicks on the search results that people make while searching for the target keyword. Some searches generate clicks on multiple results, while others might not end in any clicks at all. |
+| `clicks_per_search` | `float \| None` | Clicks Per Search is the ratio of Clicks to Keyword Search volume. It shows how many different search results get clicked, on average, when people search for the target keyword in a given country. |
 | `cost_per_click` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword. |
 | `country` | `CountryEnum1` | The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2). |
-| `country_prev` | `CountryEnum1` | The country that a given keyword is being tracked in on the comparison date. A two-letter country code (ISO 3166-1 al... |
+| `country_prev` | `CountryEnum1` | The country that a given keyword is being tracked in on the comparison date. A two-letter country code (ISO 3166-1 alpha-2). |
 | `created_at` | `str` | The date when a keyword was added to the project. |
 | `is_branded` | `bool` | User intent: branded. The user is searching for a specific brand or company name. |
 | `is_commercial` | `bool` | User intent: commercial. The user is comparing products or services before making a purchase decision. |
@@ -812,20 +812,20 @@ Overview.
 | `keyword` | `str` | The keyword your target ranks for. |
 | `keyword_difficulty` | `int \| None` | An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `keyword_has_data` | `bool` | Will return `false` if the keyword is still processing and no SERP has been fetched yet. |
-| `keyword_is_frozen` | `bool` | Indicates whether a keyword has exceeded the tracked keywords limit on your plan. Such keywords are "frozen", meaning... |
+| `keyword_is_frozen` | `bool` | Indicates whether a keyword has exceeded the tracked keywords limit on your plan. Such keywords are "frozen", meaning they do not have their rankings updated. |
 | `keyword_prev` | `str` | The keyword your target ranks for on the comparison date. |
 | `language` | `str` | The SERP language that a given keyword is being tracked for. |
 | `language_prev` | `str` | The SERP language on the comparison date. |
 | `location` | `str` | The location (country, state/province, or city) that a given keyword is being tracked in. |
 | `location_prev` | `str` | The location (country, state/province, or city) that a given keyword is being tracked in on the comparison date. |
-| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page ins... |
+| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead.  To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `position` | `int \| None` | The top position (or target URL’s, if set) in organic search. |
 | `position_diff` | `int \| None` | The change in top position (or target URL’s, if set) between selected dates. |
 | `position_prev` | `int \| None` | The top position (or target URL’s, if set) on the comparison date. |
-| `search_type_image` | `float \| None` | Search type Image shows the percentage of searches for a keyword made for images, highlighting interest in visual con... |
+| `search_type_image` | `float \| None` | Search type Image shows the percentage of searches for a keyword made for images, highlighting interest in visual content. |
 | `search_type_news` | `float \| None` | Search type News shows the percentage of searches for a keyword made for news articles. |
 | `search_type_video` | `float \| None` | Search type Video shows the percentage of searches for a keyword made for video, reflecting interest in video content. |
-| `search_type_web` | `float \| None` | Search type Web shows the percentage of searches for a keyword made for general web content, indicating interest in a... |
+| `search_type_web` | `float \| None` | Search type Web shows the percentage of searches for a keyword made for general web content, indicating interest in a wide range of information. |
 | `serp_features` | `list[SerpFeaturesItemEnum1 \| None]` | The SERP features that appear in search results for a keyword. |
 | `serp_features_prev` | `list[SerpFeaturesItemEnum1 \| None]` | The SERP features that appear in search results for a keyword on the comparison date. |
 | `serp_updated` | `str \| None` | The date when we last checked search engine results for a keyword. |
@@ -833,12 +833,12 @@ Overview.
 | `tags` | `list[str \| None]` | A list of tags assigned to a given keyword. |
 | `tags_prev` | `list[str \| None]` | A list of tags assigned to a given keyword on the comparison date. |
 | `target_positions_count` | `int` | The number of target URLs ranking for a keyword. |
-| `traffic` | `int \| None` | An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the ... |
+| `traffic` | `int \| None` | An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter. |
 | `traffic_diff` | `int \| None` | The change in traffic between your selected dates. |
-| `traffic_prev` | `int \| None` | An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the ... |
+| `traffic_prev` | `int \| None` | An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter. |
 | `url` | `str \| None` | The top-ranking URL (or target URL, if set) in organic search. |
 | `url_prev` | `str \| None` | The top-ranking URL (or target URL, if set) on the comparison date. |
-| `volume` | `int \| None` | An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known ... |
+| `volume` | `int \| None` | An estimation of the average monthly number of searches for a keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter. |
 | `volume_desktop_pct` | `float \| None` | The percentage of the total search volume that comes from desktop devices. |
 | `volume_mobile_pct` | `float \| None` | The percentage of the total search volume that comes from mobile devices. |
 
@@ -868,12 +868,12 @@ SERP Overview.
 | `position` | `int` | The position of the search result in SERP. |
 | `title` | `str \| None` | The title of a ranking page. |
 | `url` | `str \| None` | The URL of a ranking page. |
-| `type` | `list[str \| None]` | The kind of the position: organic, paid, or a SERP feature. Allowed values: `ai_overview`, `ai_overview_sitelink`, `d... |
+| `type` | `list[str \| None]` | The kind of the position: organic, paid, or a SERP feature. Allowed values: `ai_overview`, `ai_overview_sitelink`, `discussion`, `image`, `image_th`, `knowledge_card`, `knowledge_panel`, `local_pack`, `organic`, `organic_shopping`, `paid_top`, `paid_bottom`, `paid_right`, `question`, `sitelink`, `snippet`, `top_story`, `tweet`, `video`, `video_th`. |
 | `update_date` | `str` | The date when we checked search engine results for a keyword. |
 | `nr_words` | `int \| None` | The total number of words present in the HTML of a web page. |
 | `domain_rating` | `float \| None` | The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale. |
 | `url_rating` | `float \| None` | The strength of a page's backlink profile on a 100-point logarithmic scale. |
-| `ahrefs_rank` | `int \| None` | The strength of a domain's backlink profile compared to the other websites in our database, with rank #1 being the st... |
+| `ahrefs_rank` | `int \| None` | The strength of a domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
 | `backlinks` | `int \| None` | The total number of links from other websites pointing to a search result. |
 | `refdomains` | `int \| None` | The total number of unique domains linking to a search result. |
 | `traffic` | `int \| None` | An estimation of the monthly organic search traffic that a result gets from all the keywords that it ranks for. |
@@ -904,7 +904,7 @@ SERP Overview.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `ahrefs_rank` | `int \| None` | The strength of a domain's backlink profile compared to the other websites in our database, with rank #1 being the st... |
+| `ahrefs_rank` | `int \| None` | The strength of a domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
 | `backlinks` | `int \| None` | The total number of links from other websites pointing to a search result. |
 | `domain_rating` | `float \| None` | The strength of a domain’s backlink profile compared to the others in our database on a 100-point scale. |
 | `keywords` | `int \| None` | The total number of keywords that a search result ranks for in the top 100 organic positions. |
@@ -912,8 +912,8 @@ SERP Overview.
 | `refdomains` | `int \| None` | (5 units) The total number of unique domains linking to a search result. |
 | `title` | `str \| None` | The title of a ranking page. |
 | `top_keyword` | `str \| None` | The keyword that brings the most organic traffic to a search result. |
-| `top_keyword_volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for the top keyword over the latest known 12 month... |
-| `traffic` | `int \| None` | (10 units) An estimation of the monthly organic search traffic that a result gets from all the keywords that it ranks... |
+| `top_keyword_volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for the top keyword over the latest known 12 months of data. |
+| `traffic` | `int \| None` | (10 units) An estimation of the monthly organic search traffic that a result gets from all the keywords that it ranks for. |
 | `type` | `list[SerpFeaturesItemEnum1 \| None]` | The kind of the position: organic, paid, or a SERP feature. |
 | `update_date` | `str` | The date when we checked search engine results for a keyword. |
 | `url` | `str \| None` | The URL of a ranking page. |
@@ -943,7 +943,7 @@ Project Issues.
 | `issue_id` | `str` | The unique identifier of the issue. |
 | `name` | `str` | The name of the issue. |
 | `importance` | `str` | The importance of the issue. Possible values: `Error`, `Warning`, `Notice`. |
-| `category` | `str` | The category of the issue. Possible values: `Internal pages`, `Indexability`, `Links`, `Redirects`, `Content`, `Socia... |
+| `category` | `str` | The category of the issue. Possible values: `Internal pages`, `Indexability`, `Links`, `Redirects`, `Content`, `Social tags`, `Duplicates`, `Localization`, `Usability and performance`, `Images`, `JavaScript`, `CSS`, `Sitemaps`, `External pages`, `Other`. |
 | `is_indexable` | `bool \| None` | True if the issue applies only to indexable pages. |
 | `crawled` | `int` | Number of URLs currently affected by the issue. |
 | `change` | `int \| None` | Difference in the number of affected URLs between the specified dates. |
@@ -1611,29 +1611,29 @@ Page explorer.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `ai_content_level` | `str \| None` | The estimated percentage of AI-generated text on the page. Possible values: `None`, `Low`, `Moderate`, `High`, `Very ... |
-| `ai_content_status` | `str \| None` | AI detection status for each page. Possible values: - `Success`: Content analyzed successfully - `Content_too_short`:... |
-| `alternate` | `int \| None` | The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer d... |
-| `alternate_diff` | `int \| None` | The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer d... |
-| `alternate_prev` | `int \| None` | The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer d... |
-| `backlinks` | `int \| None` | The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explor... |
-| `backlinks_diff` | `int \| None` | The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explor... |
-| `backlinks_prev` | `int \| None` | The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explor... |
+| `ai_content_level` | `str \| None` | The estimated percentage of AI-generated text on the page. Possible values: `None`, `Low`, `Moderate`, `High`, `Very High` |
+| `ai_content_status` | `str \| None` | AI detection status for each page. Possible values: - `Success`: Content analyzed successfully - `Content_too_short`: Not enough text for reliable detection - `Not_eligible`: URL isn't an internal HTML page - `Failed`: Internal issue prevented detection - `Detection_off`: Disabled in Crawl settings |
+| `alternate` | `int \| None` | The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database) |
+| `alternate_diff` | `int \| None` | The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database) |
+| `alternate_prev` | `int \| None` | The number of incoming external links from rel="alternate" attributes on the pages (data from Ahrefs' Site Explorer database) |
+| `backlinks` | `int \| None` | The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `backlinks_diff` | `int \| None` | The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `backlinks_prev` | `int \| None` | The number of incoming external links (both dofollow and nofollow) pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
 | `canonical` | `str \| None` | The URL of the canonical version of the page |
 | `canonical_code` | `int \| None` | The HTTP status code of the canonical URL |
-| `canonical_counts` | `int \| None` | The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of... |
-| `canonical_counts_diff` | `int \| None` | The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of... |
-| `canonical_counts_prev` | `int \| None` | The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of... |
+| `canonical_counts` | `int \| None` | The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `canonical_counts_diff` | `int \| None` | The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `canonical_counts_prev` | `int \| None` | The number of incoming external links from canonical pages pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
 | `canonical_group_hash` | `int \| None` | The ID of the group of pages that have the same canonical URL |
-| `canonical_is_canonical` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
-| `canonical_is_canonical_prev` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
+| `canonical_is_canonical` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
+| `canonical_is_canonical_prev` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
 | `canonical_no_crawl_reason` | `str \| None` | The reason why the canonical version of the page was not crawled |
 | `canonical_no_crawl_reason_prev` | `str \| None` | The reason why the canonical version of the page was not crawled |
 | `canonical_prev` | `str \| None` | The URL of the canonical version of the page |
 | `canonical_scheme` | `str \| None` | The protocol of the canonical URL |
 | `canonical_scheme_prev` | `str \| None` | The protocol of the canonical URL |
-| `compliant` | `bool \| None` | Indicates that the page is indexable. An indexable page is an HTML page returning the 200 HTTP status code that has n... |
-| `compliant_prev` | `bool \| None` | Indicates that the page is indexable. An indexable page is an HTML page returning the 200 HTTP status code that has n... |
+| `compliant` | `bool \| None` | Indicates that the page is indexable. An indexable page is an HTML page returning the 200 HTTP status code that has neither the "rel=canonical" tag pointing to a different URL nor the "noindex" directive |
+| `compliant_prev` | `bool \| None` | Indicates that the page is indexable. An indexable page is an HTML page returning the 200 HTTP status code that has neither the "rel=canonical" tag pointing to a different URL nor the "noindex" directive |
 | `compression` | `str \| None` | The data compression scheme |
 | `compression_prev` | `str \| None` | The data compression scheme |
 | `content_encoding` | `str \| None` | The Content-Encoding HTTP response header field |
@@ -1644,53 +1644,53 @@ Page explorer.
 | `content_nr_word` | `int \| None` | The word count of content displayed on the page |
 | `content_nr_word_diff` | `int \| None` | The word count of content displayed on the page |
 | `content_nr_word_prev` | `int \| None` | The word count of content displayed on the page |
-| `content_type` | `str \| None` | The Content-Type HTTP header of the page or resource. You can find the full list of content types [here](https://www.... |
-| `content_type_prev` | `str \| None` | The Content-Type HTTP header of the page or resource. You can find the full list of content types [here](https://www.... |
+| `content_type` | `str \| None` | The Content-Type HTTP header of the page or resource. You can find the full list of content types [here](https://www.iana.org/assignments/media-types/media-types.xhtml) |
+| `content_type_prev` | `str \| None` | The Content-Type HTTP header of the page or resource. You can find the full list of content types [here](https://www.iana.org/assignments/media-types/media-types.xhtml) |
 | `css_no_crawl_reason` | `list[dict[str, Any] \| None]` | The reasons why CSS files linked from the page were not crawled |
 | `css_no_crawl_reason_prev` | `list[dict[str, Any] \| None]` | The reasons why CSS files linked from the page were not crawled |
-| `curl_code` | `int` | CURLcode return code. You can find the full list of CURL codes [here](https://curl.haxx.se/libcurl/c/libcurl-errors.h... |
-| `depth` | `int \| None` | The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page)... |
-| `depth_diff` | `int \| None` | The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page)... |
-| `depth_prev` | `int \| None` | The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page)... |
-| `dofollow` | `int \| None` | The number of incoming external dofollow links pointing to the URL. Not to be confused with the number of linking pag... |
-| `dofollow_prev` | `int \| None` | The number of incoming external dofollow links pointing to the URL. Not to be confused with the number of linking pag... |
+| `curl_code` | `int` | CURLcode return code. You can find the full list of CURL codes [here](https://curl.haxx.se/libcurl/c/libcurl-errors.html) |
+| `depth` | `int \| None` | The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page). Please note that redirects are also counted as a level |
+| `depth_diff` | `int \| None` | The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page). Please note that redirects are also counted as a level |
+| `depth_prev` | `int \| None` | The minimum number of clicks required for our crawler to reach the URL from the starting point of a crawl (seed page). Please note that redirects are also counted as a level |
+| `dofollow` | `int \| None` | The number of incoming external dofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `dofollow_prev` | `int \| None` | The number of incoming external dofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
 | `domain` | `str` | The domain name part of the URL |
 | `duplicate_content` | `int \| None` | The number of pages with matching or appreciably similar content |
-| `duplicate_content_canonical_hreflang` | `int \| None` | The number of page groups with matching or appreciably similar content. A group includes pages united by a common can... |
-| `duplicate_content_canonical_hreflang_diff` | `int \| None` | The number of page groups with matching or appreciably similar content. A group includes pages united by a common can... |
-| `duplicate_content_canonical_hreflang_prev` | `int \| None` | The number of page groups with matching or appreciably similar content. A group includes pages united by a common can... |
+| `duplicate_content_canonical_hreflang` | `int \| None` | The number of page groups with matching or appreciably similar content. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_content_canonical_hreflang_diff` | `int \| None` | The number of page groups with matching or appreciably similar content. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_content_canonical_hreflang_prev` | `int \| None` | The number of page groups with matching or appreciably similar content. A group includes pages united by a common canonical URL, hreflang or pagination tags |
 | `duplicate_content_diff` | `int \| None` | The number of pages with matching or appreciably similar content |
 | `duplicate_content_prev` | `int \| None` | The number of pages with matching or appreciably similar content |
-| `duplicate_description` | `int \| None` | The number of pages that have the same meta description. If the page has more than one meta description, each will be... |
-| `duplicate_description_canonical_hreflang` | `int \| None` | The number of page groups that have the same meta description. A group includes pages united by a common canonical UR... |
-| `duplicate_description_canonical_hreflang_diff` | `int \| None` | The number of page groups that have the same meta description. A group includes pages united by a common canonical UR... |
-| `duplicate_description_canonical_hreflang_prev` | `int \| None` | The number of page groups that have the same meta description. A group includes pages united by a common canonical UR... |
-| `duplicate_description_diff` | `int \| None` | The number of pages that have the same meta description. If the page has more than one meta description, each will be... |
-| `duplicate_description_prev` | `int \| None` | The number of pages that have the same meta description. If the page has more than one meta description, each will be... |
+| `duplicate_description` | `int \| None` | The number of pages that have the same meta description. If the page has more than one meta description, each will be checked for duplicates |
+| `duplicate_description_canonical_hreflang` | `int \| None` | The number of page groups that have the same meta description. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_description_canonical_hreflang_diff` | `int \| None` | The number of page groups that have the same meta description. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_description_canonical_hreflang_prev` | `int \| None` | The number of page groups that have the same meta description. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_description_diff` | `int \| None` | The number of pages that have the same meta description. If the page has more than one meta description, each will be checked for duplicates |
+| `duplicate_description_prev` | `int \| None` | The number of pages that have the same meta description. If the page has more than one meta description, each will be checked for duplicates |
 | `duplicate_group_identifier` | `int \| None` | The ID of the group of pages that are interconnected via a common canonical URL, hreflang or pagination tags |
-| `duplicate_h1` | `int \| None` | The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked... |
-| `duplicate_h1_diff` | `int \| None` | The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked... |
-| `duplicate_h1_prev` | `int \| None` | The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked... |
-| `duplicate_h1canonical_hreflang` | `int \| None` | The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hre... |
-| `duplicate_h1canonical_hreflang_diff` | `int \| None` | The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hre... |
-| `duplicate_h1canonical_hreflang_prev` | `int \| None` | The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hre... |
+| `duplicate_h1` | `int \| None` | The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked for duplicates |
+| `duplicate_h1_diff` | `int \| None` | The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked for duplicates |
+| `duplicate_h1_prev` | `int \| None` | The number of pages that have the same H1 subheader. If the page has more than one H1 subheader, each will be checked for duplicates |
+| `duplicate_h1canonical_hreflang` | `int \| None` | The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_h1canonical_hreflang_diff` | `int \| None` | The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_h1canonical_hreflang_prev` | `int \| None` | The number of page groups sharing the same H1 subheader. A group includes pages united by a common canonical URL, hreflang or pagination tags |
 | `duplicate_title` | `int \| None` | The number of pages that have the same title. If the page has more than one title, each will be checked for duplicates |
-| `duplicate_title_canonical_hreflang` | `int \| None` | The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang... |
-| `duplicate_title_canonical_hreflang_diff` | `int \| None` | The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang... |
-| `duplicate_title_canonical_hreflang_prev` | `int \| None` | The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang... |
+| `duplicate_title_canonical_hreflang` | `int \| None` | The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_title_canonical_hreflang_diff` | `int \| None` | The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang or pagination tags |
+| `duplicate_title_canonical_hreflang_prev` | `int \| None` | The number of page groups that have the same title. A group includes pages united by a common canonical URL, hreflang or pagination tags |
 | `duplicate_title_diff` | `int \| None` | The number of pages that have the same title. If the page has more than one title, each will be checked for duplicates |
 | `duplicate_title_prev` | `int \| None` | The number of pages that have the same title. If the page has more than one title, each will be checked for duplicates |
-| `edu` | `int \| None` | The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database... |
-| `edu_diff` | `int \| None` | The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database... |
-| `edu_prev` | `int \| None` | The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database... |
+| `edu` | `int \| None` | The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `edu_diff` | `int \| None` | The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `edu_prev` | `int \| None` | The number of incoming external links from .edu domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
 | `external_code` | `list[dict[str, Any] \| None]` | The list of HTTP status codes returned by the external URLs linked from the page |
 | `external_link_anchor` | `list[dict[str, Any] \| None]` | The list of anchor texts used in external outgoing links on the page |
 | `external_link_anchor_prev` | `list[dict[str, Any] \| None]` | The list of anchor texts used in external outgoing links on the page |
 | `external_link_domain` | `list[str \| None]` | The list of external domains linked to from the page |
 | `external_link_domain_prev` | `list[str \| None]` | The list of external domains linked to from the page |
 | `external_links` | `list[str \| None]` | The list of external outgoing links on the page |
-| `external_links_is_canonical` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
-| `external_links_is_canonical_prev` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
+| `external_links_is_canonical` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
+| `external_links_is_canonical_prev` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
 | `external_links_prev` | `list[str \| None]` | The list of external outgoing links on the page |
 | `external_no_crawl_reason` | `list[dict[str, Any] \| None]` | The reasons why the external URLs linked from the page were not crawled |
 | `external_no_crawl_reason_prev` | `list[dict[str, Any] \| None]` | The reasons why the external URLs linked from the page were not crawled |
@@ -1704,9 +1704,9 @@ Page explorer.
 | `found_in_sitemaps` | `list[str \| None]` | The list of sitemaps that reference the URL |
 | `found_in_sitemaps_length` | `int` | The number of sitemaps that reference the URL |
 | `found_in_sitemaps_prev` | `list[str \| None]` | The list of sitemaps that reference the URL |
-| `gov` | `int \| None` | The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer da... |
-| `gov_diff` | `int \| None` | The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer da... |
-| `gov_prev` | `int \| None` | The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer da... |
+| `gov` | `int \| None` | The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `gov_diff` | `int \| None` | The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `gov_prev` | `int \| None` | The total number of incoming external links from .gov domains pointing to the URL (data from Ahrefs' Site Explorer database). Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
 | `h1` | `list[str \| None]` | The page H1 subheader |
 | `h1_prev` | `list[str \| None]` | The page H1 subheader |
 | `h1length` | `list[int \| None]` | The character length of the page H1 subheader |
@@ -1719,8 +1719,8 @@ Page explorer.
 | `hash_text` | `int \| None` | The page text fingerprint. Pages with matching content have the same text hash |
 | `hash_titles` | `list[int \| None]` | The page title fingerprint. Pages with matching title tags have the same title hash |
 | `hreflang` | `list[dict[str, Any] \| None]` | Data from hreflang attributes |
-| `hreflang_code_is_valid` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in the hreflang tags on the page. The language must be specified i... |
-| `hreflang_code_is_valid_prev` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in the hreflang tags on the page. The language must be specified i... |
+| `hreflang_code_is_valid` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in the hreflang tags on the page. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+| `hreflang_code_is_valid_prev` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in the hreflang tags on the page. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
 | `hreflang_country` | `list[dict[str, Any] \| None]` | The list of regions specified in the hreflang tags on the page |
 | `hreflang_country_prev` | `list[dict[str, Any] \| None]` | The list of regions specified in the hreflang tags on the page |
 | `hreflang_group_hash` | `int \| None` | The ID of the group of pages that have the same set of hreflang attributes with the same set of URLs in them |
@@ -1731,8 +1731,8 @@ Page explorer.
 | `hreflang_language` | `list[dict[str, Any] \| None]` | The list of languages specified in the hreflang tags on the page |
 | `hreflang_language_prev` | `list[dict[str, Any] \| None]` | The list of languages specified in the hreflang tags on the page |
 | `hreflang_link` | `list[str \| None]` | The list of URLs specified in the hreflang tags on the page |
-| `hreflang_link_is_canonical` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
-| `hreflang_link_is_canonical_prev` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
+| `hreflang_link_is_canonical` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
+| `hreflang_link_is_canonical_prev` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
 | `hreflang_link_prev` | `list[str \| None]` | The list of URLs specified in the hreflang tags on the page |
 | `hreflang_no_crawl_reason` | `list[dict[str, Any] \| None]` | The reasons why URLs specified in the hreflang tags on the page were not crawled |
 | `hreflang_no_crawl_reason_prev` | `list[dict[str, Any] \| None]` | The reasons why URLs specified in the hreflang tags on the page were not crawled |
@@ -1743,8 +1743,8 @@ Page explorer.
 | `hreflang_pages_urls_prev` | `list[str \| None]` | List of hreflang-linked pages URLs the page belongs to |
 | `hreflang_prev` | `list[dict[str, Any] \| None]` | Data from hreflang attributes |
 | `html_lang` | `str \| None` | Data from the page's HTML lang tag |
-| `html_lang_code_is_valid` | `bool \| None` | Indicates that the language (or language-region) code is specified properly in the HTML lang tag. The language must b... |
-| `html_lang_code_is_valid_prev` | `bool \| None` | Indicates that the language (or language-region) code is specified properly in the HTML lang tag. The language must b... |
+| `html_lang_code_is_valid` | `bool \| None` | Indicates that the language (or language-region) code is specified properly in the HTML lang tag. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+| `html_lang_code_is_valid_prev` | `bool \| None` | Indicates that the language (or language-region) code is specified properly in the HTML lang tag. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
 | `html_lang_country` | `str \| None` | The region code specified in the page's HTML lang tag |
 | `html_lang_country_prev` | `str \| None` | The region code specified in the page's HTML lang tag |
 | `html_lang_language` | `str \| None` | The language code specified in the page's HTML lang tag |
@@ -1797,8 +1797,8 @@ Page explorer.
 | `indexnow_error_prev` | `str \| None` | The error description for a failed auto-submission |
 | `indexnow_reason` | `str \| None` | The reason the page was considered for auto-submission to IndexNow |
 | `indexnow_reason_prev` | `str \| None` | The reason the page was considered for auto-submission to IndexNow |
-| `indexnow_status` | `str \| None` | The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to Index... |
-| `indexnow_status_prev` | `str \| None` | The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to Index... |
+| `indexnow_status` | `str \| None` | The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings |
+| `indexnow_status_prev` | `str \| None` | The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings |
 | `indexnow_submitted_at` | `str \| None` | The date and time when the URL was auto-submitted to IndexNow |
 | `indexnow_submitted_at_prev` | `str \| None` | The date and time when the URL was auto-submitted to IndexNow |
 | `internal_code` | `list[dict[str, Any] \| None]` | The list of HTTP status codes returned by the internal URLs linked to from the page |
@@ -1809,8 +1809,8 @@ Page explorer.
 | `internal_link_domain` | `list[str \| None]` | The domain (or its subdomains, depending on the scope of the crawl) linked to from internal outgoing links on the page |
 | `internal_link_domain_prev` | `list[str \| None]` | The domain (or its subdomains, depending on the scope of the crawl) linked to from internal outgoing links on the page |
 | `internal_links` | `list[str \| None]` | The list of internal outgoing links on the page |
-| `internal_links_is_canonical` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
-| `internal_links_is_canonical_prev` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
+| `internal_links_is_canonical` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
+| `internal_links_is_canonical_prev` | `list[dict[str, Any] \| None]` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
 | `internal_links_prev` | `list[str \| None]` | The list of internal outgoing links on the page |
 | `internal_no_crawl_reason` | `list[dict[str, Any] \| None]` | The reasons why the internal URLs linked to from the page were not crawled |
 | `internal_no_crawl_reason_prev` | `list[dict[str, Any] \| None]` | The reasons why the internal URLs linked to from the page were not crawled |
@@ -1842,15 +1842,15 @@ Page explorer.
 | `links_count_css` | `int \| None` | The number of CSS files linked from the page |
 | `links_count_css_prev` | `int \| None` | The number of CSS files linked from the page |
 | `links_count_external` | `int \| None` | The number of external outgoing links on the page |
-| `links_count_external3xx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP stat... |
-| `links_count_external3xx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP stat... |
-| `links_count_external3xx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP stat... |
-| `links_count_external4xx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP sta... |
-| `links_count_external4xx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP sta... |
-| `links_count_external4xx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP sta... |
-| `links_count_external5xx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP sta... |
-| `links_count_external5xx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP sta... |
-| `links_count_external5xx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP sta... |
+| `links_count_external3xx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_count_external3xx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_count_external3xx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_count_external4xx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_count_external4xx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_count_external4xx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_count_external5xx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
+| `links_count_external5xx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
+| `links_count_external5xx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
 | `links_count_external_diff` | `int \| None` | The number of external outgoing links on the page |
 | `links_count_external_follow` | `int \| None` | The number of external outgoing dofollow links on the page |
 | `links_count_external_follow_diff` | `int \| None` | The number of external outgoing dofollow links on the page |
@@ -1862,9 +1862,9 @@ Page explorer.
 | `links_count_external_non_canonical_diff` | `int \| None` | The number of external outgoing links on the page that point to non-canonical pages |
 | `links_count_external_non_canonical_prev` | `int \| None` | The number of external outgoing links on the page that point to non-canonical pages |
 | `links_count_external_prev` | `int \| None` | The number of external outgoing links on the page |
-| `links_count_external_xxx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
-| `links_count_external_xxx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
-| `links_count_external_xxx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
+| `links_count_external_xxx` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
+| `links_count_external_xxx_diff` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
+| `links_count_external_xxx_prev` | `int \| None` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
 | `links_count_images` | `int \| None` | The number of images linked from the page |
 | `links_count_images_diff` | `int \| None` | The number of images linked from the page |
 | `links_count_images_prev` | `int \| None` | The number of images linked from the page |
@@ -1875,15 +1875,15 @@ Page explorer.
 | `links_count_images_without_alt_diff` | `int \| None` | The number of images linked from the page that have no alt attribute (alternate text) |
 | `links_count_images_without_alt_prev` | `int \| None` | The number of images linked from the page that have no alt attribute (alternate text) |
 | `links_count_internal` | `int \| None` | The number of internal outgoing links on the page |
-| `links_count_internal3xx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP stat... |
-| `links_count_internal3xx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP stat... |
-| `links_count_internal3xx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP stat... |
-| `links_count_internal4xx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP sta... |
-| `links_count_internal4xx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP sta... |
-| `links_count_internal4xx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP sta... |
-| `links_count_internal5xx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP sta... |
-| `links_count_internal5xx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP sta... |
-| `links_count_internal5xx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP sta... |
+| `links_count_internal3xx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_count_internal3xx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_count_internal3xx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_count_internal4xx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_count_internal4xx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_count_internal4xx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_count_internal5xx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
+| `links_count_internal5xx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
+| `links_count_internal5xx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
 | `links_count_internal_diff` | `int \| None` | The number of internal outgoing links on the page |
 | `links_count_internal_follow` | `int \| None` | The number of internal outgoing dofollow links on the page |
 | `links_count_internal_follow_diff` | `int \| None` | The number of internal outgoing dofollow links on the page |
@@ -1895,9 +1895,9 @@ Page explorer.
 | `links_count_internal_non_canonical_diff` | `int \| None` | The number of internal outgoing links on the page that point to non-canonical pages |
 | `links_count_internal_non_canonical_prev` | `int \| None` | The number of internal outgoing links on the page that point to non-canonical pages |
 | `links_count_internal_prev` | `int \| None` | The number of internal outgoing links on the page |
-| `links_count_internal_xxx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
-| `links_count_internal_xxx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
-| `links_count_internal_xxx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
+| `links_count_internal_xxx` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
+| `links_count_internal_xxx_diff` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
+| `links_count_internal_xxx_prev` | `int \| None` | The number of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
 | `links_count_js` | `int \| None` | The number of JavaScript files linked from the page |
 | `links_count_js_diff` | `int \| None` | The number of JavaScript files linked from the page |
 | `links_count_js_prev` | `int \| None` | The number of JavaScript files linked from the page |
@@ -1908,20 +1908,20 @@ Page explorer.
 | `links_css_prev` | `list[str \| None]` | The list of CSS files linked from the page |
 | `links_css_scheme` | `list[str \| None]` | The protocols of CSS files linked from the page |
 | `links_css_scheme_prev` | `list[str \| None]` | The protocols of CSS files linked from the page |
-| `links_external3xx` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status... |
-| `links_external3xx_prev` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status... |
-| `links_external4xx` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP statu... |
-| `links_external4xx_prev` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP statu... |
-| `links_external5xx` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP statu... |
-| `links_external5xx_prev` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP statu... |
+| `links_external3xx` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_external3xx_prev` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_external4xx` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_external4xx_prev` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_external5xx` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
+| `links_external5xx_prev` | `list[str \| None]` | The list of external outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
 | `links_external_follow` | `list[str \| None]` | The list of external outgoing dofollow links on the page |
 | `links_external_follow_prev` | `list[str \| None]` | The list of external outgoing dofollow links on the page |
 | `links_external_nofollow` | `list[str \| None]` | The list of external outgoing nofollow links on the page |
 | `links_external_nofollow_prev` | `list[str \| None]` | The list of external outgoing nofollow links on the page |
 | `links_external_non_canonical` | `list[str \| None]` | The list of external outgoing links on the page that point to non-canonical pages |
 | `links_external_non_canonical_prev` | `list[str \| None]` | The list of external outgoing links on the page that point to non-canonical pages |
-| `links_external_xxx` | `list[str \| None]` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
-| `links_external_xxx_prev` | `list[str \| None]` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx,... |
+| `links_external_xxx` | `list[str \| None]` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
+| `links_external_xxx_prev` | `list[str \| None]` | The number of external outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
 | `links_hreflang_code` | `list[dict[str, Any] \| None]` | The list of HTTP status codes returned by the URLs specified in hreflang tags on the page |
 | `links_images` | `list[str \| None]` | The list of images linked from the page |
 | `links_images_alt` | `list[dict[str, Any] \| None]` | The list of alternate texts of images linked from the page |
@@ -1936,20 +1936,20 @@ Page explorer.
 | `links_images_with_alt_prev` | `list[str \| None]` | The list of images linked from the page that have an alt attribute (alternate text) |
 | `links_images_without_alt` | `list[str \| None]` | The list of images linked from the page that have no alt attribute (alternate text) |
 | `links_images_without_alt_prev` | `list[str \| None]` | The list of images linked from the page that have no alt attribute (alternate text) |
-| `links_internal3xx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status... |
-| `links_internal3xx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status... |
-| `links_internal4xx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP statu... |
-| `links_internal4xx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP statu... |
-| `links_internal5xx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP statu... |
-| `links_internal5xx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP statu... |
+| `links_internal3xx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_internal3xx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 3xx (redirection) HTTP status codes |
+| `links_internal4xx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_internal4xx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 4xx (client error) HTTP status codes |
+| `links_internal5xx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
+| `links_internal5xx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return one of the 5xx (server error) HTTP status codes |
 | `links_internal_follow` | `list[str \| None]` | The list of internal outgoing dofollow links on the page |
 | `links_internal_follow_prev` | `list[str \| None]` | The list of internal outgoing dofollow links on the page |
 | `links_internal_nofollow` | `list[str \| None]` | The list of internal outgoing nofollow links on the page |
 | `links_internal_nofollow_prev` | `list[str \| None]` | The list of internal outgoing nofollow links on the page |
 | `links_internal_non_canonical` | `list[str \| None]` | The list of internal outgoing links on the page that point to non-canonical pages |
 | `links_internal_non_canonical_prev` | `list[str \| None]` | The list of internal outgoing links on the page that point to non-canonical pages |
-| `links_internal_xxx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4... |
-| `links_internal_xxx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4... |
+| `links_internal_xxx` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
+| `links_internal_xxx_prev` | `list[str \| None]` | The list of internal outgoing links on the page pointing to URLs that return HTTP status codes other than 2xx, 3xx, 4xx, 5xx or return no status code |
 | `links_js` | `list[str \| None]` | The list of JavaScript files linked from the page |
 | `links_js_code` | `list[dict[str, Any] \| None]` | The list of HTTP status codes returned by JavaScript files linked from the page |
 | `links_js_domain` | `list[str \| None]` | The list of domains that contain JavaScript files linked from the page |
@@ -2010,9 +2010,9 @@ Page explorer.
 | `navigation_prev_no_crawl_reason_prev` | `str \| None` | The reason why the URL specified in the rel="prev" element on a page was not crawled |
 | `no_crawl_reason` | `str \| None` | The reason why the URL was not crawled |
 | `no_crawl_reason_prev` | `str \| None` | The reason why the URL was not crawled |
-| `nofollow` | `int \| None` | The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pag... |
-| `nofollow_diff` | `int \| None` | The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pag... |
-| `nofollow_prev` | `int \| None` | The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pag... |
+| `nofollow` | `int \| None` | The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `nofollow_diff` | `int \| None` | The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `nofollow_prev` | `int \| None` | The number of incoming external nofollow links pointing to the URL. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
 | `nr_h1` | `int` | The number of H1 subheaders on the page |
 | `nr_h1_prev` | `int \| None` | The number of H1 subheaders on the page |
 | `nr_meta_description` | `int` | Number of Meta descriptions |
@@ -2030,8 +2030,8 @@ Page explorer.
 | `og_tags_image_prev` | `str \| None` | The image URL specified in the og:image meta property |
 | `og_tags_image_url_invalid` | `bool \| None` | Indicates that the URL specified in the og:image meta property is a valid absolute URL |
 | `og_tags_image_url_invalid_prev` | `bool \| None` | Indicates that the URL specified in the og:image meta property is a valid absolute URL |
-| `og_tags_inconsistent_canonical` | `bool \| None` | Indicates that the URL specified in the og:url meta property matches the URL specified as the canonical version of th... |
-| `og_tags_inconsistent_canonical_prev` | `bool \| None` | Indicates that the URL specified in the og:url meta property matches the URL specified as the canonical version of th... |
+| `og_tags_inconsistent_canonical` | `bool \| None` | Indicates that the URL specified in the og:url meta property matches the URL specified as the canonical version of the page |
+| `og_tags_inconsistent_canonical_prev` | `bool \| None` | Indicates that the URL specified in the og:url meta property matches the URL specified as the canonical version of the page |
 | `og_tags_title` | `str \| None` | The title text specified in the og:title meta property |
 | `og_tags_title_prev` | `str \| None` | The title text specified in the og:title meta property |
 | `og_tags_type` | `str \| None` | The object type specified in the og:type meta property |
@@ -2050,77 +2050,77 @@ Page explorer.
 | `page_is_nofollow_prev` | `bool \| None` | Check if the page is nofollow, based on http header and meta robots instructions |
 | `page_is_noindex` | `bool \| None` | Check if the page is noindex, based on http header and meta robots instructions |
 | `page_is_noindex_prev` | `bool \| None` | Check if the page is noindex, based on http header and meta robots instructions |
-| `page_rating` | `int \| None` | Page Rating (PR) shows the URL's internal and external backlink profile strength relative to other URLs included in t... |
-| `page_raw_ur` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn mo... |
-| `page_raw_ur_diff` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn mo... |
-| `page_raw_ur_prev` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn mo... |
-| `page_type` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt... |
-| `page_type_prev` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt... |
+| `page_rating` | `int \| None` | Page Rating (PR) shows the URL's internal and external backlink profile strength relative to other URLs included in the crawl |
+| `page_raw_ur` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur) |
+| `page_raw_ur_diff` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur) |
+| `page_raw_ur_prev` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur) |
+| `page_type` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's     considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference     them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links) |
+| `page_type_prev` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's     considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference     them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links) |
 | `pagination_group` | `int \| None` | The ID of the group of pages interconnected via their rel="next" and rel="prev" links |
 | `pagination_group_prev` | `int \| None` | The ID of the group of pages interconnected via their rel="next" and rel="prev" links |
-| `positions` | `int \| None` | The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Ex... |
-| `positions_diff` | `int \| None` | The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Ex... |
-| `positions_prev` | `int \| None` | The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Ex... |
-| `positions_top10` | `int \| None` | The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Exp... |
-| `positions_top10_diff` | `int \| None` | The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Exp... |
-| `positions_top10_prev` | `int \| None` | The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Exp... |
-| `positions_top3` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Expl... |
-| `positions_top3_diff` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Expl... |
-| `positions_top3_prev` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Expl... |
-| `psi_crux_cls_category` | `str \| None` | Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based ... |
-| `psi_crux_cls_category_prev` | `str \| None` | Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based ... |
-| `psi_crux_cls_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_cls_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_cls_percentile` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting.... |
-| `psi_crux_cls_percentile_diff` | `int \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting.... |
-| `psi_crux_cls_percentile_prev` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting.... |
-| `psi_crux_fid_category` | `str \| None` | Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category... |
-| `psi_crux_fid_category_prev` | `str \| None` | Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category... |
-| `psi_crux_fid_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_fid_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_fid_percentile` | `float \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real... |
-| `psi_crux_fid_percentile_diff` | `int \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real... |
-| `psi_crux_fid_percentile_prev` | `float \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real... |
-| `psi_crux_inp_category` | `str \| None` | Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category... |
-| `psi_crux_inp_category_prev` | `str \| None` | Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category... |
-| `psi_crux_inp_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_inp_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_inp_percentile` | `float \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Ch... |
-| `psi_crux_inp_percentile_diff` | `int \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Ch... |
-| `psi_crux_inp_percentile_prev` | `float \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Ch... |
-| `psi_crux_lcp_category` | `str \| None` | Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The cate... |
-| `psi_crux_lcp_category_prev` | `str \| None` | Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The cate... |
-| `psi_crux_lcp_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_lcp_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Nee... |
-| `psi_crux_lcp_percentile` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report... |
-| `psi_crux_lcp_percentile_diff` | `int \| None` | Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report... |
-| `psi_crux_lcp_percentile_prev` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report... |
+| `positions` | `int \| None` | The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_diff` | `int \| None` | The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_prev` | `int \| None` | The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_top10` | `int \| None` | The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_top10_diff` | `int \| None` | The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_top10_prev` | `int \| None` | The number of keywords the page is ranking for in top 10 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_top3` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_top3_diff` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `positions_top3_prev` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer) |
+| `psi_crux_cls_category` | `str \| None` | Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_category_prev` | `str \| None` | Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_percentile` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_percentile_diff` | `int \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_percentile_prev` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_category` | `str \| None` | Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_category_prev` | `str \| None` | Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_percentile` | `float \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_percentile_diff` | `int \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_percentile_prev` | `float \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_inp_category` | `str \| None` | Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_category_prev` | `str \| None` | Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_percentile` | `float \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_percentile_diff` | `int \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_percentile_prev` | `float \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/) |
+| `psi_crux_lcp_category` | `str \| None` | Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_category_prev` | `str \| None` | Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_percentile` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_percentile_diff` | `int \| None` | Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_percentile_prev` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_lighthouse_cls_error_message` | `str \| None` | The message returned by Lighthouse if there is an error when measuring CLS |
 | `psi_lighthouse_cls_error_message_prev` | `str \| None` | The message returned by Lighthouse if there is an error when measuring CLS |
-| `psi_lighthouse_cls_value` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting.... |
-| `psi_lighthouse_cls_value_diff` | `int \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting.... |
-| `psi_lighthouse_cls_value_prev` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting.... |
+| `psi_lighthouse_cls_value` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_lighthouse_cls_value_diff` | `int \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_lighthouse_cls_value_prev` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_lighthouse_lcp_error_message` | `str \| None` | The message returned by Lighthouse if there is an error when measuring LCP |
 | `psi_lighthouse_lcp_error_message_prev` | `str \| None` | The message returned by Lighthouse if there is an error when measuring LCP |
-| `psi_lighthouse_lcp_value` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test en... |
-| `psi_lighthouse_lcp_value_diff` | `int \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test en... |
-| `psi_lighthouse_lcp_value_prev` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test en... |
-| `psi_lighthouse_score` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best pract... |
-| `psi_lighthouse_score_diff` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best pract... |
-| `psi_lighthouse_score_prev` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best pract... |
+| `psi_lighthouse_lcp_value` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_lighthouse_lcp_value_diff` | `int \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_lighthouse_lcp_value_prev` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_lighthouse_score` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/) |
+| `psi_lighthouse_score_diff` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/) |
+| `psi_lighthouse_score_prev` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/) |
 | `psi_lighthouse_tbt_error_message` | `str \| None` | The message returned by Lighthouse if there is an error when measuring TBT |
 | `psi_lighthouse_tbt_error_message_prev` | `str \| None` | The message returned by Lighthouse if there is an error when measuring TBT |
-| `psi_lighthouse_tbt_value` | `float \| None` | Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. Th... |
-| `psi_lighthouse_tbt_value_diff` | `int \| None` | Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. Th... |
-| `psi_lighthouse_tbt_value_prev` | `float \| None` | Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. Th... |
+| `psi_lighthouse_tbt_value` | `float \| None` | Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. This score comes from Lighthouse in a simulated test environment. TBT is the recommended alternative to FID for lab tests. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_lighthouse_tbt_value_diff` | `int \| None` | Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. This score comes from Lighthouse in a simulated test environment. TBT is the recommended alternative to FID for lab tests. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_lighthouse_tbt_value_prev` | `float \| None` | Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. This score comes from Lighthouse in a simulated test environment. TBT is the recommended alternative to FID for lab tests. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_mobile_issues` | `list[str \| None]` | List of mobile-related issues on the page detected by Lighthouse |
 | `psi_mobile_issues_explanations` | `list[str \| None]` | Details about the mobile issues detected by Lighthouse |
 | `psi_mobile_issues_explanations_prev` | `list[str \| None]` | Details about the mobile issues detected by Lighthouse |
 | `psi_mobile_issues_prev` | `list[str \| None]` | List of mobile-related issues on the page detected by Lighthouse |
-| `psi_request_error_message` | `str \| None` | The message returned by PageSpeed Insights API if there is an error. [Learn more](https://help.ahrefs.com/en/articles... |
-| `psi_request_error_message_prev` | `str \| None` | The message returned by PageSpeed Insights API if there is an error. [Learn more](https://help.ahrefs.com/en/articles... |
-| `psi_request_status` | `str \| None` | The result of a request to PageSpeed Insights API. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-se... |
-| `psi_request_status_prev` | `str \| None` | The result of a request to PageSpeed Insights API. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-se... |
+| `psi_request_error_message` | `str \| None` | The message returned by PageSpeed Insights API if there is an error. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool) |
+| `psi_request_error_message_prev` | `str \| None` | The message returned by PageSpeed Insights API if there is an error. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool) |
+| `psi_request_status` | `str \| None` | The result of a request to PageSpeed Insights API. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool) |
+| `psi_request_status_prev` | `str \| None` | The result of a request to PageSpeed Insights API. [Learn more](https://help.ahrefs.com/en/articles/5369589-how-to-see-core-web-vitals-and-other-speed-metrics-in-site-audit-tool) |
 | `redirect` | `str \| None` | The destination of the redirecting URL |
 | `redirect_chain_urls` | `list[str \| None]` | The list of redirect chain URLs |
 | `redirect_chain_urls_code` | `list[dict[str, Any] \| None]` | The list of HTTP status codes returned by the redirect chain URLs |
@@ -2128,24 +2128,24 @@ Page explorer.
 | `redirect_chain_urls_no_crawl_reason_prev` | `list[dict[str, Any] \| None]` | The reasons why the redirect chain URLs were not crawled |
 | `redirect_chain_urls_prev` | `list[str \| None]` | The list of redirect chain URLs |
 | `redirect_code` | `int \| None` | The HTTP status code of the destination of the redirecting URL |
-| `redirect_counts` | `int \| None` | The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linki... |
-| `redirect_counts_diff` | `int \| None` | The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linki... |
-| `redirect_counts_prev` | `int \| None` | The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linki... |
-| `redirect_is_canonical` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
-| `redirect_is_canonical_prev` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is consi... |
+| `redirect_counts` | `int \| None` | The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `redirect_counts_diff` | `int \| None` | The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `redirect_counts_prev` | `int \| None` | The number of incoming external links pointing to the URL via a redirect. Not to be confused with the number of linking pages, as one page can contain multiple backlinks |
+| `redirect_is_canonical` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
+| `redirect_is_canonical_prev` | `bool \| None` | Indicates whether the target page tags itself as the canonical version to be shown in search results. A page is considered as canonical when it doesn't refer to any other pages as canonical |
 | `redirect_no_crawl_reason` | `str \| None` | The reason why the destination of the redirecting URL was not crawled |
 | `redirect_no_crawl_reason_prev` | `str \| None` | The reason why the destination of the redirecting URL was not crawled |
 | `redirect_prev` | `str \| None` | The destination of the redirecting URL |
 | `redirect_scheme` | `str \| None` | The protocol of the redirecting URL |
 | `redirect_scheme_prev` | `str \| None` | The protocol of the redirecting URL |
-| `refclass_c` | `int \| None` | The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP a... |
-| `refclass_c_diff` | `int \| None` | The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP a... |
-| `refclass_c_prev` | `int \| None` | The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP a... |
-| `refhosts` | `int \| None` | The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer ... |
-| `refhosts_diff` | `int \| None` | The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer ... |
-| `refhosts_prev` | `int \| None` | The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer ... |
-| `refips` | `int \| None` | The number of unique external IP addresses that incorporate websites with at least 1 link pointing to the URL. Severa... |
-| `refips_prev` | `int \| None` | The number of unique external IP addresses that incorporate websites with at least 1 link pointing to the URL. Severa... |
+| `refclass_c` | `int \| None` | The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP addresses sharing the first three numbers of their numerical label. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the IP network |
+| `refclass_c_diff` | `int \| None` | The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP addresses sharing the first three numbers of their numerical label. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the IP network |
+| `refclass_c_prev` | `int \| None` | The number of IP networks that have websites with at least 1 link pointing to the URL. An IP network consists of IP addresses sharing the first three numbers of their numerical label. Example: 151.80.39.61 is the website IP address where 151.80.39.XXX is the IP network |
+| `refhosts` | `int \| None` | The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer database) |
+| `refhosts_diff` | `int \| None` | The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer database) |
+| `refhosts_prev` | `int \| None` | The number of unique external domains that have at least 1 link pointing to the URL (data from Ahrefs' Site Explorer database) |
+| `refips` | `int \| None` | The number of unique external IP addresses that incorporate websites with at least 1 link pointing to the URL. Several domains can share one IP address |
+| `refips_prev` | `int \| None` | The number of unique external IP addresses that incorporate websites with at least 1 link pointing to the URL. Several domains can share one IP address |
 | `refpages` | `int \| None` | The number of unique external pages linking to the URL (data from Ahrefs' Site Explorer database) |
 | `refpages_diff` | `int \| None` | The number of unique external pages linking to the URL (data from Ahrefs' Site Explorer database) |
 | `refpages_prev` | `int \| None` | The number of unique external pages linking to the URL (data from Ahrefs' Site Explorer database) |
@@ -2170,8 +2170,8 @@ Page explorer.
 | `self_canonical` | `bool \| None` | Indicates that the page has a self-referential canonical URL |
 | `self_canonical_prev` | `bool \| None` | Indicates that the page has a self-referential canonical URL |
 | `self_hreflang` | `list[dict[str, Any] \| None]` | Data from hreflang tag with a self-referential URL |
-| `self_hreflang_code_is_valid` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in hreflang tag with a self-referential URL. The language must be ... |
-| `self_hreflang_code_is_valid_prev` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in hreflang tag with a self-referential URL. The language must be ... |
+| `self_hreflang_code_is_valid` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in hreflang tag with a self-referential URL. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
+| `self_hreflang_code_is_valid_prev` | `list[dict[str, Any] \| None]` | Indicates that hreflang data is specified properly in hreflang tag with a self-referential URL. The language must be specified in [ISO 639-1 format](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes), and optionally the region in [ISO 3166-1 Alpha 2 format](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) |
 | `self_hreflang_country` | `list[dict[str, Any] \| None]` | The region specified in the hreflang tag with a self-referential URL |
 | `self_hreflang_country_prev` | `list[dict[str, Any] \| None]` | The region specified in the hreflang tag with a self-referential URL |
 | `self_hreflang_language` | `list[dict[str, Any] \| None]` | The language specified in the hreflang tag with a self-referential URL |
@@ -2211,9 +2211,9 @@ Page explorer.
 | `top_keyword_position_diff` | `int \| None` | The position that the page holds for its top keyword |
 | `top_keyword_position_prev` | `int \| None` | The position that the page holds for its top keyword |
 | `top_keyword_prev` | `str \| None` | The keyword that brings the page the most organic traffic across all countries |
-| `traffic` | `float \| None` | Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are b... |
-| `traffic_diff` | `float \| None` | Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are b... |
-| `traffic_prev` | `float \| None` | Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are b... |
+| `traffic` | `float \| None` | Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are based on a mixture of clickstream data, the estimated monthly search volumes of keywords for which the page ranks, and the current ranking position for the URL in the search results. You can learn more [here](https://ahrefs.com/blog/ahrefs-seo-metrics/#organictraffic) |
+| `traffic_diff` | `float \| None` | Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are based on a mixture of clickstream data, the estimated monthly search volumes of keywords for which the page ranks, and the current ranking position for the URL in the search results. You can learn more [here](https://ahrefs.com/blog/ahrefs-seo-metrics/#organictraffic) |
+| `traffic_prev` | `float \| None` | Our estimate of monthly organic search traffic coming to the URL (data from Ahrefs Site Explorer). Calculations are based on a mixture of clickstream data, the estimated monthly search volumes of keywords for which the page ranks, and the current ranking position for the URL in the search results. You can learn more [here](https://ahrefs.com/blog/ahrefs-seo-metrics/#organictraffic) |
 | `url` | `str` | The web address of the page or resource |
 | `url_prev` | `str \| None` | The web address of the page or resource |
 
@@ -2241,7 +2241,7 @@ Project Health Scores.
 | `target_mode` | `str` | The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`. |
 | `date` | `str \| None` | The finish date and time of the last finished crawl, in GMT time zone. |
 | `status` | `str \| None` | The status of the most recent finished crawl. Possible values: `Completed`, `Stopped`, `Error`, `In_progress`. |
-| `health_score` | `int \| None` | Reflects the proportion of internal URLs on your site that do not have errors, based on the last finished crawl. Excl... |
+| `health_score` | `int \| None` | Reflects the proportion of internal URLs on your site that do not have errors, based on the last finished crawl. Excludes crawls that are starting, in progress, finalizing, or were skipped. |
 | `urls_with_errors` | `int \| None` | Number of internal URLs with errors |
 | `urls_with_warnings` | `int \| None` | Number of internal URLs with warnings |
 | `urls_with_notices` | `int \| None` | Number of internal URLs with notices |
@@ -2367,15 +2367,15 @@ Backlinks.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `ahrefs_rank_source` | `int` | The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 ... |
-| `ahrefs_rank_target` | `int` | The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 bei... |
+| `ahrefs_rank_source` | `int` | The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
+| `ahrefs_rank_target` | `int` | The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
 | `alt` | `str \| None` | The alt attribute of the link. |
 | `anchor` | `str` | The clickable words in a link that point to a URL. |
 | `broken_redirect_new_target` | `str \| None` | The new destination of a modified redirect. |
 | `broken_redirect_reason` | `BrokenRedirectReasonEnum \| None` | The reason the redirect was considered broken during the last crawl. |
 | `broken_redirect_source` | `str \| None` | The redirecting URL that was modified, causing the redirect to become broken. |
 | `class_c` | `int` | (5 units) The number of unique class_c subnets linking to the referring page. |
-| `discovered_status` | `DiscoveredStatusEnum \| None` | The reason the link was discovered during the last crawl: the page was crawled for the first time, the link was added... |
+| `discovered_status` | `DiscoveredStatusEnum \| None` | The reason the link was discovered during the last crawl: the page was crawled for the first time, the link was added to the page, or the link re-appeared after being removed. |
 | `domain_rating_source` | `float` | The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale. |
 | `domain_rating_target` | `float` | The strength of the referring domain's backlink profile compared to the others in our database on a 100-point scale. |
 | `drop_reason` | `DropReasonEnum \| None` | The reason we removed the link from our index. |
@@ -2408,7 +2408,7 @@ Backlinks.
 | `languages` | `list[str \| None]` | The languages listed in the referring page metadata or detected by the crawler to appear in the HTML. |
 | `last_seen` | `str \| None` | The date we discovered that the link was lost. |
 | `last_visited` | `str` | The date we last verified a live link to your target page. |
-| `link_group_count` | `int` | The number of backlinks that were grouped together based on the aggregation parameter. This field cannot be used with... |
+| `link_group_count` | `int` | The number of backlinks that were grouped together based on the aggregation parameter. This field cannot be used with aggregation 'all'. |
 | `link_type` | `LinkTypeEnum` | The kind of the backlink. |
 | `linked_domains_source_domain` | `int` | The number of unique root domains linked from the referring domain. |
 | `linked_domains_source_page` | `int` | The number of unique root domains linked from the referring page. |
@@ -2532,7 +2532,7 @@ Anchors.
 | `new_links` | `int` | The number of new backlinks with a given anchor found during the selected time period. |
 | `refdomains` | `int` | (5 units) The number of unique domains linking to your target with a given anchor. |
 | `refpages` | `int` | The number of pages containing a link with a given anchor to your target. |
-| `top_domain_rating` | `float` | The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink pr... |
+| `top_domain_rating` | `float` | The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale. |
 
 ### `site_explorer_backlinks_stats()`
 
@@ -2655,7 +2655,7 @@ Best by External Links.
 | `refdomains_target` | `int` | (5 units) The number of unique referring domains linking to the target page. |
 | `target_redirect` | `str \| None` | The target's redirect if any. |
 | `title_target` | `str \| None` | The html title of the target page. |
-| `top_domain_rating_source` | `float` | The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink pr... |
+| `top_domain_rating_source` | `float` | The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale. |
 | `url_rating_target` | `float \| None` | The strength of the target page's backlink profile compared to the others in our database on a 100-point scale. |
 | `url_to` | `str` | The URL the backlink points to. |
 | `url_to_plain` | `str` | The target page URL optimized for use as a filter. |
@@ -2859,8 +2859,8 @@ Broken Backlinks.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `ahrefs_rank_source` | `int` | The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 ... |
-| `ahrefs_rank_target` | `int` | The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 bei... |
+| `ahrefs_rank_source` | `int` | The strength of the referring domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
+| `ahrefs_rank_target` | `int` | The strength of the target domain's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
 | `alt` | `str \| None` | The alt attribute of the link. |
 | `anchor` | `str` | The clickable words in a link that point to a URL. |
 | `class_c` | `int` | (5 units) The number of unique class_c subnets linking to the referring page. |
@@ -2894,7 +2894,7 @@ Broken Backlinks.
 | `last_seen` | `str \| None` | The date we discovered that the link was lost. |
 | `last_visited` | `str` | The date we last re-crawled the referring page to verify the backlink is alive. |
 | `last_visited_target` | `str \| None` | The date we last re-crawled the target page to verify that it is broken. |
-| `link_group_count` | `int` | The number of backlinks that were grouped together based on the aggregation parameter. This field cannot be used with... |
+| `link_group_count` | `int` | The number of backlinks that were grouped together based on the aggregation parameter. This field cannot be used with aggregation 'all'. |
 | `link_type` | `LinkTypeEnum` | The kind of the backlink. |
 | `linked_domains_source_domain` | `int` | The number of unique root domains linked from the referring domain. |
 | `linked_domains_source_page` | `int` | The number of unique root domains linked from the referring page. |
@@ -2949,8 +2949,8 @@ Domain rating.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `domain_rating` | `float` | The strength of your target's backlink profile compared to the other websites in our database on a 100-point logarith... |
-| `ahrefs_rank` | `int \| None` | The strength of your target's backlink profile compared to the other websites in our database, with rank #1 being the... |
+| `domain_rating` | `float` | The strength of your target's backlink profile compared to the other websites in our database on a 100-point logarithmic scale. |
+| `ahrefs_rank` | `int \| None` | The strength of your target's backlink profile compared to the other websites in our database, with rank #1 being the strongest. |
 
 ### `site_explorer_domain_rating_history()`
 
@@ -2970,7 +2970,7 @@ Domain Rating history.
 | Field | Type | Description |
 |-------|------|-------------|
 | `date` | `str` |  |
-| `domain_rating` | `float` | The strength of your target page's backlink profile compared to the other websites in our database on a 100-point log... |
+| `domain_rating` | `float` | The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale. |
 
 ### `site_explorer_keywords_history()`
 
@@ -3352,7 +3352,7 @@ Organic competitors.
 | `competitor_domain` | `str \| None` | A competitor's domain of your target in “domains" group mode. |
 | `competitor_url` | `str \| None` | A competitor's URL of your target in pages" group mode. |
 | `domain_rating` | `float` | The strength of a domain's backlink profile compared to the others in our database on a 100-point scale. |
-| `group_mode` | `GroupModeEnum` | To see competing pages instead, use the “exact URL” target mode or “path” target mode if your target doesn't have mul... |
+| `group_mode` | `GroupModeEnum` | To see competing pages instead, use the “exact URL” target mode or “path” target mode if your target doesn't have multiple pages. |
 | `keywords_common` | `int` | Organic keywords that both your target and a competitor are ranking for. |
 | `keywords_competitor` | `int` | Organic keywords that a competitor is ranking for, but your target isn't. |
 | `keywords_target` | `int` | Organic keywords that your target is ranking for, but a competitor isn't. |
@@ -3361,10 +3361,10 @@ Organic competitors.
 | `pages_merged` | `int` | The pages field optimized for sorting. |
 | `pages_prev` | `int \| None` | The total number of pages from a target ranking in search results on the comparison date. |
 | `share` | `float` | The percentage of common keywords out of the total number of keywords that your target and a competitor both rank for. |
-| `traffic` | `int \| None` | (10 units) An estimation of the number of monthly visits that a page gets from organic search over the latest month o... |
+| `traffic` | `int \| None` | (10 units) An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter. |
 | `traffic_diff` | `int` | The change in traffic between your selected dates. |
 | `traffic_merged` | `int` | (10 units) The traffic field optimized for sorting. |
-| `traffic_prev` | `int \| None` | (10 units) An estimation of the number of monthly visits that a page gets from organic search over the latest month o... |
+| `traffic_prev` | `int \| None` | (10 units) An estimation of the number of monthly visits that a page gets from organic search over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter on the comparison date. |
 | `value` | `int \| None` | (10 units) The estimated value of a page's monthly organic search traffic, in USD cents. |
 | `value_diff` | `int` | The change in value between your selected dates. |
 | `value_merged` | `int \| None` | (10 units) The value field optimized for sorting. |
@@ -3501,7 +3501,7 @@ Organic keywords.
 | `best_position_set_prev` | `BestPositionSetEnum \| None` | The ranking group of the top position on the comparison date. |
 | `best_position_url` | `str \| None` | The ranking URL in organic search results. |
 | `best_position_url_prev` | `str \| None` | The ranking URL on the comparison date. |
-| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, i... |
+| `cpc` | `int \| None` | Cost Per Click shows the average price that advertisers pay for each ad click in paid search results for a keyword, in USD cents. |
 | `cpc_merged` | `int \| None` | The CPC field optimized for sorting. |
 | `cpc_prev` | `int \| None` | The CPC metric on the comparison date. |
 | `entities` | `list[dict[str, Any] \| None]` | Organizations, products, persons, works, events, and locations found in a keyword. |
@@ -3519,7 +3519,7 @@ Organic keywords.
 | `is_transactional` | `bool` | User intent: transactional. The user is ready to complete an action, often a purchase. |
 | `keyword` | `str \| None` | The keyword your target ranks for. |
 | `keyword_country` | `CountryEnum1` | The country of a keyword your target ranks for. |
-| `keyword_difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point ... |
+| `keyword_difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `keyword_difficulty_merged` | `int \| None` | (10 units) The keyword difficulty field optimized for sorting. |
 | `keyword_difficulty_prev` | `int \| None` | (10 units) The keyword difficulty on the comparison date. |
 | `keyword_merged` | `str` | The keyword field optimized for sorting. |
@@ -3533,11 +3533,11 @@ Organic keywords.
 | `serp_features_count_prev` | `int \| None` | The number of SERP features on the comparison date. |
 | `serp_features_merged` | `list[SerpFeaturesItemEnum1 \| None]` | The SERP features field optimized for sorting. |
 | `serp_features_prev` | `list[SerpFeaturesItemEnum1 \| None]` | The SERP features that appear in search results for a keyword on the comparison date. |
-| `serp_target_main_positions_count` | `int` | The number of target URLs ranking for a keyword excluding positions in Sitelinks, Top stories, Image packs, and posts... |
-| `serp_target_main_positions_count_prev` | `int \| None` | The number of target URLs ranking for a keyword excluding positions in Sitelinks, Top stories, Image packs, and posts... |
+| `serp_target_main_positions_count` | `int` | The number of target URLs ranking for a keyword excluding positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter). |
+| `serp_target_main_positions_count_prev` | `int \| None` | The number of target URLs ranking for a keyword excluding positions in Sitelinks, Top stories, Image packs, and posts on X (Twitter) on the comparison date. |
 | `serp_target_positions_count` | `int` | The number of target URLs ranking for a keyword. |
 | `serp_target_positions_count_prev` | `int \| None` | The number of target URLs ranking for a keyword on the comparison date. |
-| `status` | `StatusEnum` | The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search res... |
+| `status` | `StatusEnum` | The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search results ("right"), or no change ("both"). |
 | `sum_paid_traffic` | `int \| None` | (10 units) An estimation of the number of monthly visits that your target gets from paid search for a keyword. |
 | `sum_paid_traffic_merged` | `int` | (10 units) The paid traffic field optimized for sorting. |
 | `sum_paid_traffic_prev` | `int \| None` | (10 units) The paid traffic on the comparison date. |
@@ -3740,7 +3740,7 @@ Paid pages.
 | `raw_url` | `str` | The ranking page URL in encoded format. |
 | `raw_url_prev` | `str \| None` | The ranking page URL on the comparison date in encoded format. |
 | `referring_domains` | `int \| None` | (5 units) The number of unique domains linking to a page. |
-| `status` | `StatusEnum` | The status of a page: the new page that just started to rank in paid results ("left"), the lost page that disappeared... |
+| `status` | `StatusEnum` | The status of a page: the new page that just started to rank in paid results ("left"), the lost page that disappeared from paid results ("right"), or no change ("both"). |
 | `sum_traffic` | `int \| None` | (10 units) An estimation of the monthly paid search traffic that a page gets from all the keywords that it ranks for. |
 | `sum_traffic_merged` | `int` | (10 units) The paid traffic field optimized for sorting. |
 | `sum_traffic_prev` | `int \| None` | (10 units) The paid traffic on the comparison date. |
@@ -3755,7 +3755,7 @@ Paid pages.
 | `top_keyword_country` | `CountryEnum1 \| None` | The country in which a page ranks for its top keyword. |
 | `top_keyword_country_prev` | `CountryEnum1 \| None` | The country in which a page ranks for its top keyword on the comparison date. |
 | `top_keyword_prev` | `str \| None` | The keyword that brings the most paid traffic to a page on the comparison date. |
-| `top_keyword_volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for the top keyword over the latest month or over ... |
+| `top_keyword_volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for the top keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter. |
 | `top_keyword_volume_prev` | `int \| None` | (10 units) The search volume on the comparison date. |
 | `traffic_diff` | `int` | The change in traffic between your selected dates. |
 | `traffic_diff_percent` | `int` | The change in traffic between your selected dates, in percents. |
@@ -3982,7 +3982,7 @@ Top pages.
 | `raw_url` | `str` | The ranking page URL in encoded format. |
 | `raw_url_prev` | `str \| None` | The ranking page URL on the comparison date in encoded format. |
 | `referring_domains` | `int \| None` | (5 units) The number of unique domains linking to a page. |
-| `status` | `StatusEnum` | The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search res... |
+| `status` | `StatusEnum` | The status of a page: the new page that just started to rank ("left"), the lost page that disappeared from search results ("right"), or no change ("both"). |
 | `sum_traffic` | `int \| None` | (10 units) An estimation of the monthly organic search traffic that a page gets from all the keywords that it ranks for. |
 | `sum_traffic_merged` | `int` | (10 units) The traffic field optimized for sorting. |
 | `sum_traffic_prev` | `int \| None` | (10 units) The traffic on the comparison date. |
@@ -3997,7 +3997,7 @@ Top pages.
 | `top_keyword_country` | `CountryEnum1 \| None` | The country in which a page ranks for its top keyword. |
 | `top_keyword_country_prev` | `CountryEnum1 \| None` | The country in which a page ranks for its top keyword on the comparison date. |
 | `top_keyword_prev` | `str \| None` | The keyword that brings the most organic traffic to a page on the comparison date. |
-| `top_keyword_volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for the top keyword over the latest month or over ... |
+| `top_keyword_volume` | `int \| None` | (10 units) An estimation of the average monthly number of searches for the top keyword over the latest month or over the latest known 12 months of data depending on the "volume_mode" parameter. |
 | `top_keyword_volume_prev` | `int \| None` | (10 units) The search volume on the comparison date. |
 | `traffic_diff` | `int` | The change in traffic between your selected dates. |
 | `traffic_diff_percent` | `int` | The change in traffic between your selected dates, in percents. |
@@ -4035,7 +4035,7 @@ Total search volume history.
 | Field | Type | Description |
 |-------|------|-------------|
 | `date` | `str` |  |
-| `total_search_volume` | `int` | (10 units) The total search volume of keywords for which your target ranks within the specified `top_positions` in th... |
+| `total_search_volume` | `int` | (10 units) The total search volume of keywords for which your target ranks within the specified `top_positions` in the search results. |
 
 ### `site_explorer_url_rating_history()`
 
@@ -4055,5 +4055,5 @@ URL Rating history.
 | Field | Type | Description |
 |-------|------|-------------|
 | `date` | `str` |  |
-| `url_rating` | `float` | The strength of your target page's backlink profile compared to the other websites in our database on a 100-point log... |
+| `url_rating` | `float` | The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale. |
 
