@@ -1,6 +1,6 @@
 ---
 name: ahrefs-python
-description: Use this skill when building applications with the Ahrefs API using Python, working with SEO data (backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring), or needing current SDK usage patterns. Covers the ahrefs-python SDK (AhrefsClient / AsyncAhrefsClient), typed request/response models, error handling, and all API sections.
+description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, and brand monitoring. Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections.
 ---
 
 # Ahrefs Python SDK Skill
@@ -29,7 +29,6 @@ Requires Python 3.11+. Dependencies: `httpx`, `pydantic`.
 
 - ALWAYS use the `ahrefs-python` SDK. DO NOT make raw `httpx`/`requests` calls to the Ahrefs API.
 - ALWAYS pass dates as strings in `YYYY-MM-DD` format (e.g. `"2025-01-15"`).
-- ALWAYS access response data via the `.data` property, NOT by accessing the raw response fields.
 - ALWAYS use `select` on list endpoints to request only the columns you need.
 - USE context managers (`with` / `async with`) for client lifecycle management.
 - SET the `AHREFS_API_KEY` environment variable rather than hardcoding API keys.
@@ -42,9 +41,9 @@ from ahrefs import AhrefsClient
 
 client = AhrefsClient(api_key="your-api-key")  # or set AHREFS_API_KEY env var
 
-response = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
-print(response.data.domain_rating)  # 91.0
-print(response.data.ahrefs_rank)    # 3
+data = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
+print(data.domain_rating)  # 91.0
+print(data.ahrefs_rank)    # 3
 ```
 
 ## SDK Patterns
@@ -68,7 +67,7 @@ Async client:
 from ahrefs import AsyncAhrefsClient
 
 async with AsyncAhrefsClient(api_key="...") as client:
-    response = await client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
+    data = await client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
 ```
 
 ### Calling Methods
@@ -77,35 +76,37 @@ Two calling styles -- both are equivalent:
 
 ```python
 # Keyword arguments (recommended)
-response = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
+data = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
 
 # Request objects (full type safety)
 from ahrefs.types import SiteExplorerDomainRatingRequest
 request = SiteExplorerDomainRatingRequest(target="ahrefs.com", date="2025-01-15")
-response = client.site_explorer_domain_rating(request)
+data = client.site_explorer_domain_rating(request)
 ```
 
 Method names follow `{api_section}_{endpoint}`, e.g. `site_explorer_organic_keywords`, `keywords_explorer_overview`.
 
 ### Responses
 
-**Scalar endpoints** -- `.data` returns a single object:
+Methods return typed Data objects directly.
+
+**Scalar endpoints** return a single data object (or `None`):
 
 ```python
-response = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
-print(response.data.domain_rating)
+data = client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
+print(data.domain_rating)
 ```
 
-**List endpoints** -- `.data` returns a list. Use `select` and `limit`:
+**List endpoints** return a list of data objects. Use `select` and `limit`:
 
 ```python
-response = client.site_explorer_organic_keywords(
+items = client.site_explorer_organic_keywords(
     target="ahrefs.com",
     date="2025-01-15",
     select="keyword,volume,best_position",
     limit=10,
 )
-for item in response.data:
+for item in items:
     print(item.keyword, item.volume, item.best_position)
 ```
 
@@ -115,7 +116,7 @@ for item in response.data:
 import ahrefs
 
 try:
-    response = client.site_explorer_domain_rating(target="example.com", date="2025-01-15")
+    data = client.site_explorer_domain_rating(target="example.com", date="2025-01-15")
 except ahrefs.AuthenticationError:    # 401
     ...
 except ahrefs.RateLimitError as e:    # 429 -- e.retry_after has the delay

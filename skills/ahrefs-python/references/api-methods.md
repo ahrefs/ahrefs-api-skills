@@ -965,7 +965,7 @@ Page content.
 | `target_url` | `str` | Yes | The URL of the page to retrieve content for. |
 | `project_id` | `int` | Yes | The unique identifier of the project. Only projects with verified ownership are supported. You can find the project ID in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` |
 
-**Returns:** `SiteAuditPageContentData`
+**Returns:** `SiteAuditPageContentData | None`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -2547,7 +2547,7 @@ Backlinks stats.
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 
-**Returns:** `SiteExplorerBacklinksStatsData`
+**Returns:** `SiteExplorerBacklinksStatsData | None`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -2945,7 +2945,7 @@ Domain rating.
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 
-**Returns:** `SiteExplorerDomainRatingData`
+**Returns:** `SiteExplorerDomainRatingData | None`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -3220,7 +3220,7 @@ Metrics.
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `date` | `DateStr` | Yes | A date to report metrics on in YYYY-MM-DD format. |
 
-**Returns:** `SiteExplorerMetricsData`
+**Returns:** `SiteExplorerMetricsData | None`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -3567,7 +3567,7 @@ Outlinks stats.
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 
-**Returns:** `SiteExplorerOutlinksStatsData`
+**Returns:** `SiteExplorerOutlinksStatsData | None`
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -3590,7 +3590,7 @@ Pages by traffic.
 | `target` | `str` | Yes | The target of the search: a domain or a URL. |
 | `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
 
-**Returns:** `SiteExplorerPagesByTrafficData`
+**Returns:** `SiteExplorerPagesByTrafficData | None`
 
 | Field | Type | Description |
 |-------|------|-------------|
