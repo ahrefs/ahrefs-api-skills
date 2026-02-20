@@ -3,13 +3,78 @@
 <!-- AUTO-GENERATED -- DO NOT EDIT -->
 
 
+
 All methods below are available on both `AhrefsClient` (sync) and
 `AsyncAhrefsClient` (async). The async client uses the same method
 names — just `await` the call.
 
 For filter expression syntax (`where` parameter), see [Filter Syntax](filter-syntax.md).
 
----
+<!-- mdformat-toc start --slug=github --no-anchors --maxlevel=3 --minlevel=2 -->
+
+- [Batch Analysis](#batch-analysis)
+  - [`batch_analysis()`](#batch_analysis)
+- [Brand Radar](#brand-radar)
+  - [`brand_radar_ai_responses()`](#brand_radar_ai_responses)
+  - [`brand_radar_cited_domains()`](#brand_radar_cited_domains)
+  - [`brand_radar_cited_pages()`](#brand_radar_cited_pages)
+  - [`brand_radar_impressions_history()`](#brand_radar_impressions_history)
+  - [`brand_radar_impressions_overview()`](#brand_radar_impressions_overview)
+  - [`brand_radar_mentions_history()`](#brand_radar_mentions_history)
+  - [`brand_radar_mentions_overview()`](#brand_radar_mentions_overview)
+  - [`brand_radar_sov_history()`](#brand_radar_sov_history)
+  - [`brand_radar_sov_overview()`](#brand_radar_sov_overview)
+- [Keywords Explorer](#keywords-explorer)
+  - [`keywords_explorer_matching_terms()`](#keywords_explorer_matching_terms)
+  - [`keywords_explorer_overview()`](#keywords_explorer_overview)
+  - [`keywords_explorer_related_terms()`](#keywords_explorer_related_terms)
+  - [`keywords_explorer_search_suggestions()`](#keywords_explorer_search_suggestions)
+  - [`keywords_explorer_volume_by_country()`](#keywords_explorer_volume_by_country)
+  - [`keywords_explorer_volume_history()`](#keywords_explorer_volume_history)
+- [Rank Tracker](#rank-tracker)
+  - [`rank_tracker_competitors_overview()`](#rank_tracker_competitors_overview)
+  - [`rank_tracker_competitors_pages()`](#rank_tracker_competitors_pages)
+  - [`rank_tracker_competitors_stats()`](#rank_tracker_competitors_stats)
+  - [`rank_tracker_overview()`](#rank_tracker_overview)
+  - [`rank_tracker_serp_overview()`](#rank_tracker_serp_overview)
+- [Serp Overview](#serp-overview)
+  - [`serp_overview()`](#serp_overview)
+- [Site Audit](#site-audit)
+  - [`site_audit_issues()`](#site_audit_issues)
+  - [`site_audit_page_content()`](#site_audit_page_content)
+  - [`site_audit_page_explorer()`](#site_audit_page_explorer)
+  - [`site_audit_projects()`](#site_audit_projects)
+- [Site Explorer](#site-explorer)
+  - [`site_explorer_all_backlinks()`](#site_explorer_all_backlinks)
+  - [`site_explorer_anchors()`](#site_explorer_anchors)
+  - [`site_explorer_backlinks_stats()`](#site_explorer_backlinks_stats)
+  - [`site_explorer_best_by_external_links()`](#site_explorer_best_by_external_links)
+  - [`site_explorer_best_by_internal_links()`](#site_explorer_best_by_internal_links)
+  - [`site_explorer_broken_backlinks()`](#site_explorer_broken_backlinks)
+  - [`site_explorer_domain_rating()`](#site_explorer_domain_rating)
+  - [`site_explorer_domain_rating_history()`](#site_explorer_domain_rating_history)
+  - [`site_explorer_keywords_history()`](#site_explorer_keywords_history)
+  - [`site_explorer_linked_anchors_external()`](#site_explorer_linked_anchors_external)
+  - [`site_explorer_linked_anchors_internal()`](#site_explorer_linked_anchors_internal)
+  - [`site_explorer_linkeddomains()`](#site_explorer_linkeddomains)
+  - [`site_explorer_metrics()`](#site_explorer_metrics)
+  - [`site_explorer_metrics_by_country()`](#site_explorer_metrics_by_country)
+  - [`site_explorer_metrics_history()`](#site_explorer_metrics_history)
+  - [`site_explorer_organic_competitors()`](#site_explorer_organic_competitors)
+  - [`site_explorer_organic_keywords()`](#site_explorer_organic_keywords)
+  - [`site_explorer_outlinks_stats()`](#site_explorer_outlinks_stats)
+  - [`site_explorer_pages_by_traffic()`](#site_explorer_pages_by_traffic)
+  - [`site_explorer_pages_history()`](#site_explorer_pages_history)
+  - [`site_explorer_paid_pages()`](#site_explorer_paid_pages)
+  - [`site_explorer_refdomains()`](#site_explorer_refdomains)
+  - [`site_explorer_refdomains_history()`](#site_explorer_refdomains_history)
+  - [`site_explorer_top_pages()`](#site_explorer_top_pages)
+  - [`site_explorer_total_search_volume_history()`](#site_explorer_total_search_volume_history)
+  - [`site_explorer_url_rating_history()`](#site_explorer_url_rating_history)
+
+<!-- mdformat-toc end -->
+
+______________________________________________________________________
 
 ## Batch Analysis
 
@@ -22,7 +87,7 @@ Batch Analysis.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `select` | `list[str]` | Yes | A list of columns to return. See response schema for valid column identifiers. |
-| `order_by` | `str` | No |  |
+| `order_by` | `str` | No | |
 | `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
 | `volume_mode` | `VolumeModeEnum` | No | The search volume calculation mode: monthly or average. It affects volume, traffic, and traffic value. |
 | `targets` | `list[BatchAnalysisTarget]` | Yes | A list of targets to do batch analysis. |
@@ -72,7 +137,7 @@ Batch Analysis.
 
 </details>
 
----
+______________________________________________________________________
 
 ## Brand Radar
 
@@ -233,7 +298,7 @@ Overview history - Impressions.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `impressions` | `int` | Estimated impressions from responses mentioning the brand. |
 
 ### `brand_radar_impressions_overview()`
@@ -309,7 +374,7 @@ Overview history - Mentions.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `mentions` | `int` | Estimated mentions from responses mentioning the brand. |
 
 ### `brand_radar_mentions_overview()`
@@ -386,7 +451,7 @@ Overview history - Share of Voice.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `share_of_voice` | `list[dict[str, Any] \| None]` | (1 unit per brand) Estimated share of voice for the brand. |
 
 ### `brand_radar_sov_overview()`
@@ -424,7 +489,7 @@ Overview - Share of Voice.
 | `brand` | `str` | Brand name (either your brand or a competitor provided in the request). |
 | `share_of_voice` | `float` | Estimated share of voice for your brand. |
 
----
+______________________________________________________________________
 
 ## Keywords Explorer
 
@@ -481,7 +546,7 @@ Matching terms.
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
 | `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
-| `keyword` | `str` |  |
+| `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
 | `serp_last_update` | `str \| None` | The date when we last checked search engine results for a keyword. |
@@ -550,7 +615,7 @@ Overview.
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
 | `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
-| `keyword` | `str` |  |
+| `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `parent_volume` | `int \| None` | (10 units) The search volume of the parent topic. |
 | `searches_pct_clicks_organic_and_paid` | `float \| None` | The average monthly percentage of people who clicked on both organic and paid results while searching for the target keyword. |
@@ -617,7 +682,7 @@ Related terms.
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
 | `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
-| `keyword` | `str` |  |
+| `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
 | `serp_last_update` | `str \| None` | The date when we last checked search engine results for a keyword. |
@@ -678,7 +743,7 @@ Search suggestions.
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
 | `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
-| `keyword` | `str` |  |
+| `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
 | `serp_last_update` | `str \| None` | The date when we last checked search engine results for a keyword. |
@@ -704,7 +769,7 @@ Volume by country.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `country` | `str` |  |
+| `country` | `str` | |
 | `volume` | `int` | (10 units) An estimation of the average monthly number of searches for a keyword in a given country. |
 
 ### `keywords_explorer_volume_history()`
@@ -724,10 +789,10 @@ Volume history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `volume` | `int` | An estimation of the number of searches for a keyword over a given month. |
 
----
+______________________________________________________________________
 
 ## Rank Tracker
 
@@ -998,7 +1063,7 @@ Overview.
 | `language_prev` | `str` | The SERP language on the comparison date. |
 | `location` | `str` | The location (country, state/province, or city) that a given keyword is being tracked in. |
 | `location_prev` | `str` | The location (country, state/province, or city) that a given keyword is being tracked in on the comparison date. |
-| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead.  To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
+| `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `position` | `int \| None` | The top position (or target URL’s, if set) in organic search. |
 | `position_diff` | `int \| None` | The change in top position (or target URL’s, if set) between selected dates. |
 | `position_prev` | `int \| None` | The top position (or target URL’s, if set) on the comparison date. |
@@ -1063,7 +1128,7 @@ SERP Overview.
 | `top_keyword_volume` | `int \| None` | An estimation of the average monthly number of searches for the top keyword over the latest known 12 months of data. |
 | `page_type` | `str \| None` | Comma-separated list of AI-predicted hierarchical page type paths for the ranking page. Each value is a slash-prefixed path (e.g. /Article/How_to). |
 
----
+______________________________________________________________________
 
 ## Serp Overview
 
@@ -1102,7 +1167,7 @@ SERP Overview.
 | `url_rating` | `float \| None` | The strength of a page's backlink profile on a 100-point logarithmic scale. |
 | `value` | `int \| None` | (10 units) The estimated value of a page’s monthly organic search traffic, in USD cents. |
 
----
+______________________________________________________________________
 
 ## Site Audit
 
@@ -1979,8 +2044,8 @@ Page explorer.
 | `indexnow_error_prev` | `str \| None` | The error description for a failed auto-submission |
 | `indexnow_reason` | `str \| None` | The reason the page was considered for auto-submission to IndexNow |
 | `indexnow_reason_prev` | `str \| None` | The reason the page was considered for auto-submission to IndexNow |
-| `indexnow_status` | `str \| None` | The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings |
-| `indexnow_status_prev` | `str \| None` | The status of IndexNow auto-submission. Possible values:  - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings |
+| `indexnow_status` | `str \| None` | The status of IndexNow auto-submission. Possible values: - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings |
+| `indexnow_status_prev` | `str \| None` | The status of IndexNow auto-submission. Possible values: - **Success:** The page was successfully submitted to IndexNow. - **No changes detected:** No changes were detected on the page; submission was not required. - **Not eligible:** The URL isn't eligible for submission, e.g., it's not an indexable HTML page. - **Invalid API key:** IndexNow submission failed due to an invalid API key. - **Failed:** Submission to IndexNow failed; see details for the reason. - **Auto-submission is off:** Automatic submission is disabled in Crawl settings |
 | `indexnow_submitted_at` | `str \| None` | The date and time when the URL was auto-submitted to IndexNow |
 | `indexnow_submitted_at_prev` | `str \| None` | The date and time when the URL was auto-submitted to IndexNow |
 | `internal_code` | `list[dict[str, Any] \| None]` | The list of HTTP status codes returned by the internal URLs linked to from the page |
@@ -2158,8 +2223,8 @@ Page explorer.
 | `meta_twitter_tags_app_iphone_prev` | `str \| None` | The app ID in the iTunes App Store specified in the twitter:app:id:iphone meta property |
 | `meta_twitter_tags_attributes` | `list[str \| None]` | The list of X (Twitter) Card properties on the page |
 | `meta_twitter_tags_attributes_prev` | `list[str \| None]` | The list of X (Twitter) Card properties on the page |
-| `meta_twitter_tags_card` | `str \| None` | The X (Twitter) Card type can be "summary", "summary\_large\_image", "app", or "player" |
-| `meta_twitter_tags_card_prev` | `str \| None` | The X (Twitter) Card type can be "summary", "summary\_large\_image", "app", or "player" |
+| `meta_twitter_tags_card` | `str \| None` | The X (Twitter) Card type can be "summary", "summary_large_image", "app", or "player" |
+| `meta_twitter_tags_card_prev` | `str \| None` | The X (Twitter) Card type can be "summary", "summary_large_image", "app", or "player" |
 | `meta_twitter_tags_description` | `str \| None` | meta_twitter_tags.description |
 | `meta_twitter_tags_description_prev` | `str \| None` | meta_twitter_tags.description |
 | `meta_twitter_tags_image` | `str \| None` | The image URL specified in the twitter:image meta property |
@@ -2236,8 +2301,8 @@ Page explorer.
 | `page_raw_ur` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur) |
 | `page_raw_ur_diff` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur) |
 | `page_raw_ur_prev` | `int \| None` | URL Rating (UR) shows the strength of your target page's backlink profile on a 100-point logarithmic scale. [Learn more](https://help.ahrefs.com/en/articles/72658-what-is-url-rating-ur) |
-| `page_type` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's     considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference     them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links) |
-| `page_type_prev` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps     and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's     considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference     them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links) |
+| `page_type` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links) |
+| `page_type_prev` | `list[str \| None]` | Site Audit categorizes URLs as HTML Pages, Resource files (image, CSS or JavaScript), XML Sitemaps and Robots.txt. If a page doesn't return status code 200 or has a content type that isn't covered by the categories above, it's considered as "Other". Since we can't determine what these pages are, we further classify them based on how incoming links reference them: as resources (receive resource incoming links) or as pages (receive non-resource incoming links) |
 | `pagination_group` | `int \| None` | The ID of the group of pages interconnected via their rel="next" and rel="prev" links |
 | `pagination_group_prev` | `int \| None` | The ID of the group of pages interconnected via their rel="next" and rel="prev" links |
 | `positions` | `int \| None` | The number of keywords the page is ranking for in top 100 organic search results worldwide (data from Ahrefs' Site Explorer) |
@@ -2249,29 +2314,29 @@ Page explorer.
 | `positions_top3` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer) |
 | `positions_top3_diff` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer) |
 | `positions_top3_prev` | `int \| None` | The number of keywords the page is ranking for in top 3 organic search results worldwide (data from Ahrefs' Site Explorer) |
-| `psi_crux_cls_category` | `str \| None` | Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
-| `psi_crux_cls_category_prev` | `str \| None` | Your CLS category will be either Good (<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_category` | `str \| None` | Your CLS category will be either Good (\<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_cls_category_prev` | `str \| None` | Your CLS category will be either Good (\<0.1), Needs Improvement (0.1 - 0.25), or Poor (>0.25). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_cls_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_cls_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected CLS metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_cls_percentile` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_cls_percentile_diff` | `int \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_cls_percentile_prev` | `float \| None` | Cumulative Layout Shift measures visual stability. The range is 0-1, where 0 is stable and 1 means a lot of shifting. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
-| `psi_crux_fid_category` | `str \| None` | Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
-| `psi_crux_fid_category_prev` | `str \| None` | Your FID category will be either Good (<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_category` | `str \| None` | Your FID category will be either Good (\<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_fid_category_prev` | `str \| None` | Your FID category will be either Good (\<100 ms), Needs Improvement (100 ms - 300 ms), or Poor (>300 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_fid_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_fid_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected FID metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_fid_percentile` | `float \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_fid_percentile_diff` | `int \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_fid_percentile_prev` | `float \| None` | First Input Delay measures interactivity. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
-| `psi_crux_inp_category` | `str \| None` | Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/) |
-| `psi_crux_inp_category_prev` | `str \| None` | Your INP category will be either Good (<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_category` | `str \| None` | Your INP category will be either Good (\<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/) |
+| `psi_crux_inp_category_prev` | `str \| None` | Your INP category will be either Good (\<200 ms), Needs Improvement (200 ms - 500 ms), or Poor (>500 ms). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://web.dev/inp/) |
 | `psi_crux_inp_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://web.dev/inp/) |
 | `psi_crux_inp_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected INP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://web.dev/inp/) |
 | `psi_crux_inp_percentile` | `float \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/) |
 | `psi_crux_inp_percentile_diff` | `int \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/) |
 | `psi_crux_inp_percentile_prev` | `float \| None` | Interaction to Next Paint measure overall responsiveness of a page to user interactions. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://web.dev/inp/) |
-| `psi_crux_lcp_category` | `str \| None` | Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
-| `psi_crux_lcp_category_prev` | `str \| None` | Your LCP category will be either Good (<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_category` | `str \| None` | Your LCP category will be either Good (\<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
+| `psi_crux_lcp_category_prev` | `str \| None` | Your LCP category will be either Good (\<2.5 sec), Needs Improvement (2.5 sec - 4.0 sec), or Poor (>4.0 sec). The category is based on the lowest threshold that includes 75% of page views. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_lcp_distributions_proportion` | `list[dict[str, Any] \| None]` | What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_lcp_distributions_proportion_prev` | `list[dict[str, Any] \| None]` | What % of collected LCP metrics are in each associated threshold, which categorize performance as either "Good", "Needs Improvement", or "Poor". [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_crux_lcp_percentile` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from the Chrome User Experience Report which looks at real user data. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
@@ -2287,9 +2352,9 @@ Page explorer.
 | `psi_lighthouse_lcp_value` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_lighthouse_lcp_value_diff` | `int \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
 | `psi_lighthouse_lcp_value_prev` | `float \| None` | Largest Contentful Paint measures visual loading performance. This score comes from Lighthouse in a simulated test environment. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
-| `psi_lighthouse_score` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/) |
-| `psi_lighthouse_score_diff` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/) |
-| `psi_lighthouse_score_prev` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (<50). [Learn more](https://web.dev/performance-scoring/) |
+| `psi_lighthouse_score` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (\<50). [Learn more](https://web.dev/performance-scoring/) |
+| `psi_lighthouse_score_diff` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (\<50). [Learn more](https://web.dev/performance-scoring/) |
+| `psi_lighthouse_score_prev` | `int \| None` | This score uses multiple Lighthouse speed metrics to create a summary of the page's performance and use of best practices. Scores will be considered Good (>90), Needs Improvement (50-90), or Poor (\<50). [Learn more](https://web.dev/performance-scoring/) |
 | `psi_lighthouse_tbt_error_message` | `str \| None` | The message returned by Lighthouse if there is an error when measuring TBT |
 | `psi_lighthouse_tbt_error_message_prev` | `str \| None` | The message returned by Lighthouse if there is an error when measuring TBT |
 | `psi_lighthouse_tbt_value` | `float \| None` | Total Blocking Time measures the total amount of time that a page is blocked from responding to user interactions. This score comes from Lighthouse in a simulated test environment. TBT is the recommended alternative to FID for lab tests. [Learn more](https://ahrefs.com/blog/core-web-vitals/) |
@@ -2429,7 +2494,7 @@ Project Health Scores.
 | `urls_with_notices` | `int \| None` | Number of internal URLs with notices |
 | `total` | `int \| None` | Number of total crawled internal URLs |
 
----
+______________________________________________________________________
 
 ## Site Explorer
 
@@ -3159,7 +3224,7 @@ Domain Rating history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `domain_rating` | `float` | The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale. |
 
 ### `site_explorer_keywords_history()`
@@ -3183,7 +3248,7 @@ Keywords history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `top11_20` | `int` | The total number of keywords that your target ranks for in the top 11-20 organic search results. |
 | `top11_plus` | `int` | The total number of keywords that your target ranks for in the top 11+ organic search results. |
 | `top21_50` | `int` | The total number of keywords that your target ranks for in the top 21-50 organic search results. |
@@ -3442,7 +3507,7 @@ Metrics by country.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `country` | `CountryEnum1` |  |
+| `country` | `CountryEnum1` | |
 | `org_cost` | `int \| None` | (10 units) The estimated value of your target's monthly organic search traffic, in USD cents. |
 | `org_keywords` | `int` | The total number of keywords that your target ranks for in the top 100 organic search results. |
 | `org_keywords_1_3` | `int` | The total number of keywords that your target ranks for in the top 3 organic search results. |
@@ -3474,7 +3539,7 @@ Metrics history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `org_cost` | `int` | (10 units) The estimated cost of your target's monthly organic search traffic, in USD cents. |
 | `org_traffic` | `int` | (10 units) The estimated number of monthly visitors that your target gets from organic search. |
 | `paid_cost` | `int` | (10 units) The estimated cost of your target's monthly paid search traffic, in USD cents. |
@@ -3818,7 +3883,7 @@ Pages history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `pages` | `int` | The total number of pages from a target ranking in the top 100 organic search results. |
 
 ### `site_explorer_paid_pages()`
@@ -4072,7 +4137,7 @@ Refdomains history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `refdomains` | `int` | (5 units) The total number of unique domains linking to your target. |
 
 ### `site_explorer_top_pages()`
@@ -4228,7 +4293,7 @@ Total search volume history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `total_search_volume` | `int` | (10 units) The total search volume of keywords for which your target ranks within the specified `top_positions` in the search results. |
 
 ### `site_explorer_url_rating_history()`
@@ -4248,6 +4313,5 @@ URL Rating history.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `date` | `str` |  |
+| `date` | `str` | |
 | `url_rating` | `float` | The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale. |
-
