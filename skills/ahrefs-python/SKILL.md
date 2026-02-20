@@ -16,6 +16,7 @@ Key capabilities:
 - **Site Audit** - Technical SEO issues, page content, page explorer
 - **Brand Radar** - AI brand mentions, share of voice, impressions
 - **SERP Overview** - Search result analysis
+- **Batch Analysis** - Bulk domain/URL metrics via POST
 
 ## Installation
 
@@ -165,4 +166,4 @@ For full filter syntax (boolean combinators, operators, nested fields), see `ref
 
 ## API Methods
 
-For the full list of 48 methods with parameters, types, and response fields, see `references/api-methods.md`.
+52 methods across 7 API sections. See `references/api-methods.md` for full details.

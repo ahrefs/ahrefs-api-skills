@@ -19,14 +19,14 @@ export AHREFS_API_KEY="your-api-key"
 npx skills add ahrefs/ahrefs-api-skills --skill ahrefs-python --global
 ```
 
-Then ask Claude Code to use the Ahrefs API — it will know the SDK patterns, all 48 methods, error handling, and filter syntax.
+Then ask Claude Code to use the Ahrefs API — it will know the SDK patterns, all 52 methods, error handling, and filter syntax.
 
 ## What's included
 
 The `ahrefs-python` skill provides:
 
 - **SDK usage rules** — always use the typed client, correct response access patterns, date formats
-- **All 48 API methods** — Site Explorer, Keywords Explorer, Rank Tracker, Site Audit, Brand Radar, SERP Overview
+- **All 52 API methods** — Site Explorer, Keywords Explorer, Rank Tracker, Site Audit, Brand Radar, SERP Overview, Batch Analysis
 - **Filter syntax reference** — BNF grammar and examples for building query filters
 
 ## Links
