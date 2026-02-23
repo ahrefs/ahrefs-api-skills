@@ -26,6 +26,33 @@ pip install git+https://github.com/ahrefs/ahrefs-python.git
 
 Requires Python 3.11+. Dependencies: `httpx`, `pydantic`.
 
+## API Method Discovery
+
+The SDK includes a built-in search tool for discovering API methods by keyword. Use this to find the right method before writing code.
+
+**Python** (preferred when already in a Python context):
+
+```python
+from ahrefs.search import search_api_methods
+
+# Returns formatted text with method signatures, parameters, and return types
+print(search_api_methods("domain rating"))
+
+# Filter by API section and limit results
+print(search_api_methods("backlinks", section="site-explorer", limit=3))
+```
+
+**CLI** (preferred when exploring from the terminal):
+
+```sh
+python -m ahrefs.api_search "domain rating"
+python -m ahrefs.api_search "backlinks" --section site-explorer --limit 3
+python -m ahrefs.api_search "batch" --json
+python -m ahrefs.api_search --sections  # list all API sections
+```
+
+**Always search first.** Only consult `references/api-methods.md` as a fallback if search returns no results.
+
 ## IMPORTANT RULES
 
 - ALWAYS use the `ahrefs-python` SDK. DO NOT make raw `httpx`/`requests` calls to the Ahrefs API.
@@ -166,4 +193,4 @@ For full filter syntax (boolean combinators, operators, nested fields), see `ref
 
 ## API Methods
 
-52 methods across 7 API sections. See `references/api-methods.md` for full details.
+52 methods across 7 API sections. Use `search_api_methods("query")` or `python -m ahrefs.api_search "query"` to find methods by keyword. See `references/api-methods.md` for the full reference if search returns no results.
