@@ -28,7 +28,7 @@ Requires Python 3.11+. Dependencies: `httpx`, `pydantic`.
 
 ## API Method Discovery
 
-The SDK includes a built-in search tool for discovering API methods by keyword. Use this to find the right method before writing code.
+The SDK has 52 methods across 7 API sections. The built-in search tool is the fastest way to find the right method — it returns matching method signatures, parameters, and return types directly, so there's no need to scan through a large reference.
 
 **Python** (preferred when already in a Python context):
 
@@ -50,8 +50,6 @@ python -m ahrefs.api_search "backlinks" --section site-explorer --limit 3
 python -m ahrefs.api_search "batch" --json
 python -m ahrefs.api_search --sections  # list all API sections
 ```
-
-**Always search first.** Only consult `references/api-methods.md` as a fallback if search returns no results.
 
 ## IMPORTANT RULES
 
@@ -193,4 +191,4 @@ For full filter syntax (boolean combinators, operators, nested fields), see `ref
 
 ## API Methods
 
-52 methods across 7 API sections. Use `search_api_methods("query")` or `python -m ahrefs.api_search "query"` to find methods by keyword. See `references/api-methods.md` for the full reference if search returns no results.
+Use `search_api_methods("query")` or `python -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 52 methods across 7 API sections and returns complete signatures, parameters, and response fields.
