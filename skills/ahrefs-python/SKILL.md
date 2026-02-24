@@ -99,6 +99,18 @@ async with AsyncAhrefsClient(api_key=os.environ["AHREFS_API_KEY"]) as client:
     data = await client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15")
 ```
 
+For parallel calls, use `asyncio.gather`:
+
+```python
+import asyncio
+
+async with AsyncAhrefsClient(api_key=os.environ["AHREFS_API_KEY"]) as client:
+    dr_ahrefs, dr_moz = await asyncio.gather(
+        client.site_explorer_domain_rating(target="ahrefs.com", date="2025-01-15"),
+        client.site_explorer_domain_rating(target="moz.com", date="2025-01-15"),
+    )
+```
+
 ### Calling Methods
 
 Two calling styles -- both are equivalent:
@@ -175,6 +187,8 @@ Most list endpoints share these parameters:
 | `where` | `str` | Filter expression |
 | `order_by` | `str` | Column and direction, e.g. `"volume:desc"` |
 | `limit` | `int` | Max results to return |
+
+Parameters typed as enums in the API reference (`CountryEnum`, `VolumeModeEnum`, etc.) accept plain strings — pass `country="us"` not `CountryEnum("us")`.
 
 The `where` parameter takes a JSON string. Use `json.dumps()` to build it:
 
