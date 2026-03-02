@@ -57,7 +57,7 @@ python -m ahrefs.api_search --sections  # list all API sections
 - ALWAYS pass dates as strings in `YYYY-MM-DD` format (e.g. `"2025-01-15"`).
 - ALWAYS use `select` on list endpoints to request only the columns you need. List endpoints return all columns by default, which wastes API units and increases response size.
 - USE context managers (`with` / `async with`) for client lifecycle management.
-- SET the `AHREFS_API_KEY` environment variable rather than hardcoding API keys.
+- NEVER hardcode API keys in source code. Use the `AHREFS_API_KEY` environment variable or your preferred secrets mechanism.
 - The client handles retries (429, 5xx, connection errors) automatically. DO NOT implement your own retry logic on top of the SDK.
 
 ## Quick Start
@@ -81,7 +81,7 @@ import os
 import ahrefs
 
 with ahrefs.AhrefsClient(
-    api_key=os.environ["AHREFS_API_KEY"],
+    api_key=os.environ["AHREFS_API_KEY"],  # or any secrets source
     base_url="...",          # override API base URL (default: https://api.ahrefs.com/v3)
     timeout=30.0,            # request timeout in seconds (default: 60)
     max_retries=3,           # retries on transient errors (default: 2)
