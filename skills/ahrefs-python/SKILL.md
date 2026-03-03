@@ -21,7 +21,7 @@ Key capabilities:
 ## Installation
 
 ```sh
-pip install git+https://github.com/ahrefs/ahrefs-python.git
+pip3 install git+https://github.com/ahrefs/ahrefs-python.git
 ```
 
 Requires Python 3.11+. Dependencies: `httpx`, `pydantic`.
@@ -45,10 +45,13 @@ print(search_api_methods("backlinks", section="site-explorer", limit=3))
 **CLI** (preferred when exploring from the terminal):
 
 ```sh
-python -m ahrefs.api_search "domain rating"
-python -m ahrefs.api_search "backlinks" --section site-explorer --limit 3
-python -m ahrefs.api_search "batch" --json
-python -m ahrefs.api_search --sections  # list all API sections
+# Ensure python3 points to the interpreter where ahrefs-python is installed:
+#   which python3
+#   python3 -c "import ahrefs"
+python3 -m ahrefs.api_search "domain rating"
+python3 -m ahrefs.api_search "backlinks" --section site-explorer --limit 3
+python3 -m ahrefs.api_search "batch" --json
+python3 -m ahrefs.api_search --sections  # list all API sections
 ```
 
 ## IMPORTANT RULES
@@ -205,4 +208,4 @@ For full filter syntax (boolean combinators, operators, nested fields), see `ref
 
 ## API Methods
 
-Use `search_api_methods("query")` or `python -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 52 methods across 7 API sections and returns complete signatures, parameters, and response fields.
+Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 52 methods across 7 API sections and returns complete signatures, parameters, and response fields.
