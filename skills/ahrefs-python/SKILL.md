@@ -206,6 +206,13 @@ items = client.site_explorer_organic_keywords(
 
 For full filter syntax (boolean combinators, operators, nested fields), see `references/filter-syntax.md`.
 
+### Recommended Defaults
+
+Unless the user requests otherwise:
+
+- **Backlink endpoints** (`all_backlinks`, `anchors`, `best_by_external_links`, `refdomains`): Use `history="live"` for current live data. The API defaults to `all_time` which includes lost backlinks.
+- **Traffic/keyword endpoints** (`organic_keywords`, `top_pages`, `metrics`, etc.): Use today's date for the `date` parameter.
+
 ## API Methods
 
 Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 52 methods across 7 API sections and returns complete signatures, parameters, and response fields.
