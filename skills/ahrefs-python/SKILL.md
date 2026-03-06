@@ -215,4 +215,4 @@ Unless the user requests otherwise:
 
 ## API Methods
 
-Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 52 methods across 7 API sections and returns complete signatures, parameters, and response fields.
+Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 52 methods across 7 API sections and returns complete signatures, parameters, and response fields. Results with very large field lists (e.g. `site_audit_page_explorer` with 605 fields) are truncated at 9K chars — if you see `... [truncated]`, use `select` to request only the columns you need rather than relying on the full field list.
