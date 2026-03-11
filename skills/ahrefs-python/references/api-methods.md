@@ -26,6 +26,9 @@
     - [`keywords_explorer_search_suggestions()`](#keywords_explorer_search_suggestions)
     - [`keywords_explorer_volume_by_country()`](#keywords_explorer_volume_by_country)
     - [`keywords_explorer_volume_history()`](#keywords_explorer_volume_history)
+  - [Public](#public)
+    - [`public_crawler_ip_ranges()`](#public_crawler_ip_ranges)
+    - [`public_crawler_ips()`](#public_crawler_ips)
   - [Rank Tracker](#rank-tracker)
     - [`rank_tracker_competitors_overview()`](#rank_tracker_competitors_overview)
     - [`rank_tracker_competitors_pages()`](#rank_tracker_competitors_pages)
@@ -66,6 +69,8 @@
     - [`site_explorer_top_pages()`](#site_explorer_top_pages)
     - [`site_explorer_total_search_volume_history()`](#site_explorer_total_search_volume_history)
     - [`site_explorer_url_rating_history()`](#site_explorer_url_rating_history)
+  - [Subscription Info](#subscription-info)
+    - [`subscription_info_limits_and_usage()`](#subscription_info_limits_and_usage)
   - [Web Analytics](#web-analytics)
     - [`web_analytics_browser_versions()`](#web_analytics_browser_versions)
     - [`web_analytics_browser_versions_chart()`](#web_analytics_browser_versions_chart)
@@ -845,6 +850,30 @@ Volume history.
 |-------|------|-------------|
 | `date` | `str` | |
 | `volume` | `int` | An estimation of the number of searches for a keyword over a given month. |
+
+______________________________________________________________________
+
+## Public
+
+### `public_crawler_ip_ranges()`
+
+Crawler IP ranges.
+
+**Returns:** `list[PublicCrawlerIpRangesData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ipv4Prefix` | `str` | |
+
+### `public_crawler_ips()`
+
+Crawler IP addresses.
+
+**Returns:** `list[PublicCrawlerIpsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ip_address` | `str` | |
 
 ______________________________________________________________________
 
@@ -4369,6 +4398,26 @@ URL Rating history.
 |-------|------|-------------|
 | `date` | `str` | |
 | `url_rating` | `float` | The strength of your target page's backlink profile compared to the other websites in our database on a 100-point logarithmic scale. |
+
+______________________________________________________________________
+
+## Subscription Info
+
+### `subscription_info_limits_and_usage()`
+
+Limits and usage.
+
+**Returns:** `SubscriptionInfoLimitsAndUsageData | None`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `subscription` | `str` | Ahrefs subscription plan. |
+| `usage_reset_date` | `str` | Start date of the next billing period when the API units usage will be reset. |
+| `units_limit_workspace` | `int \| None` | Total number of API units available to the workspace. |
+| `units_usage_workspace` | `int \| None` | Number of API units consumed by the workspace in the current billing month. |
+| `units_limit_api_key` | `int \| None` | Limit for the number of API units that can be consumed via this API key per billing month (null = unlimited). |
+| `units_usage_api_key` | `int` | Number of API units consumed by this API key in the current billing month. |
+| `api_key_expiration_date` | `str` | Date on which this API key will expire and stop working. |
 
 ______________________________________________________________________
 

@@ -18,6 +18,8 @@ Key capabilities:
 - **SERP Overview** - Search result analysis
 - **Batch Analysis** - Bulk domain/URL metrics via POST
 - **Web Analytics** - Website visitor analytics (traffic, browsers, devices, sources, pages)
+- **Public** — Ahrefs crawler IP addresses and CIDR ranges
+- **Subscription Info** — API usage limits, billing period, key expiration
 
 ## Installation
 
@@ -29,7 +31,7 @@ Requires Python 3.11+. Dependencies: `httpx`, `pydantic`.
 
 ## API Method Discovery
 
-The SDK has 86 methods across 8 API sections. The built-in search tool is the fastest way to find the right method — it returns matching method signatures, parameters, and return types directly, so there's no need to scan through a large reference.
+The SDK has 89 methods across 10 API sections. The built-in search tool is the fastest way to find the right method — it returns matching method signatures, parameters, and return types directly, so there's no need to scan through a large reference.
 
 **Python** (preferred when already in a Python context):
 
@@ -216,11 +218,13 @@ Unless the user requests otherwise:
 
 ## API Methods
 
-Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 86 methods across 8 API sections and returns complete signatures, parameters, and response fields. Results with very large field lists (e.g. `site_audit_page_explorer` with 605 fields) are truncated at 9K chars — if you see `... [truncated]`, use `select` to request only the columns you need rather than relying on the full field list.
+Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 89 methods across 10 API sections and returns complete signatures, parameters, and response fields. Results with very large field lists (e.g. `site_audit_page_explorer` with 605 fields) are truncated at 9K chars — if you see `... [truncated]`, use `select` to request only the columns you need rather than relying on the full field list.
 
 ### Web Analytics
 
-Web Analytics endpoints require a `project_id` (not a `target` domain). Use `from_` and `to` for datetime ranges — `from` is a Python reserved word, so the SDK uses `from_` with automatic serialization to the correct API name.
+Web Analytics has 34 endpoints across many dimensions — not all method names match the dimension name directly (e.g. pages data uses `web_analytics_top_pages`, not `web_analytics_pages`). Always use `search_api_methods("web analytics <topic>")` to find the correct method.
+
+These endpoints require a `project_id` (not a `target` domain). Use `from_` and `to` for datetime ranges — `from` is a Python reserved word, so the SDK uses `from_` with automatic serialization to the correct API name.
 
 ```python
 # Overall traffic stats (scalar endpoint)
