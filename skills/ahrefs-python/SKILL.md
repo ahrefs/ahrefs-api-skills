@@ -179,6 +179,8 @@ except ahrefs.APIConnectionError:     # network / timeout
 
 All exceptions inherit from `ahrefs.AhrefsError`.
 
+When errors occur and the API key is valid, call `subscription_info_limits_and_usage()` to diagnose — it returns the subscription plan, key expiration date, and usage vs limits. For 403 errors specifically, also read `e.response_body` for the exact reason (units limit, export rows limit, domains-per-week limit, etc.).
+
 ### Common Parameters
 
 Most list endpoints share these parameters:
