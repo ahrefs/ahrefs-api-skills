@@ -1,6 +1,6 @@
 ---
 name: ahrefs-python
-description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, and brand monitoring. Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections.
+description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring, and web analytics (page views, visitors, traffic sources, referrers, devices). Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections. Trigger this skill whenever the user mentions Ahrefs, ahrefs-python, or any SEO data retrieval task in Python.
 ---
 
 # Ahrefs Python SDK Skill
