@@ -26,6 +26,20 @@
     - [`keywords_explorer_search_suggestions()`](#keywords_explorer_search_suggestions)
     - [`keywords_explorer_volume_by_country()`](#keywords_explorer_volume_by_country)
     - [`keywords_explorer_volume_history()`](#keywords_explorer_volume_history)
+  - [Management](#management)
+    - [`management_keyword_list_keywords()`](#management_keyword_list_keywords)
+    - [`management_set_keyword_list_keywords()`](#management_set_keyword_list_keywords)
+    - [`management_keyword_list_keywords_delete()`](#management_keyword_list_keywords_delete)
+    - [`management_locations()`](#management_locations)
+    - [`management_project_competitors()`](#management_project_competitors)
+    - [`management_create_project_competitors()`](#management_create_project_competitors)
+    - [`management_project_competitors_delete()`](#management_project_competitors_delete)
+    - [`management_project_keywords()`](#management_project_keywords)
+    - [`management_set_project_keywords()`](#management_set_project_keywords)
+    - [`management_project_keywords_delete()`](#management_project_keywords_delete)
+    - [`management_projects()`](#management_projects)
+    - [`management_create_projects()`](#management_create_projects)
+    - [`management_update_project()`](#management_update_project)
   - [Public](#public)
     - [`public_crawler_ip_ranges()`](#public_crawler_ip_ranges)
     - [`public_crawler_ips()`](#public_crawler_ips)
@@ -121,7 +135,7 @@ ______________________________________________________________________
 
 ### `batch_analysis()`
 
-Batch Analysis.
+Batch Analysis [POST].
 
 **Parameters:**
 
@@ -850,6 +864,276 @@ Volume history.
 |-------|------|-------------|
 | `date` | `str` | |
 | `volume` | `int` | An estimation of the number of searches for a keyword over a given month. |
+
+______________________________________________________________________
+
+## Management
+
+### `management_keyword_list_keywords()`
+
+Keywords list.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `keyword_list_id` | `int` | Yes | The id of an existing keyword list. |
+
+**Returns:** `list[ManagementKeywordListKeywordsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyword` | `str` | The keyword added to the project. |
+
+### `management_set_keyword_list_keywords()`
+
+Keywords list [PUT].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `keyword_list_id` | `int` | Yes | The id of an existing keyword list. |
+| `keywords` | `list[str]` | Yes | A list of keywords to add. |
+
+**Returns:** `list[ManagementKeywordListKeywordsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyword` | `str` | The keyword added to the project. |
+
+### `management_keyword_list_keywords_delete()`
+
+Keywords list [PUT].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `keyword_list_id` | `int` | Yes | The id of an existing keyword list. |
+| `keywords` | `list[str]` | Yes | A list of keywords to delete. |
+
+**Returns:** `list[ManagementKeywordListKeywordsDeleteData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyword` | `str` | The keyword added to the project. |
+
+### `management_locations()`
+
+Locations and languages.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `us_state` | `UsStateEnum` | No | A two-letter US state code (ISO 3166-2:US). Required only if `country_code` is set to `us` |
+| `country_code` | `CountryEnum` | Yes | A two-letter country code (ISO 3166-1 alpha-2). |
+
+**Returns:** `ManagementLocationsData | None`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `country_code` | `str` | The country code of the location. |
+| `languages` | `list[list[Any] \| None]` | A list of language codes and names for the specified country code. |
+| `locations` | `list[list[Any] \| None]` | A list of location IDs and names for the specified country code. |
+
+### `management_project_competitors()`
+
+Competitors.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+
+**Returns:** `list[ManagementProjectCompetitorsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `url` | `str` | The URL of the project's target. |
+| `mode` | `str` | The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`. |
+
+### `management_create_project_competitors()`
+
+Competitors [POST].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+| `competitors` | `list[ManagementCreateProjectCompetitorsCompetitor]` | Yes | A list of competitors to add. |
+
+**Returns:** `list[ManagementProjectCompetitorsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `url` | `str` | The URL of the project's target. |
+| `mode` | `str` | The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`. |
+
+### `management_project_competitors_delete()`
+
+Delete competitors [POST].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+| `competitors` | `list[ManagementProjectCompetitorsDeleteCompetitor]` | Yes | A list of competitors to delete. |
+
+**Returns:** `list[ManagementProjectCompetitorsDeleteData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `url` | `str` | The URL of the project's target. |
+| `mode` | `str` | The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`. |
+
+### `management_project_keywords()`
+
+Keywords.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+
+**Returns:** `list[ManagementProjectKeywordsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyword` | `str` | The keyword added to the project. |
+| `language_code` | `str` | The code of the language assigned to a given keyword. |
+| `language` | `str` | The name of the language assigned to a given keyword. |
+| `location_id` | `int` | The ID of the location assigned to a given keyword. |
+| `location` | `str` | The name of the location assigned to a given keyword. |
+| `tags` | `list[str \| None]` | A list of tags assigned to a given keyword. |
+
+### `management_set_project_keywords()`
+
+Keywords [PUT].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+| `locations` | `list[ManagementSetProjectKeywordsLocation]` | Yes | A list of locations to assign to given keywords. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs. |
+| `keywords` | `list[ManagementSetProjectKeywordsKeyword]` | Yes | A list of keywords to add. |
+
+**Returns:** `list[ManagementProjectKeywordsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyword` | `str` | The keyword added to the project. |
+| `language_code` | `str` | The code of the language assigned to a given keyword. |
+| `language` | `str` | The name of the language assigned to a given keyword. |
+| `location_id` | `int` | The ID of the location assigned to a given keyword. |
+| `location` | `str` | The name of the location assigned to a given keyword. |
+| `tags` | `list[str \| None]` | A list of tags assigned to a given keyword. |
+
+### `management_project_keywords_delete()`
+
+Delete Keywords [PUT].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `project_id` | `int` | Yes | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+| `keywords` | `list[ManagementProjectKeywordsDeleteKeywordDelete]` | Yes | A list of keywords to delete. You can use the 'Locations and languages' endpoint to get country codes, language codes and location IDs. |
+
+**Returns:** `list[ManagementProjectKeywordsDeleteData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `keyword` | `str` | The keyword added to the project. |
+| `language_code` | `str` | The code of the language assigned to a given keyword. |
+| `language` | `str` | The name of the language assigned to a given keyword. |
+| `location_id` | `int` | The ID of the location assigned to a given keyword. |
+| `location` | `str` | The name of the location assigned to a given keyword. |
+| `tags` | `list[str \| None]` | A list of tags assigned to a given keyword. |
+
+### `management_projects()`
+
+Projects.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `owned_by` | `str` | No | The email of the project owner |
+| `access` | `AccessEnum` | No | The access type of the project. |
+| `has_keywords` | `bool` | No | Has Rank Tracker keywords. |
+| `project_id` | `int` | No | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+
+**Returns:** `list[ManagementProjectsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `project_id` | `str` | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`. |
+| `project_name` | `str` | The project name. |
+| `url` | `str` | The URL of the project's target. |
+| `mode` | `str` | The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`. |
+| `protocol` | `str` | The protocol of the target. Possible values: `both`, `http`, `https`. |
+| `access` | `str` | The access level of the project. Possible values: `private`, `shared`. |
+| `owned_by` | `str \| None` | The email of the project owner. |
+| `keyword_count` | `int` | The number of keywords in the project. |
+| `web_analytics_data_key` | `str` | Web Analytics Data Key. |
+
+### `management_create_projects()`
+
+Projects [POST].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `owned_by` | `str` | No | The email of the project owner. If not provided, the project is assigned to the Workspace owner. |
+| `access` | `AccessEnum` | No | The access type of the project. |
+| `protocol` | `ProtocolEnum` | Yes | The protocol of the project's target. |
+| `url` | `str` | Yes | The URL of the project's target. |
+| `mode` | `ModeEnum` | Yes | The scope of the target. |
+| `project_name` | `str` | Yes | The name of the project. |
+
+**Returns:** `list[ManagementProjectsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `project_id` | `str` | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`. |
+| `project_name` | `str` | The project name. |
+| `url` | `str` | The URL of the project's target. |
+| `mode` | `str` | The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`. |
+| `protocol` | `str` | The protocol of the target. Possible values: `both`, `http`, `https`. |
+| `access` | `str` | The access level of the project. Possible values: `private`, `shared`. |
+| `owned_by` | `str \| None` | The email of the project owner. |
+| `keyword_count` | `int` | The number of keywords in the project. |
+| `web_analytics_data_key` | `str` | Web Analytics Data Key. |
+
+### `management_update_project()`
+
+Update Project [PATCH].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `access` | `AccessEnum` | Yes | The new access setting for the project. |
+| `project_id` | `int` | Yes | The ID of the project whose access setting you want to update. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#` |
+
+**Returns:** `ManagementUpdateProjectData | None`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `project_id` | `str` | The unique identifier of the project. You can find it in the URL of your Rank Tracker project in Ahrefs: `https://app.ahrefs.com/rank-tracker/overview/#project_id#`. |
+| `project_name` | `str` | The project name. |
+| `url` | `str` | The URL of the project's target. |
+| `mode` | `str` | The scope of the target. Possible values: `exact`, `prefix`, `domain`, `subdomains`. |
+| `protocol` | `str` | The protocol of the target. Possible values: `both`, `http`, `https`. |
+| `access` | `str` | The access level of the project. Possible values: `private`, `shared`. |
 
 ______________________________________________________________________
 

@@ -1,6 +1,6 @@
 ---
 name: ahrefs-python
-description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring, and web analytics (page views, visitors, traffic sources, referrers, devices). Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections. Trigger this skill whenever the user mentions Ahrefs, ahrefs-python, or any SEO data retrieval task in Python.
+description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring, web analytics (page views, visitors, traffic sources, referrers, devices), and project management (keyword lists, competitors). Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections. Trigger this skill whenever the user mentions Ahrefs, ahrefs-python, or any SEO data retrieval task in Python.
 ---
 
 # Ahrefs Python SDK Skill
@@ -12,6 +12,7 @@ The Ahrefs API provides programmatic access to Ahrefs SEO data. The official Pyt
 Key capabilities:
 - **Site Explorer** - Backlinks, organic keywords, domain rating, traffic, referring domains
 - **Keywords Explorer** - Keyword research, volumes, difficulty, related terms
+- **Management** — Rank Tracker project, keyword list, and competitor management (create, update, delete)
 - **Rank Tracker** - SERP monitoring, competitor tracking
 - **Site Audit** - Technical SEO issues, page content, page explorer
 - **Brand Radar** - AI brand mentions, share of voice, impressions
@@ -31,7 +32,7 @@ Requires Python 3.11+. Dependencies: `httpx`, `pydantic`.
 
 ## API Method Discovery
 
-The SDK has 89 methods across 10 API sections. The built-in search tool is the fastest way to find the right method — it returns matching method signatures, parameters, and return types directly, so there's no need to scan through a large reference.
+The SDK has 102 methods across 11 API sections. The built-in search tool is the fastest way to find the right method — it returns matching method signatures, parameters, and return types directly, so there's no need to scan through a large reference.
 
 **Python** (preferred when already in a Python context):
 
@@ -220,7 +221,7 @@ Unless the user requests otherwise:
 
 ## API Methods
 
-Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 89 methods across 10 API sections and returns complete signatures, parameters, and response fields. Results with very large field lists (e.g. `site_audit_page_explorer` with 605 fields) are truncated at 9K chars — if you see `... [truncated]`, use `select` to request only the columns you need rather than relying on the full field list.
+Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 102 methods across 11 API sections and returns complete signatures, parameters, and response fields. Results with very large field lists (e.g. `site_audit_page_explorer` with 605 fields) are truncated at 9K chars — if you see `... [truncated]`, use `select` to request only the columns you need rather than relying on the full field list.
 
 ### Web Analytics
 
@@ -248,5 +249,44 @@ chart = client.web_analytics_chart(
     granularity="daily",
     from_="2025-01-01T00:00:00Z",
     to="2025-01-31T23:59:59Z",
+)
+```
+
+### Management
+
+Management endpoints handle Rank Tracker project configuration — creating projects, managing keyword lists, and adding competitors. Unlike other API sections, this section includes endpoints that modify state via PUT/POST/PATCH/DELETE. None of these endpoints use `select`, `where`, `order_by`, or `limit`.
+
+- Use `management_projects()` to list all projects and find `project_id` values.
+- Use `management_locations()` to get valid country codes, language codes, and location IDs before adding keywords.
+- `keyword_list_id` is NOT discoverable via the API — the user must provide it from the Ahrefs web UI. Keyword list methods: `management_keyword_list_keywords` (list), `management_set_keyword_list_keywords` (add via PUT), `management_keyword_list_keywords_delete` (remove).
+- **Delete endpoints are destructive and irreversible.** ALWAYS confirm with the user before calling `management_project_keywords_delete`, `management_project_competitors_delete`, or `management_keyword_list_keywords_delete`.
+
+```python
+# List all Rank Tracker projects
+projects = client.management_projects()
+for p in projects:
+    print(p.project_id, p.project_name, p.url)
+
+# Add keywords to a project (requires nested request types)
+from ahrefs.types import ManagementSetProjectKeywordsLocation, ManagementSetProjectKeywordsKeyword
+
+client.management_set_project_keywords(
+    project_id=12345,
+    locations=[ManagementSetProjectKeywordsLocation(
+        country="us",
+        language="en",
+    )],
+    keywords=[ManagementSetProjectKeywordsKeyword(keyword="ahrefs seo")],
+)
+
+# Add competitors to a project
+from ahrefs.types import ManagementCreateProjectCompetitorsCompetitor
+
+client.management_create_project_competitors(
+    project_id=12345,
+    competitors=[ManagementCreateProjectCompetitorsCompetitor(
+        url="moz.com",
+        mode="domain",
+    )],
 )
 ```
