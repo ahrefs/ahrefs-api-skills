@@ -1,6 +1,6 @@
 ---
 name: ahrefs-python
-description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring, web analytics (page views, visitors, traffic sources, referrers, devices), and project management (keyword lists, competitors). Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections. Trigger this skill whenever the user mentions Ahrefs, ahrefs-python, or any SEO data retrieval task in Python.
+description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring, web analytics (page views, visitors, traffic sources, referrers, devices), and project management (keyword lists, competitors, custom prompts). Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections. Trigger this skill whenever the user mentions Ahrefs, ahrefs-python, or any SEO data retrieval task in Python.
 ---
 
 # Ahrefs Python SDK Skill
@@ -12,7 +12,7 @@ The Ahrefs API provides programmatic access to Ahrefs SEO data. The official Pyt
 Key capabilities:
 - **Site Explorer** - Backlinks, organic keywords, domain rating, traffic, referring domains
 - **Keywords Explorer** - Keyword research, volumes, difficulty, related terms
-- **Management** — Rank Tracker project, keyword list, and competitor management (create, update, delete)
+- **Management** — Rank Tracker project, keyword list, competitor, and Brand Radar prompt management (create, update, delete)
 - **Rank Tracker** - SERP monitoring, competitor tracking
 - **Site Audit** - Technical SEO issues, page content, page explorer
 - **Brand Radar** - AI brand mentions, share of voice, impressions
@@ -32,7 +32,7 @@ Requires Python 3.11+. Dependencies: `httpx`, `pydantic`.
 
 ## API Method Discovery
 
-The SDK has 102 methods across 11 API sections. The built-in search tool is the fastest way to find the right method — it returns matching method signatures, parameters, and return types directly, so there's no need to scan through a large reference.
+The SDK has 105 methods across 11 API sections. The built-in search tool is the fastest way to find the right method — it returns matching method signatures, parameters, and return types directly, so there's no need to scan through a large reference.
 
 **Python** (preferred when already in a Python context):
 
@@ -217,12 +217,12 @@ For full filter syntax (boolean combinators, operators, nested fields), see `ref
 
 Unless the user requests otherwise:
 
-- **Backlink endpoints** (`all_backlinks`, `anchors`, `best_by_external_links`, `refdomains`): Use `history="live"` for current live data. The API defaults to `all_time` which includes lost backlinks.
+- **Backlink endpoints** (`all_backlinks`, `anchors`, `pages_by_backlinks`, `refdomains`): Use `history="live"` for current live data. The API defaults to `all_time` which includes lost backlinks.
 - **Traffic/keyword endpoints** (`organic_keywords`, `top_pages`, `metrics`, etc.): Use today's date for the `date` parameter.
 
 ## API Methods
 
-Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 102 methods across 11 API sections and returns complete signatures, parameters, and response fields. Results with very large field lists (e.g. `site_audit_page_explorer` with 605 fields) are truncated at 9K chars — if you see `... [truncated]`, use `select` to request only the columns you need rather than relying on the full field list.
+Use `search_api_methods("query")` or `python3 -m ahrefs.api_search "query"` to find methods by keyword. Search covers all 105 methods across 11 API sections and returns complete signatures, parameters, and response fields. Results with very large field lists (e.g. `site_audit_page_explorer` with 608 fields) are truncated at 9K chars — if you see `... [truncated]`, use `select` to request only the columns you need rather than relying on the full field list.
 
 ### Web Analytics
 
@@ -255,12 +255,13 @@ chart = client.web_analytics_chart(
 
 ### Management
 
-Management endpoints handle Rank Tracker project configuration — creating projects, managing keyword lists, and adding competitors. Unlike other API sections, this section includes endpoints that modify state via PUT/POST/PATCH/DELETE. None of these endpoints use `select`, `where`, `order_by`, or `limit`.
+Management endpoints handle Rank Tracker project configuration and Brand Radar prompt management — creating projects, managing keyword lists, adding competitors, and managing custom Brand Radar prompts. Unlike other API sections, this section includes endpoints that modify state via PUT/POST/PATCH/DELETE. None of these endpoints use `select`, `where`, `order_by`, or `limit`.
 
 - Use `management_projects()` to list all projects and find `project_id` values.
 - Use `management_locations()` to get valid country codes, language codes, and location IDs before adding keywords.
 - `keyword_list_id` is NOT discoverable via the API — the user must provide it from the Ahrefs web UI. Keyword list methods: `management_keyword_list_keywords` (list), `management_set_keyword_list_keywords` (add via PUT), `management_keyword_list_keywords_delete` (remove).
-- **Delete endpoints are destructive and irreversible.** ALWAYS confirm with the user before calling `management_project_keywords_delete`, `management_project_competitors_delete`, or `management_keyword_list_keywords_delete`.
+- Brand Radar prompt endpoints require a `report_id` (from the Brand Radar report URL). Methods: `management_brand_radar_prompts` (list), `management_create_brand_radar_prompts` (create), `management_brand_radar_prompts_delete` (remove).
+- **Delete endpoints are destructive and irreversible.** ALWAYS confirm with the user before calling `management_project_keywords_delete`, `management_project_competitors_delete`, `management_keyword_list_keywords_delete`, or `management_brand_radar_prompts_delete`.
 
 ```python
 # List all Rank Tracker projects
@@ -289,5 +290,17 @@ client.management_create_project_competitors(
         url="moz.com",
         mode="domain",
     )],
+)
+
+# List Brand Radar custom prompts
+prompts = client.management_brand_radar_prompts(report_id="abc123")
+for p in prompts:
+    print(p.prompt, p.country, p.created_at)
+
+# Create custom prompts for specific countries
+client.management_create_brand_radar_prompts(
+    report_id="abc123",
+    countries=["us", "gb"],
+    prompts=["What is the best SEO tool?"],
 )
 ```

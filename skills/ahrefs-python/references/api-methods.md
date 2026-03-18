@@ -27,6 +27,9 @@
     - [`keywords_explorer_volume_by_country()`](#keywords_explorer_volume_by_country)
     - [`keywords_explorer_volume_history()`](#keywords_explorer_volume_history)
   - [Management](#management)
+    - [`management_brand_radar_prompts()`](#management_brand_radar_prompts)
+    - [`management_create_brand_radar_prompts()`](#management_create_brand_radar_prompts)
+    - [`management_brand_radar_prompts_delete()`](#management_brand_radar_prompts_delete)
     - [`management_keyword_list_keywords()`](#management_keyword_list_keywords)
     - [`management_set_keyword_list_keywords()`](#management_set_keyword_list_keywords)
     - [`management_keyword_list_keywords_delete()`](#management_keyword_list_keywords_delete)
@@ -60,8 +63,6 @@
     - [`site_explorer_all_backlinks()`](#site_explorer_all_backlinks)
     - [`site_explorer_anchors()`](#site_explorer_anchors)
     - [`site_explorer_backlinks_stats()`](#site_explorer_backlinks_stats)
-    - [`site_explorer_best_by_external_links()`](#site_explorer_best_by_external_links)
-    - [`site_explorer_best_by_internal_links()`](#site_explorer_best_by_internal_links)
     - [`site_explorer_broken_backlinks()`](#site_explorer_broken_backlinks)
     - [`site_explorer_domain_rating()`](#site_explorer_domain_rating)
     - [`site_explorer_domain_rating_history()`](#site_explorer_domain_rating_history)
@@ -75,6 +76,8 @@
     - [`site_explorer_organic_competitors()`](#site_explorer_organic_competitors)
     - [`site_explorer_organic_keywords()`](#site_explorer_organic_keywords)
     - [`site_explorer_outlinks_stats()`](#site_explorer_outlinks_stats)
+    - [`site_explorer_pages_by_backlinks()`](#site_explorer_pages_by_backlinks)
+    - [`site_explorer_pages_by_internal_links()`](#site_explorer_pages_by_internal_links)
     - [`site_explorer_pages_by_traffic()`](#site_explorer_pages_by_traffic)
     - [`site_explorer_pages_history()`](#site_explorer_pages_history)
     - [`site_explorer_paid_pages()`](#site_explorer_paid_pages)
@@ -205,11 +208,11 @@ AI Responses.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `timeout` | `int` | No | A manual timeout duration in seconds. |
-| `limit` | `int` | No | The number of results to return. |
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
+| `limit` | `int` | No | The number of results to return. |
 | `date` | `DateStr` | No | The date to search for in YYYY-MM-DD format. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `order_by` | `OrderByEnum` | No | A column to order the results by. |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
@@ -219,7 +222,7 @@ AI Responses.
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -227,6 +230,7 @@ AI Responses.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -239,6 +243,8 @@ AI Responses.
 | `links` | `list[dict[str, Any] \| None]` | (10 units) The links used for the response. |
 | `question` | `str` | The question asked by the user. |
 | `response` | `str` | (10 units) The response from the model. |
+| `search_queries` | `list[str \| None]` | The search query used by the chatbot to find information for the response. Only available when `data_source` is set to `chatgpt` or `perplexity`. |
+| `tags` | `list[str \| None]` | Tags assigned to the query. |
 | `volume` | `int` | (10 units) Estimated monthly searches. This is based on our estimates for Google, combining the search volumes of related keywords where this question appears in People Also Ask section. |
 
 ### `brand_radar_cited_domains()`
@@ -253,7 +259,7 @@ Cited Domains.
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `limit` | `int` | No | The number of results to return. |
 | `date` | `DateStr` | No | The date to search for in YYYY-MM-DD format. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -262,7 +268,7 @@ Cited Domains.
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -270,6 +276,7 @@ Cited Domains.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -296,7 +303,7 @@ Cited Pages.
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
 | `limit` | `int` | No | The number of results to return. |
 | `date` | `DateStr` | No | The date to search for in YYYY-MM-DD format. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -305,7 +312,7 @@ Cited Pages.
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -313,6 +320,7 @@ Cited Pages.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -337,7 +345,7 @@ Overview history - Impressions.
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `date_to` | `DateStr` | No | The end date of the historical period in YYYY-MM-DD format. |
 | `date_from` | `DateStr` | Yes | The start date of the historical period in YYYY-MM-DD format. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -345,7 +353,7 @@ Overview history - Impressions.
 | `brand` | `str` | Yes | The brand to search for. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -353,6 +361,7 @@ Overview history - Impressions.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -374,7 +383,7 @@ Overview - Impressions.
 |------|------|----------|-------------|
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -383,7 +392,7 @@ Overview - Impressions.
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -391,6 +400,7 @@ Overview - Impressions.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -417,7 +427,7 @@ Overview history - Mentions.
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `date_to` | `DateStr` | No | The end date of the historical period in YYYY-MM-DD format. |
 | `date_from` | `DateStr` | Yes | The start date of the historical period in YYYY-MM-DD format. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -425,7 +435,7 @@ Overview history - Mentions.
 | `brand` | `str` | Yes | The brand to search for. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -433,6 +443,7 @@ Overview history - Mentions.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -454,7 +465,7 @@ Overview - Mentions.
 |------|------|----------|-------------|
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -463,7 +474,7 @@ Overview - Mentions.
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -471,6 +482,7 @@ Overview - Mentions.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -497,7 +509,7 @@ Overview history - Share of Voice.
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
 | `date_to` | `DateStr` | No | The end date of the historical period in YYYY-MM-DD format. |
 | `date_from` | `DateStr` | Yes | The start date of the historical period in YYYY-MM-DD format. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -506,7 +518,7 @@ Overview history - Share of Voice.
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -514,6 +526,7 @@ Overview history - Share of Voice.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -534,7 +547,7 @@ Overview - Share of Voice.
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
 | `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
-| `country` | `CountryEnum` | No | A two-letter country code (ISO 3166-1 alpha-2). |
+| `country` | `list[CountryEnum | None]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
 | `report_id` | `str` | No | The ID of the report to use. If one is given, other parameters are taken from the report (brand, competitors, market, country, filters). If country or filters are provided, they override the ones in the report. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
 | `prompts` | `PromptsEnum` | No | The type of prompts to use. If not specified, both will be used. Custom prompts require a report_id to be provided. |
 | `data_source` | `DataSourceEnum` | Yes | The chatbot model to use. |
@@ -543,7 +556,7 @@ Overview - Share of Voice.
 | `brand` | `str` | No | A comma-separated list of brands to search for. At least one of brand, competitors, market or where should not be empty. |
 
 <details>
-<summary>Filterable fields (7 fields)</summary>
+<summary>Filterable fields (8 fields)</summary>
 
 - `cited_domain` (domain)
 - `cited_domain_subdomains` (string)
@@ -551,6 +564,7 @@ Overview - Share of Voice.
 - `cited_url_prefix` (string)
 - `question` (string)
 - `response` (string)
+- `search_queries` (string)
 - `topic` (string)
 
 </details>
@@ -618,7 +632,7 @@ Matching terms.
 | `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`. |
 | `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
@@ -687,7 +701,7 @@ Overview.
 | `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`. |
 | `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `parent_volume` | `int \| None` | (10 units) The search volume of the parent topic. |
@@ -754,7 +768,7 @@ Related terms.
 | `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`. |
 | `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
@@ -815,7 +829,7 @@ Search suggestions.
 | `difficulty` | `int \| None` | (10 units) An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
 | `first_seen` | `str \| None` | The date when we first checked search engine results for a keyword. |
 | `global_volume` | `int \| None` | (10 units) How many times per month, on average, people search for the target keyword across all countries in our database. |
-| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with posible values `true` or `false`. |
+| `intents` | `dict[str, Any] \| None` | (10 units) Indicates the purpose behind the user's search query. Object fields: `informational`, `navigational`, `commercial`, `transactional`, `branded` or `local`. All the fields are of type `bool`, with possible values `true` or `false`. |
 | `keyword` | `str` | |
 | `parent_topic` | `str \| None` | Parent Topic determines if you can rank for your target keyword while targeting a more general topic on your page instead. To identify the Parent Topic, we take the #1 ranking page for your keyword and find the keyword responsible for sending the most traffic to that page. |
 | `serp_features` | `list[SerpFeaturesItemEnum \| None]` | The enriched results on a search engine results page (SERP) that are not traditional organic results. |
@@ -868,6 +882,64 @@ Volume history.
 ______________________________________________________________________
 
 ## Management
+
+### `management_brand_radar_prompts()`
+
+Brand Radar prompts.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `report_id` | `str` | Yes | The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
+
+**Returns:** `list[ManagementBrandRadarPromptsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `prompt` | `str` | The text of the prompt. |
+| `country` | `str` | The country of the prompt. |
+| `created_at` | `str` | The date the prompt was created. |
+
+### `management_create_brand_radar_prompts()`
+
+Brand Radar prompts [POST].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `report_id` | `str` | Yes | The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
+| `countries` | `list[str]` | Yes | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
+| `prompts` | `list[str]` | Yes | A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters. |
+
+**Returns:** `list[ManagementBrandRadarPromptsData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `prompt` | `str` | The text of the prompt. |
+| `country` | `str` | The country of the prompt. |
+| `created_at` | `str` | The date the prompt was created. |
+
+### `management_brand_radar_prompts_delete()`
+
+Delete Brand Radar prompts [PUT].
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `report_id` | `str` | Yes | The ID of the report to use. You can find it in the URL of your Brand Radar report in Ahrefs: `https://app.ahrefs.com/brand-radar/reports/#report_id#/...` |
+| `countries` | `list[str]` | No | A comma-separated list of two-letter country codes (ISO 3166-1 alpha-2). |
+| `prompts` | `list[str]` | Yes | A comma-separated list of custom prompts. They must be valid utf8 and less than 300 characters. |
+
+**Returns:** `list[ManagementBrandRadarPromptsDeleteData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `prompt` | `str` | The text of the prompt. |
+| `country` | `str` | The country of the prompt. |
+| `created_at` | `str` | The date the prompt was created. |
 
 ### `management_keyword_list_keywords()`
 
@@ -1206,7 +1278,7 @@ Competitors overview.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `competitors_list` | `list[dict[str, Any] \| None]` | Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view. |
+| `competitors_list` | `list[dict[str, Any] \| None]` | Competitors information for a given keyword. The following fields are included: `url`, `url_prev`, `position`, `position_prev`, `best_position_kind`, `best_position_kind_prev`, `traffic`, `traffic_prev`, `value`, `value_prev`. Fields ending in `prev` are included only in the compared view. |
 | `country` | `CountryEnum1` | The country that a given keyword is being tracked in. A two-letter country code (ISO 3166-1 alpha-2). |
 | `keyword` | `str` | The keyword your target ranks for. |
 | `keyword_difficulty` | `int \| None` | An estimation of how hard it is to rank in the top 10 organic search results for a keyword on a 100-point scale. |
@@ -1608,7 +1680,7 @@ Page explorer.
 | `project_id` | `int` | Yes | The unique identifier of the project. Only projects with verified ownership are supported. You can find the project ID in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` |
 
 <details>
-<summary>Filterable fields (605 fields)</summary>
+<summary>Filterable fields (608 fields)</summary>
 
 - `ai_content_level` (string)
 - `ai_content_status` (string)
@@ -2195,6 +2267,9 @@ Page explorer.
 - `size` (integer)
 - `size_diff` (integer)
 - `size_prev` (integer)
+- `size_uncompressed` (integer)
+- `size_uncompressed_diff` (integer)
+- `size_uncompressed_prev` (integer)
 - `source` (array(string))
 - `source_prev` (array(string))
 - `stamp` (date)
@@ -2221,7 +2296,7 @@ Page explorer.
 **Returns:** `list[SiteAuditPageExplorerData]`
 
 <details>
-<summary>605 fields</summary>
+<summary>608 fields</summary>
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -2810,6 +2885,9 @@ Page explorer.
 | `size` | `int` | The size of the page or resource, measured in bytes |
 | `size_diff` | `int \| None` | The size of the page or resource, measured in bytes |
 | `size_prev` | `int \| None` | The size of the page or resource, measured in bytes |
+| `size_uncompressed` | `int \| None` | The size of the downloaded page or resource after decompression, measured in bytes |
+| `size_uncompressed_diff` | `int \| None` | The size of the downloaded page or resource after decompression, measured in bytes |
+| `size_uncompressed_prev` | `int \| None` | The size of the downloaded page or resource after decompression, measured in bytes |
 | `source` | `list[str \| None]` | Source from which the URL can be reached |
 | `source_prev` | `list[str \| None]` | Source from which the URL can be reached |
 | `stamp` | `str` | The time and date when the URL was crawled |
@@ -2841,6 +2919,8 @@ Project Health Scores.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
+| `project_url` | `str` | No | Filters projects by target URL (ignores protocol and trailing slash). |
+| `project_name` | `str` | No | Filters projects by name. |
 | `date` | `str` | No | A timestamp in `YYYY-MM-DDThh:mm:ss` format specifying the crawl date to retrieve metrics from. Defaults to the most recent available crawl if omitted. For scheduled crawls, we return data from the latest crawl finished before the specified timestamp. For Always-on audit crawls, we return data as of the provided date and time. If the time component is omitted, it defaults to `00:00:00`. The timestamp is interpreted in UTC. |
 | `project_id` | `int` | No | The unique identifier of the project. You can find it in the URL of your Site Audit project in Ahrefs: `https://app.ahrefs.com/site-audit/#project_id#` |
 
@@ -3173,203 +3253,6 @@ Backlinks stats.
 | `all_time` | `int` | The total number of links from other websites pointing to your target for all time. |
 | `live_refdomains` | `int` | (5 units) The total number of unique domains linking to your target. |
 | `all_time_refdomains` | `int` | (5 units) The total number of unique domains linking to your target for all time. |
-
-### `site_explorer_best_by_external_links()`
-
-Best by External Links.
-
-**Parameters:**
-
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| `timeout` | `int` | No | A manual timeout duration in seconds. |
-| `limit` | `int` | No | The number of results to return. |
-| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
-| `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
-| `protocol` | `ProtocolEnum` | No | The protocol of your target. |
-| `target` | `str` | Yes | The target of the search: a domain or a URL. |
-| `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
-| `history` | `str` | No | A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. |
-
-<details>
-<summary>Filterable fields (54 fields)</summary>
-
-- `anchor` (string)
-- `dofollow_to_target` (integer)
-- `domain_rating_source` (float)
-- `first_seen_link` (datetime)
-- `http_code_source` (integer)
-- `http_code_target` (integer)
-- `is_content` (boolean)
-- `is_dofollow` (boolean)
-- `is_homepage_link` (boolean)
-- `is_lost` (boolean)
-- `is_new` (boolean)
-- `is_nofollow` (boolean)
-- `is_non_html` (boolean)
-- `is_root_source` (boolean)
-- `is_spam` (boolean)
-- `is_sponsored` (boolean)
-- `is_ugc` (boolean)
-- `languages_source` (array(string))
-- `languages_target` (array(string))
-- `last_seen` (datetime)
-- `last_visited_source` (datetime)
-- `last_visited_target` (datetime)
-- `len_url_redirect` (integer)
-- `link_type` (string)
-- `linked_domains_source` (integer)
-- `links_external_source` (integer)
-- `links_to_target` (integer)
-- `lost_links_to_target` (integer)
-- `new_links_to_target` (integer)
-- `nofollow_to_target` (integer)
-- `positions_source` (integer)
-- `positions_source_domain` (integer)
-- `powered_by_source` (array(string))
-- `powered_by_target` (array(string))
-- `redirects_to_target` (integer)
-- `refdomains_source` (integer)
-- `refdomains_target` (integer)
-- `root_name_source` (string)
-- `snippet_left` (string)
-- `snippet_right` (string)
-- `source_page_author` (string)
-- `target_redirect` (string)
-- `title_source` (string)
-- `title_target` (string)
-- `top_domain_rating_source` (float)
-- `traffic_domain_source` (integer)
-- `traffic_source` (integer)
-- `url_from_plain` (string)
-- `url_rating_source` (float)
-- `url_rating_target` (float)
-- `url_redirect` (array(url))
-- `url_redirect_with_target` (array(string))
-- `url_to` (string)
-- `url_to_plain` (string)
-
-</details>
-
-**Returns:** `list[SiteExplorerBestByExternalLinksData]`
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `dofollow_to_target` | `int` | The number of links to your target page that don’t have the “nofollow” attribute. |
-| `first_seen_link` | `str` | The date we first found a link to your target. |
-| `http_code_target` | `int \| None` | The return code from HTTP protocol returned during the target page crawl. |
-| `is_spam` | `bool` | Indicates whether the backlink comes from a known spammy domain. |
-| `languages_target` | `list[str \| None]` | The languages listed in the target page metadata or detected by the crawler to appear in the HTML. |
-| `last_seen` | `str \| None` | The date your target page lost its last live link. |
-| `last_visited_source` | `str` | The date we last verified a live link to your target page. |
-| `last_visited_target` | `str \| None` | The date we last crawled your target page. |
-| `links_to_target` | `int` | The number of inbound backlinks the target page has. |
-| `lost_links_to_target` | `int` | The number of backlinks lost during the selected time period. |
-| `new_links_to_target` | `int` | The number of new backlinks found during the selected time period. |
-| `nofollow_to_target` | `int` | The number of links to your target page that have the “nofollow” attribute. |
-| `powered_by_target` | `list[str \| None]` | Web technologies used to build and serve the target page content. |
-| `redirects_to_target` | `int` | The number of inbound redirects to your target page. |
-| `refdomains_target` | `int` | (5 units) The number of unique referring domains linking to the target page. |
-| `target_redirect` | `str \| None` | The target's redirect if any. |
-| `title_target` | `str \| None` | The html title of the target page. |
-| `top_domain_rating_source` | `float` | The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale. |
-| `url_rating_target` | `float \| None` | The strength of the target page's backlink profile compared to the others in our database on a 100-point scale. |
-| `url_to` | `str` | The URL the backlink points to. |
-| `url_to_plain` | `str` | The target page URL optimized for use as a filter. |
-
-### `site_explorer_best_by_internal_links()`
-
-Best by Internal Links.
-
-**Parameters:**
-
-| Name | Type | Required | Description |
-|------|------|----------|-------------|
-| `timeout` | `int` | No | A manual timeout duration in seconds. |
-| `limit` | `int` | No | The number of results to return. |
-| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. |
-| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
-| `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
-| `protocol` | `ProtocolEnum` | No | The protocol of your target. |
-| `target` | `str` | Yes | The target of the search: a domain or a URL. |
-| `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
-
-<details>
-<summary>Filterable fields (48 fields)</summary>
-
-- `anchor` (string)
-- `canonical_to_target` (integer)
-- `dofollow_to_target` (integer)
-- `domain_rating_source` (float)
-- `first_seen_link` (datetime)
-- `http_code_source` (integer)
-- `http_code_target` (integer)
-- `is_content` (boolean)
-- `is_dofollow` (boolean)
-- `is_homepage_link` (boolean)
-- `is_nofollow` (boolean)
-- `is_non_html` (boolean)
-- `is_root_source` (boolean)
-- `is_sponsored` (boolean)
-- `is_ugc` (boolean)
-- `languages_source` (array(string))
-- `languages_target` (array(string))
-- `last_seen` (datetime)
-- `last_visited_source` (datetime)
-- `last_visited_target` (datetime)
-- `len_url_redirect` (integer)
-- `link_type` (string)
-- `linked_domains_source` (integer)
-- `links_external_source` (integer)
-- `links_to_target` (integer)
-- `nofollow_to_target` (integer)
-- `positions_source` (integer)
-- `positions_source_domain` (integer)
-- `powered_by_source` (array(string))
-- `powered_by_target` (array(string))
-- `redirects_to_target` (integer)
-- `refdomains_source` (integer)
-- `root_name_source` (string)
-- `snippet_left` (string)
-- `snippet_right` (string)
-- `source_page_author` (string)
-- `target_redirect` (string)
-- `title_source` (string)
-- `title_target` (string)
-- `traffic_domain_source` (integer)
-- `traffic_source` (integer)
-- `url_from_plain` (string)
-- `url_rating_source` (float)
-- `url_rating_target` (float)
-- `url_redirect` (array(url))
-- `url_redirect_with_target` (array(string))
-- `url_to` (string)
-- `url_to_plain` (string)
-
-</details>
-
-**Returns:** `list[SiteExplorerBestByInternalLinksData]`
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `canonical_to_target` | `int` | The number of inbound canonical links to your target page. |
-| `dofollow_to_target` | `int` | The number of links to your target page that don’t have the “nofollow” attribute. |
-| `first_seen_link` | `str` | The date we first found a link to your target. |
-| `http_code_target` | `int \| None` | The return code from HTTP protocol returned during the target page crawl. |
-| `languages_target` | `list[str \| None]` | The languages listed in the target page metadata or detected by the crawler to appear in the HTML. |
-| `last_seen` | `str \| None` | The date your target page lost its last live link. |
-| `last_visited_source` | `str` | The date we last verified a live link to your target page. |
-| `last_visited_target` | `str \| None` | The date we last crawled your target page. |
-| `links_to_target` | `int` | The number of inbound backlinks the target page has. |
-| `nofollow_to_target` | `int` | The number of links to your target page that have the “nofollow” attribute. |
-| `powered_by_target` | `list[str \| None]` | Web technologies used to build and serve the target page content. |
-| `redirects_to_target` | `int` | The number of inbound redirects to your target page. |
-| `target_redirect` | `str \| None` | The target's redirect if any. |
-| `title_target` | `str \| None` | The html title of the target page. |
-| `url_rating_target` | `float \| None` | The strength of the target page's backlink profile compared to the others in our database on a 100-point scale. |
-| `url_to` | `str` | The URL the backlink points to. |
-| `url_to_plain` | `str` | The target page URL optimized for use as a filter. |
 
 ### `site_explorer_broken_backlinks()`
 
@@ -4200,6 +4083,203 @@ Outlinks stats.
 | `linked_domains` | `int` | The number of unique root domains linked from the target. |
 | `linked_domains_dofollow` | `int` | The number of unique root domains linked via dofollow links from the target. |
 
+### `site_explorer_pages_by_backlinks()`
+
+Best pages by backlinks.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `timeout` | `int` | No | A manual timeout duration in seconds. |
+| `limit` | `int` | No | The number of results to return. |
+| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
+| `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
+| `protocol` | `ProtocolEnum` | No | The protocol of your target. |
+| `target` | `str` | Yes | The target of the search: a domain or a URL. |
+| `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
+| `history` | `str` | No | A time frame to add lost backlinks to the report. Choose between `live` (no history), `since:<date>` (history since a specified date), and `all_time` (full history). The date should be in YYYY-MM-DD format. |
+
+<details>
+<summary>Filterable fields (54 fields)</summary>
+
+- `anchor` (string)
+- `dofollow_to_target` (integer)
+- `domain_rating_source` (float)
+- `first_seen_link` (datetime)
+- `http_code_source` (integer)
+- `http_code_target` (integer)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_homepage_link` (boolean)
+- `is_lost` (boolean)
+- `is_new` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_root_source` (boolean)
+- `is_spam` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages_source` (array(string))
+- `languages_target` (array(string))
+- `last_seen` (datetime)
+- `last_visited_source` (datetime)
+- `last_visited_target` (datetime)
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains_source` (integer)
+- `links_external_source` (integer)
+- `links_to_target` (integer)
+- `lost_links_to_target` (integer)
+- `new_links_to_target` (integer)
+- `nofollow_to_target` (integer)
+- `positions_source` (integer)
+- `positions_source_domain` (integer)
+- `powered_by_source` (array(string))
+- `powered_by_target` (array(string))
+- `redirects_to_target` (integer)
+- `refdomains_source` (integer)
+- `refdomains_target` (integer)
+- `root_name_source` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `target_redirect` (string)
+- `title_source` (string)
+- `title_target` (string)
+- `top_domain_rating_source` (float)
+- `traffic_domain_source` (integer)
+- `traffic_source` (integer)
+- `url_from_plain` (string)
+- `url_rating_source` (float)
+- `url_rating_target` (float)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+- `url_to_plain` (string)
+
+</details>
+
+**Returns:** `list[SiteExplorerPagesByBacklinksData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `dofollow_to_target` | `int` | The number of links to your target page that don’t have the “nofollow” attribute. |
+| `first_seen_link` | `str` | The date we first found a link to your target. |
+| `http_code_target` | `int \| None` | The return code from HTTP protocol returned during the target page crawl. |
+| `is_spam` | `bool` | Indicates whether the backlink comes from a known spammy domain. |
+| `languages_target` | `list[str \| None]` | The languages listed in the target page metadata or detected by the crawler to appear in the HTML. |
+| `last_seen` | `str \| None` | The date your target page lost its last live link. |
+| `last_visited_source` | `str` | The date we last verified a live link to your target page. |
+| `last_visited_target` | `str \| None` | The date we last crawled your target page. |
+| `links_to_target` | `int` | The number of inbound backlinks the target page has. |
+| `lost_links_to_target` | `int` | The number of backlinks lost during the selected time period. |
+| `new_links_to_target` | `int` | The number of new backlinks found during the selected time period. |
+| `nofollow_to_target` | `int` | The number of links to your target page that have the “nofollow” attribute. |
+| `powered_by_target` | `list[str \| None]` | Web technologies used to build and serve the target page content. |
+| `redirects_to_target` | `int` | The number of inbound redirects to your target page. |
+| `refdomains_target` | `int` | (5 units) The number of unique referring domains linking to the target page. |
+| `target_redirect` | `str \| None` | The target's redirect if any. |
+| `title_target` | `str \| None` | The html title of the target page. |
+| `top_domain_rating_source` | `float` | The highest Domain Rating (DR) counted out of all referring domains. DR shows the strength of a website’s backlink profile compared to the others in our database on a 100-point scale. |
+| `url_rating_target` | `float \| None` | The strength of the target page's backlink profile compared to the others in our database on a 100-point scale. |
+| `url_to` | `str` | The URL the backlink points to. |
+| `url_to_plain` | `str` | The target page URL optimized for use as a filter. |
+
+### `site_explorer_pages_by_internal_links()`
+
+Best pages by internal links.
+
+**Parameters:**
+
+| Name | Type | Required | Description |
+|------|------|----------|-------------|
+| `timeout` | `int` | No | A manual timeout duration in seconds. |
+| `limit` | `int` | No | The number of results to return. |
+| `order_by` | `str` | No | A column to order results by. See the response schema for valid column identifiers, except for `http_code_target`, `languages_target`, `last_visited_target`, `powered_by_target`, `target_redirect`, `title_target`, `url_rating_target`, which are not supported in `order_by` for this endpoint. |
+| `where` | `str` | No | Filter expression ([syntax](filter-syntax.md)). Filterable fields listed below. |
+| `select` | `SelectStr` | Yes | A comma-separated list of columns to return. See response schema for valid column identifiers. |
+| `protocol` | `ProtocolEnum` | No | The protocol of your target. |
+| `target` | `str` | Yes | The target of the search: a domain or a URL. |
+| `mode` | `ModeEnum` | No | The scope of the search based on the target you entered. |
+
+<details>
+<summary>Filterable fields (48 fields)</summary>
+
+- `anchor` (string)
+- `canonical_to_target` (integer)
+- `dofollow_to_target` (integer)
+- `domain_rating_source` (float)
+- `first_seen_link` (datetime)
+- `http_code_source` (integer)
+- `http_code_target` (integer)
+- `is_content` (boolean)
+- `is_dofollow` (boolean)
+- `is_homepage_link` (boolean)
+- `is_nofollow` (boolean)
+- `is_non_html` (boolean)
+- `is_root_source` (boolean)
+- `is_sponsored` (boolean)
+- `is_ugc` (boolean)
+- `languages_source` (array(string))
+- `languages_target` (array(string))
+- `last_seen` (datetime)
+- `last_visited_source` (datetime)
+- `last_visited_target` (datetime)
+- `len_url_redirect` (integer)
+- `link_type` (string)
+- `linked_domains_source` (integer)
+- `links_external_source` (integer)
+- `links_to_target` (integer)
+- `nofollow_to_target` (integer)
+- `positions_source` (integer)
+- `positions_source_domain` (integer)
+- `powered_by_source` (array(string))
+- `powered_by_target` (array(string))
+- `redirects_to_target` (integer)
+- `refdomains_source` (integer)
+- `root_name_source` (string)
+- `snippet_left` (string)
+- `snippet_right` (string)
+- `source_page_author` (string)
+- `target_redirect` (string)
+- `title_source` (string)
+- `title_target` (string)
+- `traffic_domain_source` (integer)
+- `traffic_source` (integer)
+- `url_from_plain` (string)
+- `url_rating_source` (float)
+- `url_rating_target` (float)
+- `url_redirect` (array(url))
+- `url_redirect_with_target` (array(string))
+- `url_to` (string)
+- `url_to_plain` (string)
+
+</details>
+
+**Returns:** `list[SiteExplorerPagesByInternalLinksData]`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `canonical_to_target` | `int` | The number of inbound canonical links to your target page. |
+| `dofollow_to_target` | `int` | The number of links to your target page that don’t have the “nofollow” attribute. |
+| `first_seen_link` | `str` | The date we first found a link to your target. |
+| `http_code_target` | `int \| None` | The return code from HTTP protocol returned during the target page crawl. |
+| `languages_target` | `list[str \| None]` | The languages listed in the target page metadata or detected by the crawler to appear in the HTML. |
+| `last_seen` | `str \| None` | The date your target page lost its last live link. |
+| `last_visited_source` | `str` | The date we last verified a live link to your target page. |
+| `last_visited_target` | `str \| None` | The date we last crawled your target page. |
+| `links_to_target` | `int` | The number of inbound backlinks the target page has. |
+| `nofollow_to_target` | `int` | The number of links to your target page that have the “nofollow” attribute. |
+| `powered_by_target` | `list[str \| None]` | Web technologies used to build and serve the target page content. |
+| `redirects_to_target` | `int` | The number of inbound redirects to your target page. |
+| `target_redirect` | `str \| None` | The target's redirect if any. |
+| `title_target` | `str \| None` | The html title of the target page. |
+| `url_rating_target` | `float \| None` | The strength of the target page's backlink profile compared to the others in our database on a 100-point scale. |
+| `url_to` | `str` | The URL the backlink points to. |
+| `url_to_plain` | `str` | The target page URL optimized for use as a filter. |
+
 ### `site_explorer_pages_by_traffic()`
 
 Pages by traffic.
@@ -4238,6 +4318,7 @@ Pages history.
 
 | Name | Type | Required | Description |
 |------|------|----------|-------------|
+| `page_positions` | `PagePositionsEnum` | No | Filter pages by their ranking position. `top10` returns only pages ranking in the top 10, `top100` returns all pages ranking in the top 100. |
 | `history_grouping` | `HistoryGroupingEnum` | No | The time interval used to group historical data. |
 | `date_to` | `DateStr` | No | The end date of the historical period in YYYY-MM-DD format. |
 | `date_from` | `DateStr` | Yes | The start date of the historical period in YYYY-MM-DD format. |
