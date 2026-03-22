@@ -13,6 +13,8 @@ pip install git+https://github.com/ahrefs/ahrefs-python.git
 export AHREFS_API_KEY="your-api-key"
 ```
 
+Public endpoints (crawler IPs) work without an API key — all other endpoints require one.
+
 ## Installation
 
 ```sh

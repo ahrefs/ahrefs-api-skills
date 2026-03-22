@@ -1,6 +1,6 @@
 ---
 name: ahrefs-python
-description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring, web analytics (page views, visitors, traffic sources, referrers, devices), and project management (keyword lists, competitors, custom prompts). Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections. Trigger this skill whenever the user mentions Ahrefs, ahrefs-python, or any SEO data retrieval task in Python.
+description: Manages Ahrefs API usage in Python using `ahrefs-python` library. Use when working with SEO / marketing related tasks or with data including backlinks, keywords, domain ratings, organic traffic, site audits, rank tracking, brand monitoring, web analytics (page views, visitors, traffic sources, referrers, devices), and project management (keyword lists, competitors, custom prompts). Covers `ahrefs-python` usage including AhrefsClient / AsyncAhrefsClient, typed request/response models, error handling, and all API sections including free public endpoints that work without an API key. Trigger this skill whenever the user mentions Ahrefs, ahrefs-python, or any SEO data retrieval task in Python.
 ---
 
 # Ahrefs Python SDK Skill
@@ -19,7 +19,7 @@ Key capabilities:
 - **SERP Overview** - Search result analysis
 - **Batch Analysis** - Bulk domain/URL metrics via POST
 - **Web Analytics** - Website visitor analytics (traffic, browsers, devices, sources, pages)
-- **Public** — Ahrefs crawler IP addresses and CIDR ranges
+- **Public** — Ahrefs crawler IP addresses and CIDR ranges (no API key required)
 - **Subscription Info** — API usage limits, billing period, key expiration
 
 ## Installation
@@ -80,6 +80,18 @@ with AhrefsClient(api_key=os.environ["AHREFS_API_KEY"]) as client:
     print(data.ahrefs_rank)    # 3
 ```
 
+Public endpoints work without an API key — just omit the `api_key` parameter:
+
+```python
+from ahrefs import AhrefsClient
+
+with AhrefsClient() as client:
+    ips = client.public_crawler_ips()
+    ranges = client.public_crawler_ip_ranges()
+```
+
+Only `public_*` methods work without a key. All other methods require authentication. An authenticated client can also call public methods — there is no need for a separate client or raw HTTP calls.
+
 ## SDK Patterns
 
 ### Client Setup
@@ -89,7 +101,7 @@ import os
 import ahrefs
 
 with ahrefs.AhrefsClient(
-    api_key=os.environ["AHREFS_API_KEY"],  # or any secrets source
+    api_key=os.environ["AHREFS_API_KEY"],  # omit for public-only access
     base_url="...",          # override API base URL (default: https://api.ahrefs.com/v3)
     timeout=30.0,            # request timeout in seconds (default: 60)
     max_retries=3,           # retries on transient errors (default: 2)
